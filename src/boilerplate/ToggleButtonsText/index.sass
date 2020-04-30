@@ -1,0 +1,28 @@
+@import '../../variables'
+
+
+.toggle-buttons-text
+  border-top: 1px solid $background_second
+  border-bottom: 1px solid $background_second
+  display: flex
+
+  span
+    flex: 1
+    @include contentCentered
+    border-right: 1px solid $background_second
+    transition: 0.5s
+    cursor: pointer
+
+    &:last-child
+      border-right: none
+
+    &:hover
+      background: adjust_color($background_second, $alpha: -0.6)
+
+  .active
+    background: $background_second
+    color: $font_color
+
+    &:hover
+      cursor: default
+      background: $background_second

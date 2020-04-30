@@ -1,0 +1,104 @@
+@import "../../../variables"
+
+.cart-dropdown
+  position: absolute
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  background: $background_second
+  transition: 3s
+
+  h1
+    text-align: center
+    margin: 0
+    margin-bottom: 20px
+    padding: 20px 0
+    border-bottom: 1px solid $background_second
+    background: $background_main
+
+  .cross
+    position: absolute
+    right: 5px
+    top: 18px
+    font-size: 45px
+    color: $background_second
+    cursor: pointer
+    transition: 0.5s
+
+    &:hover
+      color: $main_color
+
+  .items
+    display: flex
+    justify-content: center
+    align-items: flex-start
+    flex-wrap: wrap
+    height: calc(100vh - 79px - 20px - 70px)
+    overflow: scroll
+
+  .cart-item
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    background: $background_main
+    margin: 10px 20px
+    width: 400px
+
+    &:last-child
+      border: none
+
+    .info
+      width: calc(100% - 150px)
+      height: 150px
+
+    .labels
+      display: flex
+      justify-content: space-between
+      font-size: 25px
+      padding-left: 7px
+      padding-right: 7px
+      padding-top: 7px
+
+      span
+        color: $background_second
+
+      label
+        color: $main_color
+
+        &:last-child
+          color: $background_second
+          padding-left: 5px
+
+    .img
+      height: 150px
+      width: 150px
+
+    .trash
+      font-size: 30px
+      cursor: pointer
+      transition: 0.5s
+
+      &:hover
+        color: $main_color
+
+  .create-order
+    height: 70px
+    background: $background_main
+    @include contentCentered
+
+    button
+      height: 50px
+      background: $background_second
+      width: 200px
+      cursor: pointer
+      font-size: 21px
+      transition: 0.5s
+      border: none
+      outline: none
+
+      &:hover
+        background: $main_color
+
+      &:active
+        transform: scale(0.95)

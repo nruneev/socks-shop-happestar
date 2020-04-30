@@ -1,0 +1,28 @@
+@import '../../variables'
+
+.cart
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 0
+
+  svg
+    transition: 0.5s
+    cursor: pointer
+    &:hover
+      color: $main_color
+
+  .count
+    position: absolute
+    top: 20%
+    right: 15%
+    color: black
+    border-radius: 50%
+    background: $main_color
+    width: 26px
+    height: 26px
+    font-size: 15px
+    display: flex
+    align-items: center
+    justify-content: center
+    border: 2px solid $main_color

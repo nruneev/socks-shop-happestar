@@ -1,0 +1,63 @@
+$background_second: #efefef
+$background_main: #171717
+$font_color: black
+$main_color: #f4d600
+$second_color: white
+
+$footer_font_size: 24px
+$header_height: 100px
+$footer_height: 120px
+$under_header_padding: 100px
+
+$ipad: 1025px
+$mobile: 500px
+
+@mixin contentCentered
+  display: flex
+  align-items: center
+  justify-content: center
+
+@mixin fullSize
+  width: 100%
+  height: 100%
+
+@mixin placeholder-anim-mixin
+  background: linear-gradient(270deg, $main_color, $background_second) !important
+  background-size: 400% 400% !important
+
+  -webkit-animation: loading 1.6s cubic-bezier(0, 1.25, 0, 1.04) infinite
+  -moz-animation: loading 1.6s cubic-bezier(0, 1.25, 0, 1.04) infinite
+  -o-animation: loading 1.6s cubic-bezier(0, 1.25, 0, 1.04) infinite
+  animation: loading 1.6s cubic-bezier(0, 1.25, 0, 1.04) infinite
+
+@-webkit-keyframes loading
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 51%
+  100%
+    background-position: 0% 50%
+
+@-moz-keyframes loading
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 51%
+  100%
+    background-position: 0% 50%
+
+@-o-keyframes loading
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 51%
+  100%
+    background-position: 0% 50%
+
+@keyframes loading
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 51%
+  100%
+    background-position: 0% 50%

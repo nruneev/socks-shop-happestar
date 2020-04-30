@@ -1,0 +1,60 @@
+@import '../../variables'
+
+.pack
+  display: flex
+  align-items: flex-start
+  justify-content: space-around
+  margin-bottom: 30px
+  margin-top: 30px
+  min-height: calc(100vh - #{$header_height} - 30px - 30px)
+
+  .left-menu
+    height: 70vh
+    min-width: 270px
+    flex: 2
+
+    .tags
+    display: flex
+    justify-content: flex-start
+    align-items: flex-start
+    flex-wrap: wrap
+    width: 100%
+    padding-left: 10px
+    margin-bottom: 30px
+
+    .tag
+      @include contentCentered
+      position: relative
+      background: transparent
+      border: 1px solid $main_color
+      color: $background_main
+      height: 30px
+      font-size: 20px
+      margin: 5px
+      padding: 5px
+      padding-top: 1px
+      border-radius: 3px
+      cursor: pointer
+      transition: 0.2s
+
+  .catalog-list
+    width: 65vw
+    flex: 10
+    margin-left: 50px
+    margin-right: 50px
+    padding-top: 47px
+
+@media (max-width: 600px)
+  .pack
+    flex-direction: column
+
+    .catalog-list
+      width: 100vw
+      margin-right: 0
+      margin-left: 0
+
+      .item
+        width: 80vw
+        height: 400px
+        svg
+          font-size: 28px

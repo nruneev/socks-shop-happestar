@@ -1,0 +1,60 @@
+@import '../../variables'
+
+.main
+  hr
+    margin: 0 3px
+    border: 10px solid $main_color
+
+  .content
+    width: 100%
+    margin: auto
+
+  .attention
+    width: 100vw
+    height: 75vh
+    padding-bottom: 2px
+
+  .banners-block
+    height: 100vh
+    margin-top: 1px
+
+  .items-row
+    display: flex
+    width: calc(100% - 14px)
+    margin: 2px auto
+    
+    > span
+      font-size: 70px
+      color: white
+      display: flex
+      justify-content: center
+      align-items: center
+      cursor: pointer
+      transition: 0.5s
+
+      &:hover
+        color: $main_color
+
+      &:active
+        transform: scale(0.8)
+
+      &::selection
+        background: transparent
+
+@media (max-width: $ipad)
+  .attention
+    height: 35vh !important
+
+  .banners-block
+    height: 40vh !important
+
+@media (max-width: $mobile)
+  .attention
+    height: 200px !important
+
+  .banners-block
+    height: 40vh !important
+
+  .items-row
+    .item-preview
+      height: 230px

@@ -1,0 +1,40 @@
+@import '../../variables'
+
+.bm-burger-button
+  display: none
+
+.burger-menu
+  background: $background_main
+  padding-top: 50px
+  padding-left: 70px
+  z-index: -10
+  
+  .cross
+    color: white
+    font-size: 52px
+    position: absolute
+    top: 7px
+    right: 10px
+    outline: none
+    transition: 0.5s !important
+    cursor: pointer
+    
+    &:hover
+      color: $main_color
+
+  .menu-item
+    display: flex !important
+    align-items: center
+    height: 50px
+    text-decoration: none
+    color: white
+    font-size: 25px
+    cursor: pointer
+    transition: 0.5s !important
+    outline: none
+
+    &:hover
+      color: $main_color
+
+    svg
+      margin-right: 12px
