@@ -1,0 +1,46 @@
+@import '../../variables'
+
+
+.features
+    @include contentCentered
+    max-width: 950px
+    margin: 0 auto
+    padding-top: 25px
+    padding-bottom: 25px
+
+    .features__item
+        display: flex
+        width: 35%
+        font-size: 12px
+        padding-right: 10px
+        padding-left: 10px
+
+        p
+            margin: 0
+
+        .feature-1, .feature-2, .feature-3, .feature-4
+            width: 64px
+            height: 64px
+            background-size: contain
+            background-repeat: no-repeat
+            background-position: center
+        
+        .feature-1_text, .feature-2_text, .feature-3_text
+            border-right: 2px solid #c8c8c8
+
+        .feature-1_text, .feature-2_text, .feature-3_text, .feature-4_text
+            padding-top: 15px
+            padding-right: 12px
+            padding-left: 10px
+
+        .feature-1
+            background-image: url('../../image/features-icon-1.png')
+
+        .feature-2
+            background-image: url('../../image/features-icon-2.png')
+
+        .feature-3
+            background-image: url('../../image/features-icon-3.png')
+
+        .feature-4
+            background-image: url('../../image/features-icon-4.png')

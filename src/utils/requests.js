@@ -46,6 +46,15 @@ import {useEffect, useState} from 'react';
     }
  }
 
+ export async function get_features() {
+     try {
+         return features;
+     }
+     catch (e) {
+         console.error(e);
+     }
+ }
+
  export const get_items = () => {
      return items;
 };
@@ -69,6 +78,25 @@ export const useFetch = (fetchCall, defaultVal) => {
 
      return response;
 };
+
+const features = [
+    {
+        src: require('../image/features-icon-1.png'),
+        text: 'Идеальная пара\n твоему\n настроению'
+    },
+    {
+        src: require('../image/features-icon-2.png'),
+        text: 'Идеальная пара\n твоему\n настроению'
+    },
+    {
+        src: require('../image/features-icon-3.png'),
+        text: 'Идеальная пара\n твоему\n настроению'
+    },
+    {
+        src: require('../image/features-icon-4.png'),
+        text: 'Идеальная пара\n твоему\n настроению'
+    }
+]
 
 const banners = [
     {
