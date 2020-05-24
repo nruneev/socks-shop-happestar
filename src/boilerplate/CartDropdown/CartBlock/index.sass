@@ -8,6 +8,8 @@
   height: 100vh
   background: $background_second
   transition: 3s
+  overflow-y: scroll
+  padding-bottom: 50px
 
   .table
     display: flex
@@ -63,6 +65,11 @@
 
 
 
+  .without_item
+    margin: 100px 0
+    color: black
+    font-size: 20px
+    text-align: center
 
   h1
     text-align: center
@@ -85,12 +92,12 @@
       color: $main_color
 
   .items
-    display: flex
+    display: block
     justify-content: center
     align-items: flex-start
     flex-wrap: wrap
-    height: calc(100vh - 79px - 20px - 75px)
-    overflow: scroll
+    height: fit-content
+    overflow: hidden
 
   .cart-item
     display: flex

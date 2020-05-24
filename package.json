@@ -2,7 +2,7 @@
   "name": "hpstar",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://nruneev.github.io/happestar",
+  "homepage": "./",
   "dependencies": {
     "react": "^16.13.0",
     "react-burger-menu": "^2.6.13",

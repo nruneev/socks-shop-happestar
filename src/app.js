@@ -71,9 +71,6 @@ const App = () => {
                             <Route path='/' exact>
                                 <Main/>
                             </Route>
-                            <Route path='/happestar' exact>
-                                <Main/>
-                            </Route>
                             <Route path='/catalog'>
                                 <Catalog/>
                             </Route>
