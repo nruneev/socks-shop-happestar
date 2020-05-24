@@ -1,30 +1,26 @@
 import {useEffect, useState} from 'react';
-// import {request_to_instagram} from "./instagram";
-//
- // import url from '../server.config.js';
- const LIMIT_OF_INSTAGRAM_PHOTOS = 8;
-//
-//
-//
- export async function get_instagram_photos() {
-//     try {
-//         console.log('here');
-//         let response = await request_to_instagram();
-//         let images = response.data.map((element) => ({ link: element.link, url: element.images.standard_resolution.url }));
-//         return images.splice(0, LIMIT_OF_INSTAGRAM_PHOTOS);
-//     }
-//     catch (e) {
-//         console.error(e);
-//     }
+import {request_to_instagram} from "./instagram";
+
+import url from '../server.config.js';
+
+const LIMIT_OF_INSTAGRAM_PHOTOS = 8;
+
+export async function get_instagram_photos() {
+    try {
+        console.log('here');
+        let response = await request_to_instagram();
+        let images = response.data.map((element) => ({ link: element.link, url: element.images.standard_resolution.url }));
+        return images.splice(0, LIMIT_OF_INSTAGRAM_PHOTOS);
+    }
+    catch (e) {
+        console.error(e);
+    }
 }
-//
+
  export async function get_attention_photos() {
-    // let attetion_url = url.host + url.links.get_attention_photos;
+    let attetion_url = url.host + url.links.get_attention_photos;
 
     try {
-        // let res = await fetch(attetion_url);
-        // let images = await res.json();
-
         return attentions;
     }
     catch (e) {
