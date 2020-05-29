@@ -9,10 +9,96 @@
     flex: 1
 
   .contacts-container
-    flex: 1
+    flex: 0.3
+    background: white
     display: flex
     flex-direction: column
-    align-items: center
+    padding: 15px 0
+
+    h1
+      padding: 0 35px
+
+    .tabs__nav
+      padding: 0 35px
+      font-size: 0
+      text-align: left
+      border-top: 1px solid #dedede
+      border-bottom: 1px solid #dedede
+      display: flex
+      justify-content: start
+      background-color: #fff
+
+      .tabs__nav-item
+        position: relative
+        display: inline-block
+        vertical-align: middle
+        text-decoration: none
+        text-transform: uppercase
+        transition: color .15s ease-in-out
+        margin: 0 16px
+        font-size: 18px
+        line-height: 17px
+        letter-spacing: 1.12px
+        padding-top: 15px
+        padding-bottom: 12px
+        font-weight: 700
+        color: #131313
+        cursor: pointer
+
+      .tabs__nav-item::after
+        content: ""
+        position: absolute
+        bottom: -1px
+        left: 0
+        width: 100%
+        height: 4px
+        background: #f4d600
+        opacity: 1
+        transition: .15s ease-in-out
+
+  .shops__item
+    border-bottom: 1px solid #dedede
+    background-color: #fff
+    cursor: pointer
+    transition: background-color .3s
+    padding: 30px 25px 20px 35px
+
+    .shops__name
+      margin-bottom: 25px
+      font-size: 18px
+      line-height: 17px
+      font-weight: 700
+      text-transform: uppercase
+
+    .shops__descr
+      font-size: 16px
+      line-height: 22px
+
+      p
+        display: flex
+        -webkit-box-align: start
+        -webkit-align-items: flex-start
+        -ms-flex-align: start
+        align-items: flex-start
+        margin-bottom: 16px
+
+      span
+        width: 28%
+        color: #979797
+
+      span:nth-of-type(2)
+        width: 72%
+        color: #000
+
+      a
+        color: inherit
+        text-decoration: none
+
+    h1
+      text-align: left
+      font-size: 40px
+      line-height: 46px
+      letter-spacing: 2px
 
     .contacts-data
       height: calc(100% - 200px)
@@ -40,6 +126,11 @@
         svg
           font-size: 35px
           margin-right: 5px
+
+  .shops__item:hover
+    background-color: #dedede
+    cursor: pointer
+
 
 @media (max-width: $mobile)
   .contacts
