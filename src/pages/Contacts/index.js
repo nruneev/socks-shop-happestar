@@ -12,8 +12,8 @@ const Contacts = () => {
     return (
         <div className='contacts page'>
             <iframe
-                src="https://yandex.ru/map-widget/v1/?um=constructor%3A3ed5de4e30c004ffb07d5bf7f740e20f763f267b95bca2e2b92a452ceda40c6b&amp;source=constructor"
-                width="500" height="400" frameBorder="0"/>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1999.6107043147874!2d30.353081516224186!3d59.92200797040204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46963114d45d296b%3A0xa447ad80081097b1!2z0JvQvtGE0YIg0J_RgNC-0LXQutGCINCt0YLQsNC20Lg!5e0!3m2!1sru!2sru!4v1590411006882!5m2!1sru!2sru"
+                width="600" height="450" frameBorder="0" aria-hidden="true" tabIndex="0"/>
             <div className='contacts-container'>
                 <h1>{t('our_contacts')}</h1>
                 <div className='contacts-data'>

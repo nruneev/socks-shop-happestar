@@ -10,8 +10,7 @@ const BrandHistory = () => {
 
     return (
         <div className='page brand_history'>
-            <Article title={t('brand_history')} image={require('../../image/history.jpg')}
-                     article={getWrappedString(t('brand_history_article'))}/>
+            <Article title={t('brand_history')} article={getWrappedString(t('brand_history_article'))}/>
         </div>
     )
 };
