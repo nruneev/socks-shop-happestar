@@ -1,6 +1,11 @@
 @import '../../variables'
 
 .main
+  .attentions
+    display: none
+    height: 60px
+    margin: 20px 0
+
   hr
     margin: 0 3px
     border: 10px solid $main_color
@@ -13,23 +18,53 @@
     background-color: #deebf1
 
   .wrapper
-    min-width: 767px
-    max-width: 1023px
+    min-width: 320px
+    max-width: 767px
+    padding-right: 10px
+    padding-left: 10px
     margin: 0 auto
 
   .product-wrap
     padding: 25px 0 20px
 
-  .title
-    margin-bottom: 30px
+  @media (min-width: 660px)
+    .product-wrap
+      padding-bottom: 0
 
-  .title--x2
-    font-size: 26px
-    line-height: 32px
-    letter-spacing: .541667px
+  @media (min-width: 1000px)
+    .product-wrap
+      max-width: none
+      padding-top: 35px
+
+
+  @media (min-width: 1000px)
+    .wrapper
+      max-width: 1320px
+
+  @media (max-width: 1023px) and (min-width: 767px)
+    .wrapper
+      min-width: 767px
+      max-width: 1023px
+
+  .title
     font-family: "Bebas Neue"
     text-align: center
     font-weight: 700
+
+  .title--x2
+    margin-bottom: 5px
+    font-size: 26px
+    line-height: 32px
+    letter-spacing: .541667px
+
+  @media (min-width: 1001px)
+    .title--x2
+      margin-bottom: 7px
+      font-size: 36px
+      line-height: 40px
+      text-align: center
+      letter-spacing: 1.8px
+      text-transform: uppercase
 
   .tabs__nav
     font-size: 0
@@ -47,28 +82,44 @@
     margin-bottom: 40px
 
   .descr
-    padding-top: 55px
-    padding-bottom: 60px
+    padding-top: 10px
+    padding-bottom: 45px
     text-align: center
 
+  @media (min-width: 1000px)
+    .descr
+      padding-top: 55px
+      padding-bottom: 60px
+
+
   .descr__wrap
-    padding-top: 25px
+    padding-top: 20px
     border: 1px dashed #c1c1c1
+
+  @media (min-width: 1000px)
+    .descr__wrap
+      padding-top: 25px
+
 
   .follow-us
     padding-top: 25px
     text-align: center
 
   .follow-us__link
-    margin-bottom: 30px
-    font-size: 16px
-    letter-spacing: .8px
     display: inline-block
     vertical-align: top
+    margin-bottom: 25px
+    font-size: 14px
     line-height: 18px
     font-weight: 300
     text-decoration: none
     color: #000
+
+  @media (min-width: 1000px)
+    .follow-us__link
+      margin-bottom: 30px
+      font-size: 16px
+      letter-spacing: .8px
 
   .descr__title
     font-weight: lighter
@@ -80,19 +131,37 @@
     letter-spacing: 1.8px
     text-transform: uppercase
 
+  @media (min-width: 1000px)
+    .descr__title
+        font-size: 20px
+        line-height: 24px
+        letter-spacing: .454545px
+
   .descr__img
-    width: 320px
-    max-width: 320px
     display: block
+    max-width: 100%
     margin: 0 auto 40px
 
+  @media (min-width: 1000px)
+    .descr__img
+      width: 320px
+      max-width: 320px
+      margin-bottom: 25px
+
   .descr__text
-    width: 69%
-    line-height: 18px
+    width: 85%
     margin: 0 auto 35px
     font-size: 14px
+    line-height: 20px
     font-weight: 300
     color: #101010
+
+  @media (min-width: 1000px)
+    .descr__text
+      width: 69%
+      margin-bottom: 25px
+      line-height: 18px
+
 
   .descr__link-wrap
     display: inline-block
@@ -148,12 +217,24 @@
   .attention
     height: 35vh !important
 
+  .attentions
+    display: block !important
+
+  .features
+    display: none !important
+
   .banners-block
     height: 40vh !important
 
 @media (max-width: $mobile)
   .attention
     height: 200px !important
+
+  .attentions
+    display: block !important
+
+  .features
+    display: none !important
 
   .banners-block
     height: 40vh !important

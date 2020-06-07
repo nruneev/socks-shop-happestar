@@ -24,7 +24,7 @@ const ImageSlider = ({ className, images, timeout = 3000 }) => {
 function* getNextImage(images) {
     let i = 0;
     while (true) {
-        i = i >= images.length ? 0 : ++i;
+        i = i >= images.length - 1 ? 0 : ++i;
         yield i;
     }
 }

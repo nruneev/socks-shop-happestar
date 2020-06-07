@@ -1,0 +1,93 @@
+@import '../../variables'
+
+.carousel
+  position: relative
+  display: flex
+  justify-content: center
+  align-items: flex-end
+  @include fullSize
+  z-index: 0
+
+  .descr-block
+    position: absolute
+    opacity: 0
+    transition: opacity 2s
+    display: flex
+    font-size: 12px
+    padding-right: 10px
+    padding-left: 10px
+
+    .feature-1, .feature-2, .feature-3, .feature-4
+      width: 64px
+      height: 64px
+      background-size: contain
+      background-repeat: no-repeat
+      background-position: center
+
+    .feature-1_text, .feature-2_text, .feature-3_text, .feature-4_text
+      padding-top: 15px
+      padding-right: 12px
+      padding-left: 10px
+
+    .feature-1
+      background-image: url('../../image/features-icon-1.png')
+
+    .feature-2
+      background-image: url('../../image/features-icon-2.png')
+
+    .feature-3
+      background-image: url('../../image/features-icon-3.png')
+
+    .feature-4
+      background-image: url('../../image/features-icon-4.png')
+
+  .active
+    opacity: 1 !important
+
+  .toggle-buttons
+    z-index: 1
+
+    span
+      font-size: 90px
+      cursor: pointer
+      color: $background_second
+      transition: 0.5s
+      margin-right: 5px
+
+      &:hover
+        color: $second_color
+
+    .active
+      cursor: default
+      color: $main_color !important
+
+  .img-text
+    position: absolute
+    top: 0
+    left: 0
+    display: flex
+    flex-wrap: wrap
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    height: 100%
+    width: 100%
+    color: $second_color
+    text-shadow: 1px 1px 1px $background_main
+    font-size: 55px
+    padding: 30px
+
+    *
+      width: 100%
+
+@media (max-width: $ipad)
+  .carousel
+    .toggle-buttons
+      display: none
+
+    .img-text
+      font-size: 40px
+
+@media (max-width: $mobile)
+  .img-text
+    font-size: 30px !important

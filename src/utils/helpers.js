@@ -5,8 +5,10 @@ export function intervalChangeId(getNextId, setActiveId, timeout) {
     let id = next.value;
     let timerId = setInterval(() => {
         setActiveId(id);
+        next = getNextId.next();
+        id = next.value;
     }, timeout);
-    return () => clearInterval(timerId);
+    return () => timerId;
 }
 
 export function getWrappedString(text) {

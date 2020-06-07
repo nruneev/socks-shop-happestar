@@ -77,20 +77,20 @@ export const useFetch = (fetchCall, defaultVal) => {
 
 const features = [
     {
-        src: require('../image/features-icon-1.png'),
-        text: 'Идеальная пара\n твоему\n настроению'
+        class: 'feature-1',
+        text: 'Курьерская доставка по всей России'
     },
     {
-        src: require('../image/features-icon-2.png'),
-        text: 'Идеальная пара\n твоему\n настроению'
+        class: 'feature-2',
+        text: 'Несколько размеров на выбор и бесплатная примерка'
     },
     {
-        src: require('../image/features-icon-3.png'),
-        text: 'Идеальная пара\n твоему\n настроению'
+        class: 'feature-3',
+        text: 'Удобные способы оплаты: онлайн или при получении'
     },
     {
-        src: require('../image/features-icon-4.png'),
-        text: 'Идеальная пара\n твоему\n настроению'
+        class: 'feature-4',
+        text: 'Возврат товара в течение 14 дней'
     }
 ]
 
