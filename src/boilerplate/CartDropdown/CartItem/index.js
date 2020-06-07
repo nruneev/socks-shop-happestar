@@ -18,16 +18,16 @@ const CartItem = ({ item, removeItem }) => {
                 <img src={item.src} alt={item.name}/>
             </td>
             <td className='name'>
-                <label>{item.name}</label>
+                <p>{item.name}</p>
             </td>
             <td className='color'>
                 <span></span>
             </td>
             <td className='size'>
-                <label>{item.sizes}</label>
+                <p>{item.sizes}</p>
             </td>
             <td className='cost'>
-                <label>{item.cost}Р</label>
+                <p>{item.cost}Р</p>
             </td>
 
             <td className='buttons'>
@@ -39,7 +39,7 @@ const CartItem = ({ item, removeItem }) => {
             </td>
 
             <td className='full-price'> 
-                <label>{item.cost * item.count}Р</label>
+                <p>{item.cost * item.count}Р</p>
             </td>
 
             <FaTrashAlt className='trash' onClick={() => removeItem(item.id)}/>

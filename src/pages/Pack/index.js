@@ -1,3 +1,4 @@
+import './index.sass'
 import React, { useState } from 'react';
 import { Filter } from '../../components/Filter';
 import { CatalogList } from '../../components/Catalog';
@@ -19,6 +20,7 @@ const Pack = () => {
         <div className='page pack'>
             <div className='left-menu'>
                 <div className='pack-filter'>
+                    <h1 className='order'>Наборы</h1>
                     <div className='tags count'>
                         <button className='tag'>4</button>
                         <button className='tag'>6</button>

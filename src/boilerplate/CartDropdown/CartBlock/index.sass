@@ -1,5 +1,8 @@
 @import "../../../variables"
 
+.mobile
+  display: none
+
 .cart-dropdown
   position: absolute
   top: 0
@@ -21,10 +24,10 @@
       color: black
       background-color: white
 
-      thead 
+      thead
         background-color: white
-        
-        th:nth-child(1) 
+
+        th:nth-child(1)
           width: 19.3%
           padding: 22px 0 8px
           font-weight: 300
@@ -44,7 +47,7 @@
         th:nth-child(4)
           padding: 22px 0 8px
           font-weight: 300
-        
+
         th:nth-child(5)
           width: 15%
           padding: 22px 0 8px
@@ -52,13 +55,13 @@
 
 
         th:nth-child(6)
-          width: 7,7%
+          width: 7.7%
           padding: 22px 0 8px
           font-weight: 300
 
 
         th:nth-child(7)
-          width: 10,8%
+          width: 10.8%
           padding: 22px 60px 8px
           font-weight: 300
 
@@ -150,7 +153,7 @@
     @include contentCentered
 
     button
-      
+
       //margin-left: 75%
       height: 35px
       background: $background_second
@@ -216,14 +219,8 @@
 
 
 @media (max-width: $mobile)
-  .create-order
-    height: 100px
-    justify-content: space-between
-    flex-wrap: wrap
-    padding: 5px
+  .table
+    display: none !important
 
-    form, button, .total-price
-      margin-right: 0
-
-    form
-      margin-left: 10px
+  .mobile
+    display: block !important

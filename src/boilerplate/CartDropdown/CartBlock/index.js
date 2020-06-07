@@ -3,6 +3,7 @@ import React from 'react';
 import { CartItem } from '../CartItem';
 import {useTranslation} from "react-i18next";
 import {IoMdClose} from "react-icons/io";
+import {CartItemMobile} from "../CartItemMobile";
 
 
 const CartBlock = ({ items, removeItem, closeCart }) => {
@@ -49,6 +50,14 @@ const CartBlock = ({ items, removeItem, closeCart }) => {
                                 <button>{t('create_order')}</button>
                             </div>
                         </table>
+                    </div>
+                    <div className="mobile">
+                        <div className='items'>
+                            {items.map((item, key) => <CartItemMobile item={item} removeItem={removeItem} key={key}/>)}
+                        </div>
+                        <div className='create-order'>
+                            <button>{t('create_order')}</button>
+                        </div>
                     </div>
                 </div>
             )

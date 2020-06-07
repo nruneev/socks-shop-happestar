@@ -1,10 +1,6 @@
 @import '../../../variables'
 
 .cart-item
-  
-  .artikul
-    padding: 10px
-
   .img
     margin: 5px
 
@@ -28,7 +24,10 @@
     background: white
 
   .size
-    margin-left: auto
+    margin-left: 0
+
+  .cost
+    margin-left: 50px
 
   button
     position: relative
@@ -62,57 +61,17 @@
 
     
 
-  .cost, .full-price, .name, .size
-    display: block
+  .full-price, .name, .buttons
     font-size: 21px
+    color: black
+    margin: 15px 0 !important
+
+  .buttons
+    .active
+      span
+        color: #818181 !important
 
   .trash
-    margin-left: 20px
+    margin-left: 30px
     margin-right: 15px
     color: $background_main
-
-  .cost
-    margin: 0 !important
-
-  td
-    display: block
-    text-align: center
-
-  td:nth-child(1)
-    width: 19.3%
-    padding: 22px 0 8px
-    font-weight: 300
-
-
-  td:nth-child(2)
-    width: 50px
-    padding: 22px 0 8px
-    font-weight: 300
-
-
-  td:nth-child(3)
-    width: 7%
-    padding: 22px 0 8px
-    font-weight: 300
-
-  td:nth-child(4)
-    width: 15%
-    padding: 22px 0 8px
-    font-weight: 300
-
-  td:nth-child(5)
-    width: 15%
-    padding: 22px 0 8px
-    font-weight: 300
-
-
-  td:nth-child(6)
-    width: 9%
-    padding: 22px 0 8px
-    font-weight: 300
-
-
-  td:nth-child(7)
-    width: 13.8%
-    padding: 22px 60px 8px
-    font-weight: 300
