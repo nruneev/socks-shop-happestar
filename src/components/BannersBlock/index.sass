@@ -1,26 +1,49 @@
 @import "../../variables"
 
 .banners-block
+  display: -webkit-box
+  display: -webkit-flex
+  display: -ms-flexbox
   display: flex
+  -webkit-flex-wrap: wrap
+  -ms-flex-wrap: wrap
   flex-wrap: wrap
-  margin: 200px
+  -webkit-box-pack: center
+  -webkit-justify-content: center
+  -ms-flex-pack: center
+  justify-content: center
+  -webkit-box-align: start
+  -webkit-align-items: flex-start
+  -ms-flex-align: start
+  align-items: flex-start
+  -webkit-align-content: flex-start
+  -ms-flex-line-pack: start
+  align-content: flex-start
+  list-style: none
 
-.banner
-  width: calc(50% - 2 * 10px)
+.banners__item
   position: relative
-  @include contentCentered
-  transition: 0.5s
-  text-decoration: none
-  margin: 10px
+  width: 94%
+  height: 470px
+  margin-bottom: 10px
+  margin-right: 5px
+  margin-left: 5px
+  background-position: center
+  -webkit-background-size: cover
+  background-size: cover
+  background-repeat: no-repeat
 
   img
     position: absolute
 
   span
-    position: relative
+    position: absolute
+    bottom: 0
+    right: 0
+    padding: 30px
     z-index: 2
     text-transform: uppercase
-    font-size: 80px
+    font-size: 40px
     color: $second_color
     text-shadow: 1px 1px 1px $font_color
     transition: 0.5s
@@ -43,20 +66,77 @@
     &::before
       opacity: 0.3
 
-@media (max-width: 900px)
+.banners__item--desktop
+  display: none
+
+@media (min-width: 1000px)
   .banners-block
+    position: relative
+    width: 950px
+    height: 715px
+    margin: 0 auto
+
+@media (min-width: 1500px)
+  .banners-block
+    width: 950px
+    height: 720px
+
+@media (min-width: 600px)
+  .banners__item
+    width: 48%
+
+@media (min-width: 768px)
+  .banners__item
+    width: 300px
+
+@media (min-width: 1000px)
+  .banners__item
+    display: none
+
+@media (min-width: 1000px)
+  .banners__item--desktop
+    position: absolute
     display: block
     margin: 0
-    width: 100%
-    height: fit-content !important
 
-    .banner
-      width: 100%
-      height: 200px
+@media (min-width: 1000px)
+  .banners__item--desktop-0
+    left: 0
+    top: 0
+    height: 472px
+    width: 221px
 
-      img
-        width: 100%
-        height: 100%
+@media (min-width: 1000px)
+  .banners__item--desktop-1
+    height: 226px
+    left: 240px
+    width: 471px
+    top: 0
 
-      span
-        font-size: 35px
+@media (min-width: 1000px)
+  .banners__item--desktop-2
+    height: 349px
+    width: 220px
+    right: 0
+    top: 0
+
+@media (min-width: 1000px)
+  .banners__item--desktop-3
+    height: 227px
+    left: 240px
+    top: 245px
+    width: 471px
+
+@media (min-width: 1000px)
+  .banners__item--desktop-4
+    height: 225px
+    width: 712px
+    left: 0
+    bottom: 0
+
+@media (min-width: 1000px)
+  .banners__item--desktop-5
+    height: 349px
+    width: 220px
+    right: 0
+    bottom: 0

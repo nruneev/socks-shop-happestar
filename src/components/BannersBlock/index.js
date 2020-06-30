@@ -8,7 +8,7 @@ const BannersBlock = ({ banners }) => {
     return (
         <div className='banners-block'>
             {banners.map((banner, key) => (
-                <ImageLink className='banner' image={banner.src} text={banner.text} link={banner.link} key={key}/>
+                <ImageLink className={'banners__item banners__item--desktop banners__item--desktop-' + key} image={banner.src} text={banner.text} link={banner.link} key={key}/>
             ))}
         </div>
     )

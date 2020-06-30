@@ -1,16 +1,15 @@
 import './index.sass'
 import React from 'react';
 import { AttentionBlock } from '../../components/AttentionBlock';
-import { ImagesInst } from '../../components/ImagesInst';
 import { BannersBlock } from '../../components/BannersBlock';
 import {get_attention_photos, get_features, get_banners, get_instagram_photos, useFetch} from '../../utils/requests';
+import {InstSlider} from "../../boilerplate/InstSlider";
 
 const Main = () => {
     const attentions = useFetch(get_attention_photos, []);
     const features = useFetch(get_features, []);
     let banners = useFetch(get_banners, []);
     let images = useFetch(get_instagram_photos, []);
-
 
     return (
         <div className='page main'>
@@ -51,7 +50,7 @@ const Main = () => {
                     <a href="https://www.instagram.com/happestar/" className="follow-us__link" target="blank">
                         @happestar
                     </a>
-                    <ImagesInst images={images}/>
+                    <InstSlider images={images}/>
                 </div>
             </div>
         </div>

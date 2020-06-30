@@ -34,8 +34,7 @@ const ItemCard = ({ item, width }) => {
         </button> :
         <>
             <div className='info'>
-                <label className='name'>{item.name}</label>
-                <label className='cost'>{item.cost}Р</label>
+                <label className='cost'>{item.cost}₽</label>
             </div>
             <button onClick={() => setItem(item)}><FaCartArrowDown/></button>
         </>;
@@ -43,19 +42,24 @@ const ItemCard = ({ item, width }) => {
     let statusClass = statusClasses.get(item.status);
 
     return (
-        <div className={'item ' + statusClass}>
-            <div className='img'>
-                <img src={item.src} alt={item.name}/>
+        <article className={'product ' + statusClass}>
+            <div className="product__wrap">
+                <a href="/" className='product__image-wrap'>
+                    <img className="product__image " src={item.src} alt={item.name}/>
+                </a>
+                <h3 className="product__title">
+                    <a href="/">{item.name}</a>
+                </h3>
+                <ToggleButtons buttons={item.sizes} activeId={activeSize} setActiveId={(id) => {
+                    let count = itemInCart ? itemInCart.count : 1;
+                    setItem(item, count);
+                    setActiveSize(id);
+                }}/>
+                <div className='item-body'>
+                    {button}
+                </div>
             </div>
-            <ToggleButtons buttons={item.sizes} activeId={activeSize} setActiveId={(id) => {
-                let count = itemInCart ? itemInCart.count : 1;
-                setItem(item, count);
-                setActiveSize(id);
-            }}/>
-            <div className='item-body'>
-                {button}
-            </div>
-        </div>
+        </article>
     )
 };
 

@@ -2,63 +2,85 @@
 
 .filter
   @include contentCentered
-  margin-right: 25px
-  display: flex
-  height: fit-content
-  background: white
-  border-radius: 5px
-  padding: 15px 0
-  box-shadow: 0 0 16px rgba(28,39,40,.1)
-  justify-content: flex-start
-  flex-direction: column
-  color: $background_main
+  background: #fff
+  display: block
+  padding: 5px 0 0
+  -webkit-transition: .2s ease-in-out
+  -o-transition: .2s ease-in-out
+  transition: .2s ease-in-out
+  width: 300px!important
 
+  .group
+    border-bottom: 1px solid #ebf0f3
+    margin: 10px 0
+    padding: 5px 15px 15px
 
-  h1
-    width: 100%
-    height: 50px
-    text-align: center
-    border-bottom: 2px solid $main_color
-    margin-top: 0
-
-  .tags
-    display: flex
-    justify-content: flex-start
-    align-items: flex-start
-    flex-wrap: wrap
-    width: 100%
-    padding-left: 10px
-    margin-bottom: 30px
-
-    .tag
-      @include contentCentered
-      position: relative
-      background: transparent
-      border: 1px solid $main_color
-      color: $background_main
-      height: 30px
-      font-size: 20px
-      margin: 5px
-      padding: 5px
-      border-radius: 3px
+    .name
+      color: #1d1d1d
       cursor: pointer
-      transition: 0.2s
+      font-weight: 700
+      padding: 5px 0
+      position: relative
+      text-transform: uppercase
+      font-size: 18px
+      line-height: 18px
+      letter-spacing: 1.12px
 
-      &::before
-        content: ''
-        position: absolute
-        display: block
-        top: 0
-        left: 0
-        @include fullSize
-        background: $main_color
-        opacity: 0
-        transition: 0.5s
+    .tags
+      color: #5d5d5d
+      list-style: none
+      font-size: 16px
+      letter-spacing: .96px
+      margin: 10px 0
+      overflow: hidden
+      text-transform: uppercase
 
-      &:hover
-        &::before
-          opacity: 0.2
+      li
+        -webkit-border-radius: 1px
+        border-radius: 1px
+        border: 1px solid #d8e1e5
+        cursor: pointer
+        float: left
+        height: 37px
+        margin: 0 0 7px 7px
+        line-height: 37px
+        text-align: center
+        -webkit-transition: .4s
+        -o-transition: .4s
+        transition: .4s
+        width: auto
+        padding: 0 10px
+        color: #5d5d5d
 
-    .active
-      background: $main_color !important
-      color: $background_main !important
+      li:hover
+        color: #000
+        border-color: #000
+
+      .active
+        background: #000
+        border-color: #000
+        color: #fff
+
+@media (max-width: 1500px)
+  .filter
+    width: 250px!important
+
+    .group
+      margin: 5px 0
+      padding-bottom: 5px
+
+      .name
+        letter-spacing: 0
+        padding: 3px 0
+
+      .tags
+        letter-spacing: 0
+        margin: 5px 0
+
+        li
+          height: 30px
+          line-height: 30px
+
+@media (max-width: 1000px)
+  .filter
+    width: 100%!important

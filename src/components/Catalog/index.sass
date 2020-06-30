@@ -1,11 +1,78 @@
-.catalog-list
-  display: flex
-  justify-content: flex-start
-  align-items: flex-start
-  flex-wrap: wrap
+.content
+  width: 74%
+  margin-left: auto
 
-@media (max-width: 600px)
-  .catalog-list
-    justify-content: space-around
+  .sorting
+    background: #fff
+    height: 45px
+    line-height: 50px
+    overflow: hidden
+    margin-bottom: 25px
 
+    ._show_filters
+      display: none
+      height: 19px
+      left: 12px
+      position: absolute
+      top: 8px
+      width: 24px
 
+    .ul
+      margin: 0
+      float: left
+      padding: 0 15px
+
+      &:before
+        content: attr(data-title)
+        display: inline-block
+        font-size: 14px
+        line-height: normal
+        letter-spacing: .3px
+        color: #9d9c9c
+
+      li
+        color: #7a7a7a
+        cursor: pointer
+        display: inline-block
+        position: relative
+        -webkit-transition: color .15s ease-in-out
+        -o-transition: color .15s ease-in-out
+        transition: color .15s ease-in-out
+        font-weight: 600
+        font-size: 14px
+        letter-spacing: .3px
+        margin-left: 15px
+
+        &:hover
+          color: #000
+
+  .list
+    display: -webkit-box
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    -webkit-flex-wrap: wrap
+    -ms-flex-wrap: wrap
+    flex-wrap: wrap
+    -webkit-box-pack: start
+    -webkit-justify-content: flex-start
+    -ms-flex-pack: start
+    justify-content: flex-start
+
+@media (max-width: 1500px)
+  .content
+    .sorting
+      font-size: 12px
+      height: 30px
+      line-height: 35px
+
+      .ul
+        padding: 0 10px
+
+@media (max-width: 1000px)
+  .wrap
+    margin: 150px 30px 0
+
+  .content
+    width: 100%
+    margin-top: 25px

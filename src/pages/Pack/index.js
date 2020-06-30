@@ -17,14 +17,16 @@ const Pack = () => {
     const toggleSize = getToggle(activeSizes, setActiveSizes);
 
     return (
-        <div className='page pack'>
+        <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
             <div className='left-menu'>
-                <div className='pack-filter'>
-                    <h1 className='order'>Наборы</h1>
-                    <div className='tags count'>
-                        <button className='tag'>4</button>
-                        <button className='tag'>6</button>
-                        <button className='tag'>8</button>
+                <div className='group'>
+                    <div className='name'>Наборы</div>
+                    <div className='inner'>
+                        <ul className="tags count">
+                        <li className='tag'>4</li>
+                        <li className='tag'>6</li>
+                        <li className='tag'>8</li>
+                        </ul>
                     </div>
                 </div>
                 <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}

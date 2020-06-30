@@ -8,19 +8,29 @@ const Filter = ({ tags, sizes, activeTags, toggleTag, activeSizes, toggleSize}) 
 
     return (
         <div className='filter'>
-            <h1>{t('filter_sizes')}</h1>
-            <div className='tags'>
-                {sizes.map((size, key) =>  {
-                    let className = activeSizes.includes(size) ? 'active' : '';
-                    return <div key={key} className={'tag ' + className} onClick={() => toggleSize(size)}>{size}</div>
-                } )}
-            </div>
-            <h1>{t('filter_tags')}</h1>
-            <div className='tags'>
-                {tags.map((tag, key) =>  {
-                    let className = activeTags.includes(tag) ? 'active' : '';
-                    return <div key={key} className={'tag ' + className} onClick={() => toggleTag(tag)}>{tag}</div>
-                } )}
+            <div className="tabs  js---tab-block">
+                <div className="group">
+                    <div className="name">{t('filter_sizes')}</div>
+                    <div className='inner'>
+                        <ul className="tags">
+                        {sizes.map((size, key) =>  {
+                            let className = activeSizes.includes(size) ? 'active' : '';
+                            return <li key={key} className={'tag ' + className} onClick={() => toggleSize(size)}>{size}</li>
+                        } )}
+                        </ul>
+                    </div>
+                </div>
+                <div className="group">
+                    <div className="name">{t('filter_tags')}</div>
+                    <div className='inner'>
+                        <ul className="tags">
+                        {tags.map((tag, key) =>  {
+                            let className = activeTags.includes(tag) ? 'active' : '';
+                            return <li key={key} className={'tag ' + className} onClick={() => toggleTag(tag)}>{tag}</li>
+                        } )}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     )

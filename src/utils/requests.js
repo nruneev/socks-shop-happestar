@@ -3,7 +3,7 @@ import {request_to_instagram} from "./instagram";
 
 import url from '../server.config.js';
 
-const LIMIT_OF_INSTAGRAM_PHOTOS = 8;
+const LIMIT_OF_INSTAGRAM_PHOTOS = 18;
 
 export async function get_instagram_photos() {
     try {
@@ -115,6 +115,16 @@ const banners = [
         text: 'feature',
         link: '#'
     },
+    {
+        src: require('../image/banner_1.jpg'),
+        text: 'new',
+        link: '#'
+    },
+    {
+        src: require('../image/banner_2.jpg'),
+        text: 'sale',
+        link: '#'
+    }
 ];
 
 const attentions = [

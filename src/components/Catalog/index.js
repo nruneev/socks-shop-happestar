@@ -14,8 +14,17 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
      });
 
     return (
-        <div className='catalog-list'>
-            {activeItems.map((item, key) => <ItemCard item={item} key={key}/>)}
+        <div className='content  content--indent-mt'>
+            <div className='sorting'>
+                <i className="_show_filters"></i>
+                <ul className="ul _lm" data-title="Сортировать по:">
+                    <li data-sorting="name"><span>по</span> названию</li>
+                    <li data-sorting="price"><span>по</span> цене</li>
+                </ul>
+            </div>
+            <div className="list goodsContainer _2c">
+                {activeItems.map((item, key) => <ItemCard item={item} key={key}/>)}
+            </div>
         </div>
     )
 };

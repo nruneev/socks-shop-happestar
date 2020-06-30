@@ -17,7 +17,7 @@ const Catalog = () => {
     const toggleSize = getToggle(activeSizes, setActiveSizes);
 
     return (
-        <div className='page catalog'>
+        <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
             <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
             activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
             <CatalogList items={items} activeTags={activeTags} activeSizes={activeSizes}/>
