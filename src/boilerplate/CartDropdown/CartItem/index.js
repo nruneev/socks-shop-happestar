@@ -10,39 +10,37 @@ const CartItem = ({ item, removeItem }) => {
     const { t } = useTranslation();
 
     return (
-        <tr className='cart-item'>
-            <td className='artikul'>
-                <p>MSS073-BIRD01-NV18</p>
+        <tr className='tr goodInCart'>
+            <td>
+                <p className="art">MSS073-BIRD01-NV18</p>
             </td>
-            <td className='img'>
-                <img src={item.src} alt={item.name}/>
+            <td>
+                <a className="img" href="#">
+                    <img src={item.src} alt={item.name}/>
+                </a>
+                <div className="cnt"><a href="#">{item.name}</a></div>
             </td>
-            <td className='name'>
-                <p>{item.name}</p>
+            <td>
+                <span>{item.sizes}</span>
             </td>
-            <td className='color'>
-                <span></span>
+            <td>
+                <span className="coast">{item.cost}₽</span>
             </td>
-            <td className='size'>
-                <p>{item.sizes}</p>
-            </td>
-            <td className='cost'>
-                <p>{item.cost}Р</p>
-            </td>
-
-            <td className='buttons'>
-                <button className='active'>
-                    <span onClick={() => setItem(item, --item.count)}>–</span>
-                    <span>{item.count}</span>
-                    <span onClick={() => setItem(item, ++item.count)}>+</span>
-                </button>
+            <td className="count">
+                <ul className="_counter_">
+                    <li className="_minus" onClick={() => setItem(item, --item.count)}>–</li>
+                    <li className="_num">{item.count}</li>
+                    <li className="_plus" onClick={() => setItem(item, ++item.count)}>+</li>
+                </ul>
             </td>
 
-            <td className='full-price'> 
-                <p>{item.cost * item.count}Р</p>
+            <td>
+                <p className="sum _rub_ total">{item.cost * item.count}Р</p>
             </td>
 
-            <FaTrashAlt className='trash' onClick={() => removeItem(item.id)}/>
+            <td>
+                <FaTrashAlt className='trash' onClick={() => removeItem(item.id)}/>
+            </td>
         </tr>
     );
 };

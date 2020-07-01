@@ -1,7 +1,29 @@
 @import "../../../variables"
 
-.mobile
-  display: none
+.without_item
+  margin: 100px 0
+  color: black
+  font-size: 20px
+  text-align: center
+
+._btn_
+  background: #131313
+  color: #fff
+  border: none
+  border-radius: 1px
+  cursor: pointer
+  display: inline-block
+  font-size: 11px
+  height: 35px
+  line-height: 35px
+  letter-spacing: 0.96px
+  padding: 0 20px
+  text-align: center
+  text-decoration: none
+  text-transform: uppercase
+  transition: .4s
+  vertical-align: top
+  cursor: pointer
 
 .cart-dropdown
   position: absolute
@@ -13,66 +35,6 @@
   transition: 3s
   overflow-y: scroll
   padding-bottom: 50px
-
-  .table
-    display: flex
-    justify-content: center
-
-    table
-      display: block
-      width: 80%
-      color: black
-      background-color: white
-
-      thead
-        background-color: white
-
-        th:nth-child(1)
-          width: 19.3%
-          padding: 22px 0 8px
-          font-weight: 300
-
-
-        th:nth-child(2)
-          width: 30%
-          padding: 22px 0 8px
-          font-weight: 300
-
-
-        th:nth-child(3)
-          width: 7%
-          padding: 22px 0 8px
-          font-weight: 300
-
-        th:nth-child(4)
-          padding: 22px 0 8px
-          font-weight: 300
-
-        th:nth-child(5)
-          width: 15%
-          padding: 22px 0 8px
-          font-weight: 300
-
-
-        th:nth-child(6)
-          width: 7.7%
-          padding: 22px 0 8px
-          font-weight: 300
-
-
-        th:nth-child(7)
-          width: 10.8%
-          padding: 22px 60px 8px
-          font-weight: 300
-
-
-
-
-  .without_item
-    margin: 100px 0
-    color: black
-    font-size: 20px
-    text-align: center
 
   h1
     text-align: center
@@ -94,133 +56,429 @@
     &:hover
       color: $main_color
 
-  .items
-    display: block
-    justify-content: center
-    align-items: flex-start
-    flex-wrap: wrap
-    height: fit-content
-    overflow: hidden
-
-  .cart-item
-    display: flex
-    align-items: center
-    justify-content: flex-start
-    background: white
-    margin: 10px 0px
+  .table
+    background: #fff
+    border-radius: 1px
+    color: #010101
+    margin: 25px auto 0
+    padding: 0 0
     width: 100%
 
-    &:last-child
-      border: none
+    table
+      text-align: left
+      width: 100%
+      border-collapse: collapse
+      border-color: grey
 
-    .info
-      width: calc(100% - 150px)
-      height: 150px
+      .thead
+        font-size: 12px
+        letter-spacing: 0.24375px
+        color: #969696
+        text-transform: none
 
-    .labels
-      display: flex
-      justify-content: space-between
-      font-size: 25px
-      padding-left: 7px
-      padding-right: 7px
-      padding-top: 7px
+        th
+          padding: 22px 0 8px
+          font-weight: 300
 
-      span
-        color: $background_second
+          &:nth-child(1)
+            width: 23.3%
+            padding-left: 15px
 
-      label
-        color: $main_color
+          &:nth-child(2)
+            width: 25%
+            padding-left: 120px
 
-        &:last-child
-          color: $background_second
-          padding-left: 5px
+          &:nth-child(3)
+            width: 15%
 
-    .img
-      height: 150px
-      width: 150px
+          &:nth-child(4)
+            width: 7.7%
 
-    .trash
-      font-size: 30px
-      cursor: pointer
-      transition: 0.5s
+          &:nth-child(5)
+            width: 10.8%
+            padding-left: 65px
 
-      &:hover
-        color: $main_color
+          &:nth-child(6)
+            width: 10.8%
+            padding-left: 65px
 
-  .create-order
-    height: 70px
-    background: $background_main
-    @include contentCentered
+      .tfoot
 
-    button
+        td
+          border-top: 1px solid #EBF0F3
+          padding: 23px 0 25px
 
-      //margin-left: 75%
-      height: 35px
-      background: $background_second
-      width: 200px
-      cursor: pointer
-      font-size: 21px
-      transition: 0.5s
-      border-radius: 1px
-      border: none
-      outline: none
+          .table-flex-wrap
+            display: flex
+            flex-wrap: wrap
+            justify-content: space-between
+            align-items: flex-start
 
-      &:hover
-        background: $main_color
+            .table-col
+              width: 45%
+              padding: 0 25px
 
-      &:active
-        transform: scale(0.95)
+              .promo
+                position: relative
 
-    .total-price
-      display: flex
-      margin-right: 100px
-      font-size: 20px
+              .table-form
+                font-size: 0
 
-      p
-        margin: 0
+                input
+                  width: 53.3%
+                  font-size: 15px
+                  line-height: 15px
+                  letter-spacing: 0.24px
+                  padding: 8px 0
+                  padding-left: 12px
+                  border: 1px solid #D5E3E4
+                  box-sizing: border-box
+                  border-radius: 2px
+                  height: 35px
+                  margin-right: 10px
 
-    .promo
-      position: relative
-      display: flex
-      margin-right: 35%
+                ._btn_
+                  border: 1px solid #D5E3E4
+                  font-size: 12px
+                  letter-spacing: 1px
+                  text-transform: uppercase
 
+                ._white
+                  background: #fff
+                  color: #131313
+
+                  &:hover
+                    background-color: #D8E1E5
+                    border-color: #D8E1E5
+                    color: #000
+
+            .table-col--width
+              display: flex
+              padding-left: 0
+              align-items: flex-end
+              width: 54%
+              padding-right: 18px
+              text-align: right
+
+              .forCartTotal
+                flex-grow: 1
+
+                .table-price__wrap
+                  display: flex
+                  flex-direction: column
+                  align-items: stretch
+                  width: 85%
+                  margin-right: auto
+                  margin-left: 18px
+
+                  .table-price__row
+                    display: flex
+                    justify-content: flex-start
+                    margin-bottom: 18px
+                    font-size: 14px
+                    line-height: 15px
+                    letter-spacing: 0.2625px
+                    color: #979797
+
+                    p
+                      width: 52.6%
+                      text-align: right
+                      padding-right: 8px
+
+                    span
+                      width: 64.8%
+                      font-size: 16px
+                      letter-spacing: 0.2625px
+                      color: #3F3F3F
+                      text-align: left
+
+                  .table-price__value
+                    font-size: 14px
+                    line-height: 18px
+                    letter-spacing: 0.2625px
+                    color: #979797
+                    margin-top: 0px
+                    margin-bottom: 0
+
+                    p
+                      width: 52.6%
+                      padding-right: 7px
+                      font-size: 16px
+                      padding-top: 4px
+                      padding-bottom: 3px
+                      align-self: flex-end
+
+                    span
+                      width: 57.8%
+                      line-height: 50px
+                      font-size: 30px
+                      letter-spacing: 1.3px
+                      color: #000000
+                      margin-right: 22px
+                      margin-left: 2px
+                      font-weight: 600
+
+              .table-price__btns-wrap
+                align-self: baseline
+                display: flex
+
+                .table-price__link
+                  font-size: 16px
+                  letter-spacing: 0.5px
+                  text-transform: uppercase
+                  color: #fff
+                  background: #131313
+                  text-decoration: none
+                  font-weight: 700
+                  padding: 10px 31px
+                  align-self: flex-end
+                  margin-bottom: 0
+                  max-height: 40px
+                  line-height: 40px
+                  padding-top: 0
+                  padding-bottom: 0
+                  width: 200px
+                  text-align: center
+                  margin-left: 0
+
+  .mobile
+    background: #fff
+    display: none
+    margin: 0 auto 12px
+    padding: 0 12px
+    width: 100%
+
+    .list
+      display: block
+      flex-wrap: wrap
+
+    .bottom
+      border-top: 1px solid #E9EFF3
+      padding: 15px 0 0
+
+    .table-col
+      width: 45%
+      padding-right: 25px
+      padding-left: 25px
+
+    .table-form
+      font-size: 0
 
       input
         width: 53.3%
         font-size: 15px
-        outline: none
         line-height: 15px
-        letter-spacing: .24px
-        padding: 8px 0 8px 12px
-        border: 1px solid #d5e3e4
+        letter-spacing: 0.24px
+        padding: 8px 0
+        padding-left: 12px
+        border: 1px solid #D5E3E4
         box-sizing: border-box
         border-radius: 2px
         height: 35px
         margin-right: 10px
 
-      button
-        border: 1px solid #d5e3e4
+      ._btn_
+        border: 1px solid #D5E3E4
         font-size: 12px
         letter-spacing: 1px
         text-transform: uppercase
+
+      ._white
         background: #fff
         color: #131313
-        border-radius: 1px
-        display: inline-block
-        height: 35px
-        line-height: 35px
-        padding: 0 20px
-        text-align: center
-        text-decoration: none
-        text-transform: uppercase
-        transition: .4s
-        vertical-align: top
-        cursor: pointer
+
+    .promo
+      position: relative
+
+    .table-col--width
+      display: flex
+      padding-left: 0
+      align-items: flex-end
+      width: 54%
+      padding-right: 18px
+      text-align: right
+
+      .forCartTotal
+        flex-grow: 1
+
+        .table-price__wrap
+          display: flex
+          flex-direction: column
+          align-items: stretch
+          width: 85%
+          margin-right: auto
+          margin-left: 18px
+
+          .table-price__value
+            font-size: 14px
+            line-height: 18px
+            letter-spacing: 0.2625px
+            color: #979797
+            margin-top: 0
+            margin-bottom: 0
+
+            p
+              width: 52.6%
+              padding-right: 7px
+              padding-top: 4px
+              padding-bottom: 3px
+              align-self: flex-end
+
+            span
+              width: 57.8%
+              font-size: 30px
+              letter-spacing: 1.3px
+              color: #000000
+              margin-right: 22px
+              margin-left: 2px
+              font-weight: 600
+
+          .table-price__row
+            display: flex
+            justify-content: flex-start
+            margin-bottom: 18px
+            font-size: 14px
+            line-height: 15px
+            letter-spacing: 0.2625px
+            color: #979797
+
+            p
+              width: 52.6%
+              text-align: right
+              padding-right: 8px
+
+            span
+              width: 64.8%
+              line-height: 40px
+              padding-right: 20px
+              font-size: 16px
+              letter-spacing: 0.2625px
+              color: #3F3F3F
+              text-align: left
+
+      .table-price__btns-wrap
+        display: flex
+
+        .table-price__link
+          font-size: 12px
+          letter-spacing: 0.5px
+          text-transform: uppercase
+          color: #fff
+          background: #131313
+          text-decoration: none
+          font-weight: 700
+          padding: 10px 31px
+          align-self: flex-end
+          margin-bottom: 0
+          max-height: 40px
+          line-height: 40px
+          padding-top: 0
+          padding-bottom: 0
+          width: 200px
+          text-align: center
+          margin-left: 0
+
+    .table-col
+      width: 45%
+      padding-right: 25px
+      padding-left: 25px
 
 
-@media (max-width: $mobile)
-  .table
-    display: none !important
+@media (max-width: 1299px) and (min-width: 1001px)
+  .table-col
+    width: 40%
+    padding-right: 0
 
+  .table-col--width
+    width: 60%
+    padding-right: 18px
+    padding-left: 0
+
+  .table-form
+    input
+      width: 60%
+
+@media (max-width: 1000px)
   .mobile
     display: block !important
+
+  .wrapper
+    margin-top: 50px !important
+
+  .table
+    display: none
+
+  .list
+    justify-content: center
+
+@media (max-width: 1000px) and (min-width: 320px)
+  .table-col
+    width: 100% !important
+    padding: 0 !important
+    margin-bottom: 12px !important
+
+  .table-form
+    margin-top: 7px !important
+    margin-bottom: 7px !important
+
+    input
+      margin-right: 7px !important
+      width: 63% !important
+      font-size: 12px !important
+      letter-spacing: 0.315px !important
+      height: 30px !important
+      padding-left: 7px !important
+
+    ._btn_
+      font-size: 9px !important
+      line-height: 11px !important
+      letter-spacing: 0.5625px !important
+      height: 30px !important
+      padding: 0 15px !important
+
+  .table-col--width
+    display: block !important
+    margin-bottom: 0 !important
+
+  .table-col
+    width: 100% !important
+    padding: 0 !important
+    margin-bottom: 12px !important
+
+  .table-price__wrap
+    width: 100% !important
+    margin-left: 0 !important
+
+    .table-price__value
+      margin-bottom: 23px !important
+
+      p
+        padding: 0 !important
+
+      span
+        font-size: 18px !important
+        margin: 0 !important
+        letter-spacing: 0 !important
+        margin-top: -4px !important
+        font-weight: 700 !important
+
+    .table-price__row
+      justify-content: space-between !important
+      font-size: 12px !important
+      margin-bottom: 15px !important
+
+      p
+        width: auto !important
+
+      span
+        width: auto !important
+        font-size: 14px !important
+
+  .table-price__link
+    display: block !important
+    width: 100% !important
+    text-align: center !important
+    max-height: 40px !important
+    padding: 0 !important
+    margin-left: 0 !important
+    margin-bottom: 16px !important
