@@ -21,6 +21,16 @@ export function getWrappedString(text) {
         )});
 }
 
+export async function get_item(id) {
+    let result =[];
+    await fetch('/php/tovarByID.php?id=' + id)
+        .then(function(response){ return response.json(); })
+        .then(function(data) {
+            result = data;
+        }).catch(reason => console.log(reason));
+    return  result;
+}
+
 export function useWindowWidth() {
     const [width, setWidth] = useState(0);
     useLayoutEffect(() => {

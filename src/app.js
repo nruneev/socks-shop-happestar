@@ -17,6 +17,7 @@ import {Production} from "./pages/Production";
 import {Packaging} from "./pages/Packaging";
 import {Partner} from "./pages/Partner";
 import {Contacts} from "./pages/Contacts";
+import {Good} from "./pages/Good";
 
 
 const cartItemField = 'cartItems';
@@ -76,6 +77,9 @@ const App = () => {
                             </Route>
                             <Route path='/catalog'>
                                 <Catalog/>
+                            </Route>
+                            <Route path='/good'>
+                                <Good/>
                             </Route>
                             <Route path='/pack'>
                                 <Pack/>

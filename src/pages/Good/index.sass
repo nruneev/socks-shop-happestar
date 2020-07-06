@@ -1,32 +1,266 @@
 @import '../../variables'
 
-.wrapper
+.rub-symbol
+  font-family: "Circe"
+  font-style: normal
+  color: inherit
+
+.wrapperss
   min-width: 320px
   max-width: 767px
   padding-right: 10px
   padding-left: 10px
-  margin: 150px auto 0
+  background: white
+  border-radius: 1px
+  margin: 150px auto 111px
 
-.wrapper--indent-pb-small
-  padding-bottom: 30px
+  .prod
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    -webkit-flex-wrap: wrap
+    -ms-flex-wrap: wrap
+    flex-wrap: wrap
+    min-height: 800px
+    overflow: hidden
 
-.wrapper--flex
-  display: -webkit-box
-  display: -webkit-flex
-  display: -ms-flexbox
-  display: flex
-  -webkit-flex-wrap: wrap
-  -ms-flex-wrap: wrap
-  flex-wrap: wrap
-  -webkit-box-pack: justify
-  -webkit-justify-content: space-between
-  -ms-flex-pack: justify
-  justify-content: space-between
-  -webkit-box-align: start
-  -webkit-align-items: flex-start
-  -ms-flex-align: start
-  align-items: flex-start
+    .photos
+      padding-bottom: 90px
+      position: relative
+      width: 60%
+
+      .main-wrap
+        height: 700px
+        position: absolute
+        width: calc(100% - 100px)
+
+        img
+          left: 50%
+          max-height: 80%
+          max-width: 80%
+          position: absolute
+          top: 40%
+          -webkit-transform: translate(-50%, -50%)
+          transform: translate(-50%, -50%)
+
+    .content
+      border-left: 1px solid #EBF0F3
+      padding: 12px 0px 12px 20px
+      width: 40%
+      margin-left: auto
+
+      .title
+        color: #000
+        font-weight: 700
+        font-family: 'Bebas Neue'
+        font-size: 36px
+        text-align: left
+        letter-spacing: 1.7px
+        margin-top: 10px
+        margin-bottom: 20px
+        text-transform: uppercase
+
+      .info
+        border-bottom: 1px solid #EBF0F3
+        border-top: 1px solid #EBF0F3
+        margin: 10px 0
+        padding: 15px 0
+
+        .art
+          color: #4a4a4a
+          font-size: 14px
+          letter-spacing: 0.3px
+          margin-bottom: 20px
+          padding-left: 110px
+          position: relative
+
+          &:before
+            content: attr(data-title)
+            font-size: 12px
+            font-weight: 700
+            left: 1px
+            letter-spacing: 1.2px
+            position: absolute
+            text-transform: uppercase
+            top: 1px
+            width: 70px
+
+        .colors
+          margin: 20px 0
+          padding-left: 102px
+          position: relative
+
+          &:before
+            font-size: 12px
+            content: attr(data-title)
+            left: 0
+            position: absolute
+            text-transform: uppercase
+            width: 60px
+            display: flex
+            align-items: center
+            line-height: normal
+            letter-spacing: 1.4px
+            font-weight: 600
+            color: #000
+            top: 8px
+
+          li
+            display: inline-block
+            margin-left: 8px
+
+            span
+              display: inline-block
+              height: 30px
+              vertical-align: top
+              width: 30px
+
+              &:after
+                content: ''
+                position: absolute
+                width: 25px
+                height: 25px
+                border: 1px solid #1D1D1D
+
+        .sizes
+          padding-left: 85px
+          position: relative
+
+          &:before
+            color: #010101
+            font-size: 12px
+            content: attr(data-title)
+            left: 0
+            position: absolute
+            text-transform: uppercase
+            width: 60px
+            line-height: normal
+            letter-spacing: 1.4px
+            font-weight: 600
+            top: 16px
+
+          li
+            cursor: pointer
+            display: inline-block
+            height: 30px
+            line-height: 30px
+            margin: 0 0 9px 3px
+            text-align: center
+            transition: .4s
+            border: 1px solid #D8E1E5
+            background: #fff
+            width: 60px
+            font-size: 12px
+            letter-spacing: 0.2px
+            font-weight: 600
+            color: #5D5D5D
+
+            &:hover
+              border: 1px solid #5D5D5D
+
+      .cost
+        display: flex
+        align-items: center
+        margin: 15px 0
+        margin-top: 18px
+
+        .cur
+          font-size: 30px
+          font-weight: 600
+          letter-spacing: 0.5px
+          font-size: 32px
+
+      .btns
+        margin: 15px 0
+
+        ._incart
+            background: #000
+            border-radius: 1px
+            border: none
+            color: #fff
+            cursor: pointer
+            font-size: 12px
+            height: 40px
+            position: relative
+            text-transform: uppercase
+            transition: .15s ease-in-out
+            vertical-align: top
+            width: 245px
+            white-space: nowrap
+            letter-spacing: 0.7px
+            font-weight: 600
+
+      .descr
+        height: fit-content
+        padding: 15px 0
+        word-wrap: break-word
+        font-size: 14px
+        letter-spacing: .81px
+
 
 @media (min-width: 1000px)
-  .wrapper
+  .wrapperss
     max-width: 1320px
+
+    .prod
+      min-height: 600px
+
+      .content
+        padding: 10px 0 0 10px
+
+        .title
+          font-size: 30px
+          letter-spacing: 1px
+          margin: 10px 0 5px
+
+
+        .info
+          margin: 5px 0
+          padding: 10px 0
+
+          .art
+            padding-left: 90px
+
+          .colors
+            margin: 10px 0
+            padding-left: 88px
+
+            &:before
+              font-size: 10px
+
+            li
+              margin-left: 5px
+
+              span
+                height: 25px
+                width: 25px
+
+          .sizes
+            font-size: 11px
+            padding: 10px 0 0 70px
+            padding-left: 85px
+
+            &:before
+              font-size: 10px
+              top: 18px
+
+            li
+              height: 25px
+              line-height: 25px
+              margin: 0 0 5px 3px
+              width: 50px
+
+        .cost
+          margin: 10px 0
+
+          .cur
+            font-size: 25px
+            letter-spacing: 1px
+
+        .btns
+          margin: 5px 0
+
+          ._incart
+            height: 35px
+            letter-spacing: 0
+            width: 180px

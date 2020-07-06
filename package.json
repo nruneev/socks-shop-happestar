@@ -2,7 +2,7 @@
   "name": "hpstar",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "/",
   "dependencies": {
     "ra-data-json-server": "^3.6.2",
     "react": "^16.13.0",

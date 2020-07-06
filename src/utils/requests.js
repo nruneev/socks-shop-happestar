@@ -45,7 +45,7 @@ export async function get_instagram_photos() {
 
  export const get_items = async () => {
     let result =[];
-    let sizes = ['35 - 39', '39 - 43'];
+    let sizes = ['35 - 39'];
     let response = [];
     let tags = ['Серый', 'Черный', 'Белый', 'Красный', 'Оранжевый', 'Желтый', 'Зеленый', 'Розовый', 'Синий', 'Разноцветный'];
     let itemss = await fetch ('/php/tovarList.php')
@@ -57,12 +57,13 @@ export async function get_instagram_photos() {
         let parent = result[j];
         response.push({
             id: parent.id,
+            article: parent.article,
             src: parent.photoMain,
             name: parent.name,
             cost: parent.price,
             discount: 15,
             prev_cost: parent.price,
-            sizes: sizes.slice(0, ((Math.random() * 2 ^ 0) + 1)),
+            sizes: sizes,
             status: parent.new,
             tags: [tags[parent.color - 1]]
          });

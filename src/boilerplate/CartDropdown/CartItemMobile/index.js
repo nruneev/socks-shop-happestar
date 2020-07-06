@@ -19,7 +19,7 @@ const CartItemMobile = ({ item, removeItem }) => {
                 <div className="desc">
                     <p>
                         <span>Арт.</span>
-                        MHD096-SMALL1-PK19
+                        {item.article}
                     </p>
                     <p>
                         <span>Размер:</span>

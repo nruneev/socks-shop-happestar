@@ -44,11 +44,11 @@ const ItemCard = ({ item, width }) => {
     return (
         <article className={'product ' + statusClass}>
             <div className="product__wrap">
-                <a href="/" className='product__image-wrap'>
+                <a href={"/good?id=" + item.id} className='product__image-wrap'>
                     <img className="product__image " src={item.src} alt={item.name}/>
                 </a>
                 <h3 className="product__title">
-                    <a href="/">{item.name}</a>
+                    <a href={"//good?id=" + item.id}>{item.name}</a>
                 </h3>
                 <ToggleButtons buttons={item.sizes} activeId={activeSize} setActiveId={(id) => {
                     let count = itemInCart ? itemInCart.count : 1;

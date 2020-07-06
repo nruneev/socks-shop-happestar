@@ -12,7 +12,7 @@ const CartItem = ({ item, removeItem }) => {
     return (
         <tr className='tr goodInCart'>
             <td>
-                <p className="art">MSS073-BIRD01-NV18</p>
+                <p className="art">{item.article}</p>
             </td>
             <td>
                 <a className="img" href="#">
