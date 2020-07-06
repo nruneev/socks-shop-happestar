@@ -29,10 +29,18 @@ const Good = () => {
             })
     });
 
-    const { setItem, cartItems } = useContext(CartContext);
+    const {setItem, cartItems } = useContext(CartContext);
+    const sizes = ['35 - 39'];
+    let isAdd = false;
     let itemInCart = cartItems.find((el) => el.id === item.id);
+    if (itemInCart) {
+        isAdd = true;
+    } else {
+        itemInCart = item;
+        itemInCart.count = 0;
+    }
     let [activeSize, setActiveSize] = useState(0);
-
+    let classNamess = '';
     return (
         <div className='wrapperss'>
             <div className="prod">
@@ -58,15 +66,29 @@ const Good = () => {
                         </ul>
 
                         <ul className="sizes " data-title="размер">
-                            <li className=" " data-total="4" onClick={() => setActiveSize(id)} data-good-id="1" data-size="L">L</li>
+                            {sizes.map((size, key) => {
+                                classNamess = isAdd ? "act" : "";
+                                let className = activeSize === key ? "active" : "";
+                                return <li className={className} onClick={() => setActiveSize(key)}>{size}</li>
+                            })}
                         </ul>
+
+                        <div className="art" data-title="количество">
+                            <td className="count">
+                                <ul className="_counter_">
+                                    <li className="_minus" onClick={() => setItem(itemInCart, --itemInCart.count)}>–</li>
+                                    <li className="_num">{itemInCart.count}</li>
+                                    <li className="_plus" onClick={() => setItem(itemInCart, ++itemInCart.count)}>+</li>
+                                </ul>
+                            </td>
+                        </div>
                     </div>
                     <div className="cost ">
                         <span className="cur _rub_">{item.cost} <i className="rub-symbol">₽</i></span>
                     </div>
                     <div className="btns">
-                        <button onClick={() => setItem(item)} className="_incart  js---buy-btn">
-                            Положить в корзину
+                        <button onClick={() => isAdd ? null : setItem(item)} className={"_incart  js---buy-btn " + classNamess}>
+                            {isAdd ? "Товар уже в корзине" : "Положить в корзину"}
                         </button>
                     </div>
                     <div className="descr">

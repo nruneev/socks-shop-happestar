@@ -11,11 +11,11 @@ const CartItemMobile = ({ item, removeItem }) => {
 
     return (
         <li className="list goodsInCartMobile">
-            <a href="#" className="img">
+            <a href={"/good?id=" + item.id} className="img">
                 <img src={item.src} alt={item.name}/>
             </a>
             <div className="info">
-                <a href="#" className="name">{item.name}</a>
+                <a href={"/good?id=" + item.id} className="name">{item.name}</a>
                 <div className="desc">
                     <p>
                         <span>Арт.</span>
