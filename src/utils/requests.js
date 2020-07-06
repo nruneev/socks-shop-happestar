@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import {request_to_instagram} from "./instagram";
 
-import url from '../server.config.js';
 
 const LIMIT_OF_INSTAGRAM_PHOTOS = 18;
 
@@ -18,8 +17,6 @@ export async function get_instagram_photos() {
 }
 
  export async function get_attention_photos() {
-    let attetion_url = url.host + url.links.get_attention_photos;
-
     try {
         return attentions;
     }
@@ -27,14 +24,9 @@ export async function get_instagram_photos() {
         console.error(e);
     }
 }
-//
+
  export async function get_banners() {
-    // let banners_url = url.host + url.links.get_banners;
-
     try {
-        // let res = await fetch(banners_url);
-        // let images = await res.json();
-
         return banners;
     }
     catch (e) {
@@ -51,13 +43,32 @@ export async function get_instagram_photos() {
      }
  }
 
- export const get_items = () => {
-     return items;
+ export const get_items = async () => {
+    let result =[];
+    let sizes = ['35 - 39', '39 - 43'];
+    let response = [];
+    let tags = ['Серый', 'Черный', 'Белый', 'Красный', 'Оранжевый', 'Желтый', 'Зеленый', 'Розовый', 'Синий', 'Разноцветный'];
+    let itemss = await fetch ('/php/tovarList.php')
+         .then(function(response){ return response.json(); })
+         .then(function(data) {
+             result = data;
+         }).catch(reason => console.log(reason));
+    for (let j = 0; j < result.length; j++) {
+        let parent = result[j];
+        response.push({
+            id: parent.id,
+            src: parent.photoMain,
+            name: parent.name,
+            cost: parent.price,
+            discount: 15,
+            prev_cost: parent.price,
+            sizes: sizes.slice(0, ((Math.random() * 2 ^ 0) + 1)),
+            status: parent.new,
+            tags: [tags[parent.color - 1]]
+         });
+     }
+     return  response;
 };
-
- export const get_tags = () => {
-     return tagsList;
- };
 
 export const useFetch = (fetchCall, defaultVal) => {
      const [response, setResponse] = useState(defaultVal);
@@ -137,75 +148,6 @@ const attentions = [
         text: 'Идеальная пара\n твоему\n настроению'
     }
 ];
-
-const photos = [
-    {
-        src: require('../image/inst_4.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_2.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_1.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_3.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_5.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_6.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_7.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_8.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_9.jpg'),
-        link: '#'
-    },
-    {
-        src: require('../image/inst_10.jpg'),
-        link: '#'
-    },
-];
-
-let items = new Array(25);
-
-let tagsList = ['Японские', 'Аниме', 'Фантастические', 'Космические', 'С Животными'];
-
-let names = ['', 'Змей лун', 'Карпы кои', 'Colonizer mask', 'Игуана', 'Axegao', "Let's celebrate", 'Happy2020', 'Cute winter moments',
-    'ho-ho-ho', 'Экспрессия'];
-
-let sizes = ['35 - 39', '39 - 43'];
-
-for (let i = 1; i < 21; i++) {
-    let size = (Math.random() * tagsList.length) ^ 0;
-    let tags = new Array(size).fill(0).map(() => tagsList[(Math.random() * tagsList.length) ^ 0]);
-    let j = i > 10 ? i-10 : i;
-    items[i] = {
-        id: i,
-        src: require('../image/item_' + j + '.jpg'),
-        name: names[j],
-        cost: 850,
-        discount: 15,
-        prev_cost: 1000,
-        sizes: sizes.slice(0, ((Math.random() * 2 ^ 0) + 1)),
-        status: (Math.random() * 3) ^ 0,
-        tags
-    };
-}
 
 export const STATUS = Object.freeze({
     NONE: 0,

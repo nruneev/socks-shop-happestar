@@ -4,7 +4,9 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "ra-data-json-server": "^3.6.2",
     "react": "^16.13.0",
+    "react-admin": "^3.6.2",
     "react-burger-menu": "^2.6.13",
     "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",
