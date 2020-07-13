@@ -1,6 +1,6 @@
 import './app.sass'
 import React, { useState, useEffect } from 'react'
-import { CartContext } from './utils/contexts';
+import {CartContext, PackContext} from './utils/contexts';
 import { Header } from './components/Header'
 import { Main } from './pages/Main';
 import { Catalog } from './pages/Catalog';
@@ -12,20 +12,21 @@ import {
 } from 'react-router-dom';
 import {Pack} from "./pages/Pack";
 import {PayAndDelivery} from "./pages/PayAndDelivery";
-import {BrandHistory} from "./pages/BrandHistory";
-import {Production} from "./pages/Production";
-import {Packaging} from "./pages/Packaging";
 import {Partner} from "./pages/Partner";
 import {Contacts} from "./pages/Contacts";
 import {Good} from "./pages/Good";
 
 
 const cartItemField = 'cartItems';
+const packItemField = 'packItems';
 
 
 const App = () => {
     let cartItemsSaved = JSON.parse(localStorage.getItem(cartItemField)) || [];
     let [cartItems, setItemsCart] = useState(cartItemsSaved);
+
+    let packItemsSaved = JSON.parse(localStorage.getItem(packItemField)) || [];
+    let [packItems, setItemPack] = useState(packItemsSaved);
 
     const removeItem = (id) => setItemsCart(cartItems.filter((el) => el.id !== id));
 
@@ -55,6 +56,34 @@ const App = () => {
         }
     };
 
+    const removeItemPack = (id) => setItemPack(packItems = packItems.filter((el) => el.id !== id));
+
+    const setItemsPack = (item, count) => {
+        let packItem, index;
+        for(let i = 0; i < packItems.length; i++) {
+            let el = packItems[i];
+            if(el.id === item.id) {
+                packItem = el;
+                index = i;
+                break;
+            }
+        }
+
+        if (count < 1) {
+            setItemPack([...packItems.slice(0, index), ...packItems.slice(index + 1, packItems.length)]);
+            return;
+        }
+
+        if(packItem) {
+            packItem.count = count;
+            setItemPack([...packItems.slice(0, index), packItem, ...packItems.slice(index + 1, packItems.length)]);
+        }
+        else {
+            packItem = {...item, count: 1};
+            setItemPack([...packItems, packItem]);
+        }
+    };
+
     let [isOpened, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -63,50 +92,43 @@ const App = () => {
     });
 
     return (
-        <CartContext.Provider value={{ cartItems, setItem: setItem, removeItem }}>
-            <div className='app' id='app'>
-                    <Router>
-                        <BurgerMenu isOpen={isOpened} closeMenu={() => setIsOpen(false)}/>
-                        <div id='rest'>
-                            <Header openMenu={() => setIsOpen(true)}/>
-                            <Route path='/' exact>
-                                <Main/>
-                            </Route>
-                            <Route path='/happestar' exact>
-                                <Main/>
-                            </Route>
-                            <Route path='/catalog'>
-                                <Catalog/>
-                            </Route>
-                            <Route path='/good'>
-                                <Good/>
-                            </Route>
-                            <Route path='/pack'>
-                                <Pack/>
-                            </Route>
-                            <Route path='/partner'>
-                                <Partner/>
-                            </Route>
-                            <Route path='/pay-and-delivery'>
-                                <PayAndDelivery/>
-                            </Route>
-                            <Route path='/brand-history'>
-                                <BrandHistory/>
-                            </Route>
-                            <Route path='/production'>
-                                <Production/>
-                            </Route>
-                            <Route path='/packaging'>
-                                <Packaging/>
-                            </Route>
-                            <Route path='/contacts'>
-                                <Contacts/>
-                            </Route>
-                            <Footer/>
-                        </div>
-                    </Router>
-            </div>
-        </CartContext.Provider>
+        <PackContext.Provider value={{ packItems, setItem: setItemsPack, removeItemPack}}>
+            <CartContext.Provider value={{ cartItems, setItem: setItem, removeItem }}>
+                <div className='app' id='app'>
+                        <Router>
+                            <BurgerMenu isOpen={isOpened} closeMenu={() => setIsOpen(false)}/>
+                            <div id='rest'>
+                                <Header openMenu={() => setIsOpen(true)}/>
+                                <Route path='/' exact>
+                                    <Main/>
+                                </Route>
+                                <Route path='/happestar' exact>
+                                    <Main/>
+                                </Route>
+                                <Route path='/catalog'>
+                                    <Catalog/>
+                                </Route>
+                                <Route path='/good'>
+                                    <Good/>
+                                </Route>
+                                <Route path='/pack'>
+                                    <Pack/>
+                                </Route>
+                                <Route path='/partner'>
+                                    <Partner/>
+                                </Route>
+                                <Route path='/pay-and-delivery'>
+                                    <PayAndDelivery/>
+                                </Route>
+                                <Route path='/contacts'>
+                                    <Contacts/>
+                                </Route>
+                                <Footer/>
+                            </div>
+                        </Router>
+                </div>
+            </CartContext.Provider>
+        </PackContext.Provider>
     )
 };
 

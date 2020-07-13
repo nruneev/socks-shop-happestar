@@ -31,6 +31,17 @@ export async function get_item(id) {
     return  result;
 }
 
+export async function get_promo(promo) {
+    let result =[];
+    await fetch('/php/promo.php?promo=' + promo)
+        .then(function(response){ return response.json(); })
+        .then(function(data) {
+            result = data;
+            console.log(result);
+        }).catch(reason => console.log(reason));
+    return  result;
+}
+
 export function useWindowWidth() {
     const [width, setWidth] = useState(0);
     useLayoutEffect(() => {

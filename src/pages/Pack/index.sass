@@ -1,5 +1,22 @@
 @import "../../variables"
 
+.button
+  width: 100%
+  display: none
+  height: 40px
+  background: black
+  color: white
+  font-weight: bolder
+  text-transform: uppercase
+
+.shw
+  display: block
+
+.chsn
+  border: 1px solid #5d5d5d !important
+  background: black
+  color: white !important
+
 .wrapper
   min-width: 320px
   max-width: 767px
@@ -86,6 +103,49 @@
         background: #000
         border-color: #000
         color: #fff
+
+
+    .options
+      color: #5d5d5d
+      list-style: none
+      font-size: 16px
+      letter-spacing: .96px
+      margin: 10px 0
+      overflow: hidden
+      text-transform: uppercase
+
+      li
+        -webkit-border-radius: 1px
+        border-radius: 50%
+        border: 1px solid #d8e1e5
+        cursor: pointer
+        float: left
+        height: 37px
+        margin: 0 0 7px 7px
+        line-height: 37px
+        text-align: center
+        -webkit-transition: .4s
+        -o-transition: .4s
+        transition: .4s
+        width: 37px
+        padding: 0 10px
+        color: #5d5d5d
+
+      li:hover
+        color: #000
+        border-color: #000
+
+      .active
+        background: #000
+        border-color: #000
+        color: #fff
+
+    .four, .six, .eight
+      display: none
+
+    .vis
+      display: block!important
+
 
   .order
     width: 100%

@@ -1,17 +1,39 @@
 import './index.sass'
-import React from 'react';
+import React, {useState} from 'react';
 import { CartItem } from '../CartItem';
 import {useTranslation} from "react-i18next";
 import {IoMdClose} from "react-icons/io";
 import {CartItemMobile} from "../CartItemMobile";
+import {get_promo} from "../../../utils/helpers";
 
 
 const CartBlock = ({ items, removeItem, closeCart }) => {
+
+        let promo = '';
+        let promo_price = localStorage.getItem('promo_price') ? localStorage.getItem('promo_price') : 0;
+
+        let [totalPrice, setPrice] = useState([]);
+
         const { t } = useTranslation();
 
-        let totalCoast = 0;
 
-        items.map((item, key) => totalCoast += (item.cost * item.count));
+        const promoSet = (el) => {
+            promo = el.target.value;
+        }
+
+        const promoFetch = () => {
+            console.log(promo);
+            get_promo(promo).then((result) => {
+                promo_price = parseInt(result.price, 10);
+                localStorage.setItem('promo_price', promo_price);
+                setPrice(totalPrice = 0);
+                setPrice(0);
+            })
+        }
+
+        console.log(promo_price);
+
+        items.map((item, key) => totalPrice += (item.cost * item.count));
 
         if (items.length > 0) {
             return (
@@ -45,8 +67,9 @@ const CartBlock = ({ items, removeItem, closeCart }) => {
                                                           className="promo  table-form" method="post">
                                                         <input type="text" placeholder="Введите промокод"
                                                                name="promocode" required="" className="valid"
+                                                               onChange={promoSet}
                                                                aria-invalid="false"/>
-                                                        <button className="_btn_ _white" type="submit">
+                                                        <button onClick={() => promoFetch()} className="_btn_ _white" type="button">
                                                             применить
                                                         </button>
                                                     </form>
@@ -56,7 +79,7 @@ const CartBlock = ({ items, removeItem, closeCart }) => {
                                                         <div className="table-price__wrap">
                                                             <div className="table-price__row table-price__value">
                                                                 <p>Итого:</p>
-                                                                <span>{totalCoast}&nbsp;<i className="rub-symbol">₽</i></span>
+                                                                <span>{parseInt(totalPrice, 10) - promo_price}&nbsp;<i className="rub-symbol">₽</i></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -81,8 +104,9 @@ const CartBlock = ({ items, removeItem, closeCart }) => {
                                           className="promo  table-form" method="post">
                                         <input type="text" placeholder="Введите промокод"
                                                name="promocode" required="" className="valid"
+                                               onChange={promoSet}
                                                aria-invalid="false"/>
-                                        <button className="_btn_ _white" type="submit">
+                                        <button onClick={() => promoFetch()} className="_btn_ _white" type="button">
                                             применить
                                         </button>
                                     </form>
@@ -92,7 +116,7 @@ const CartBlock = ({ items, removeItem, closeCart }) => {
                                         <div className="table-price__wrap">
                                             <div className="table-price__row table-price__value">
                                                 <p>Итого:</p>
-                                                <span>{totalCoast}&nbsp;<i className="rub-symbol">₽</i></span>
+                                                <span>{parseInt(totalPrice, 10) - promo_price}&nbsp;<i className="rub-symbol">₽</i></span>
                                             </div>
                                         </div>
                                     </div>

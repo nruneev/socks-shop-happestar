@@ -29,9 +29,6 @@ const BurgerMenu = ({ isOpen, closeMenu }) => {
             <Link className='menu-item' to='/pack' onClick={closeMenu}><FiPackage/>Собрать свой набор</Link>
             <Link className='menu-item' to='/partner' onClick={closeMenu}><FaRegHandshake/>Стать партнером</Link>
             <Link className='menu-item' to='/pay-and-delivery' onClick={closeMenu}><MdPayment/>Оплата и доставка</Link>
-            <Link className='menu-item' to='/brand-history' onClick={closeMenu}><MdHistory/>История бренда</Link>
-            <Link className='menu-item' to='/production' onClick={closeMenu}><GiFactory/>Производство</Link>
-            <Link className='menu-item' to='/packaging' onClick={closeMenu}><GoPackage/>Упаковка</Link>
             <Link className='menu-item' to='/contacts' onClick={closeMenu}><IoMdContacts/>Контакты</Link>
         </Menu>
     )

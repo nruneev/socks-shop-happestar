@@ -11,10 +11,10 @@ const ImageSlider = ({ className, images, timeout = 3000 }) => {
     useEffect(() => intervalChangeId(getNextImage(images), setActiveId, timeout), [images, timeout]);
 
     return (
-        <div className={'carousel ' + classForSliderName}>
+        <div className={'carouseler ' + classForSliderName}>
             {images.map((image, key) => {
                 let imgClassName = key === activeId ? 'active' : '';
-                return (<Image className={'img-block ' + imgClassName} image={image} key={key}/>)})}
+                return (<Image className={'img-blocker ' + imgClassName} image={image} key={key}/>)})}
             <ToggleButtons images={images} activeId={activeId} setActiveId={setActiveId}/>
         </div>
     )
