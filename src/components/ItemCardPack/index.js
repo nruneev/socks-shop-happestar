@@ -28,10 +28,11 @@ const ItemCardPack = ({ item, width }) => {
 
     let button = itemInCart ?
         <p className='active'>
-            <span>
-                Вы выбрали!
+            <div className='info'>
+                <label className='cost'>{item.cost}₽</label>
                 <FaTrashAlt className='trash' onClick={() => removeItemPack(item.id)}/>
-            </span>
+            </div>
+            <button onClick={() => setItem(item)}><FaCartArrowDown/></button>
         </p> :
         <>
             <div className='info'>

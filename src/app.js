@@ -60,6 +60,7 @@ const App = () => {
 
     const setItemsPack = (item, count) => {
         let packItem, index;
+        item.id = Math.abs(Math.random() * 100);
         for(let i = 0; i < packItems.length; i++) {
             let el = packItems[i];
             if(el.id === item.id) {

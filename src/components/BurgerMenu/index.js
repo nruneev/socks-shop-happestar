@@ -4,8 +4,6 @@ import React from 'react'
 import { FaBuffer, FaRegHandshake, FaHome } from 'react-icons/fa';
 import { FiPackage }  from 'react-icons/fi';
 import { MdPayment, MdHistory } from 'react-icons/md';
-import { GiFactory } from 'react-icons/gi';
-import { GoPackage } from 'react-icons/go';
 import { IoMdContacts, IoMdClose } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
