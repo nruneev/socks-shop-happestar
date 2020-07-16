@@ -45,7 +45,7 @@ export async function get_instagram_photos() {
 
  export const get_items = async () => {
     let result =[];
-    let sizes = ['35 - 39', '40 - 45'];
+    let sizes = ['35 - 39'];
     let response = [];
     let tags = ['Серый', 'Черный', 'Белый', 'Красный', 'Оранжевый', 'Желтый', 'Зеленый', 'Розовый', 'Синий', 'Разноцветный'];
     let itemss = await fetch ('/php/tovarList.php')
@@ -55,14 +55,12 @@ export async function get_instagram_photos() {
          }).catch(reason => console.log(reason));
     for (let j = 0; j < result.length; j++) {
         let parent = result[j];
-        console.log(parent)
         response.push({
             id: parent.id,
             article: parent.article,
             src: parent.photoMain,
             name: parent.name,
             cost: parent.price,
-            new: parent.new,
             discount: 15,
             prev_cost: parent.price,
             sizes: sizes,
@@ -92,15 +90,15 @@ export const useFetch = (fetchCall, defaultVal) => {
 const features = [
     {
         class: 'feature-1',
-        text: 'Курьерская доставка по всей России'
+        text: 'Доставка по всей России'
     },
     {
         class: 'feature-2',
-        text: 'Несколько размеров на выбор и бесплатная примерка'
+        text: 'Бесплатная доставка по СПб от 3000 руб'
     },
     {
         class: 'feature-3',
-        text: 'Удобные способы оплаты: онлайн или при получении'
+        text: 'Оплата при получении'
     },
     {
         class: 'feature-4',
@@ -112,32 +110,30 @@ const banners = [
     {
         src: require('../image/banner_1.jpg'),
         text: 'new',
-        link: '/catalog'
+        link: '/catalog?new=1'
     },
     {
         src: require('../image/banner_2.jpg'),
         text: 'sale',
-        link: '/catalog'
+        link: '/catalog?sale=1'
     },
     {
         src: require('../image/banner_2.jpg'),
-        text: 'best',
-        link: '#'
-    },
-    {
-        src: require('../image/banner_1.jpg'),
         text: 'feature',
-        link: '#'
+        link: '/catalog?best=1'
     },
     {
         src: require('../image/banner_1.jpg'),
-        text: 'new',
-        link: '#'
+    },
+    {
+        src: require('../image/banner_1.jpg'),
+        text: 'Собрать свой набор',
+        link: '/pack'
     },
     {
         src: require('../image/banner_2.jpg'),
-        text: 'sale',
-        link: '#'
+        text: 'Каталог',
+        link: '/catalog'
     }
 ];
 
