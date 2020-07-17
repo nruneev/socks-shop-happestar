@@ -16,17 +16,7 @@ const Main = () => {
             <AttentionBlock attentions={attentions} features={features}/>
             <div className='content'>
                 <BannersBlock banners={banners}/>
-                <div className="container">
-                    <div className="wrapper  product-wrap">
-                        <h2 className="title  title--x2">
-                            Лучшие товары
-                        </h2>
-                        <div className="tabs  js---tab-block">
-                            <div className="tabs__nav">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <div className="wrapper">
                     <section className="descr">
                         <div className="descr__wrap">
