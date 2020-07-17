@@ -38,7 +38,7 @@ const CartItem = ({ item, removeItem }) => {
                 <p className="sum _rub_ total">{item.cost * item.count}Р</p>
             </td>
 
-            <td>
+            <td className='trash_td'>
                 <FaTrashAlt className='trash' onClick={() => removeItem(item.id)}/>
             </td>
         </tr>

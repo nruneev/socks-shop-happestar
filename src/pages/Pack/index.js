@@ -13,9 +13,11 @@ const Pack = () => {
     const {packItems, removeItemPack} = useContext(PackContext);
     const {setItem} = useContext(CartContext);
 
-    let length_nabor = [4, 6, 8];
+    let length_nabor = [3, 4, 5, 6, 8];
 
+    const num_three = [1, 2, 3];
     const num_four = [1, 2, 3, 4];
+    const num_five = [1, 2, 3, 4, 5];
     const num_six = [1, 2, 3, 4, 5, 6];
     const num_eight = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -26,7 +28,9 @@ const Pack = () => {
         console.log(packItems);
     }
 
+    let class_three = '';
     let class_four = '';
+    let class_five = '';
     let class_six = '';
     let class_eight = '';
 
@@ -72,8 +76,22 @@ const Pack = () => {
                                 length_nabor.map((el) => {
                                     let classNamer = el === lengthNabor ? "active" : "";
                                     if(el === lengthNabor ) {
-                                        if (el === 4) {
+                                        if (el === 3) {
+                                            class_three = 'vis';
+                                            class_four = '';
+                                            class_five = ''
+                                            class_six = '';
+                                            class_eight = '';
+                                        } else if (el === 4) {
+                                            class_three = '';
                                             class_four = 'vis';
+                                            class_five = '';
+                                            class_six = '';
+                                            class_eight = '';
+                                        } else if (el === 5) {
+                                            class_three = '';
+                                            class_four = '';
+                                            class_five = 'vis'
                                             class_six = '';
                                             class_eight = '';
                                         } else if(el === 6) {
@@ -94,8 +112,22 @@ const Pack = () => {
                                 })
                             }
                         </ul>
+                        <ul className={"options three" + class_three}>
+                            {num_three.map((el, key) => {
+                                let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
+                                classButton = packItems.length === lengthNabor ? 'shw' : '';
+                                return <li className={'option ' + classNamer}>{el}</li>;
+                            })}
+                        </ul>
                         <ul className={"options four" + class_four}>
                             {num_four.map((el, key) => {
+                                let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
+                                classButton = packItems.length === lengthNabor ? 'shw' : '';
+                                return <li className={'option ' + classNamer}>{el}</li>;
+                            })}
+                        </ul>
+                        <ul className={"options five" + class_five}>
+                            {num_five.map((el, key) => {
                                 let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
                                 classButton = packItems.length === lengthNabor ? 'shw' : '';
                                 return <li className={'option ' + classNamer}>{el}</li>;

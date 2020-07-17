@@ -5,7 +5,7 @@ import { ItemCard } from '../ItemCard';
 
 const CatalogList = ({ items, activeTags, activeSizes }) => {
 
-    const sort = ['name', 'cost'];
+    const sort = ['cost', 'new'];
     let [sort_type, changeSort] = useState([]);
 
      let activeItems = items.filter((item) => {
@@ -21,12 +21,12 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
      const changeSorts = (type) => {
          let oder = "";
 
-         if (type === "name") {
+         if (type === "new") {
              if (type === sort_type[0]) {
                  items = items.reverse();
                  oder = 'desc';
              } else {
-                 items = items.sort((a, b) => a.name > b.name ? 1 : -1);
+                 items = items.sort((a, b) => a.new > b.new ? 1 : -1);
                  oder = 'asc';
              }
          } else {
@@ -39,7 +39,7 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
              }
          }
          changeSort(sort_type = [type, oder]);
-    }
+     }
 
     return (
         <div className='content  content--indent-mt'>
@@ -49,9 +49,10 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
                     {
                         sort.map((size, key) =>  {
                         let className = sort_type[0] === size ? 'active' : '';
-                        let text = size === "name" ? 'названию' : 'цене';
+                        let text = size === "new" ? 'новизне' : 'цене';
                         return <li onClick={() => changeSorts(size)} key={key} className={className}><span>по</span> {text}</li>
                     } )}
+                    <li><span>по</span> скидке</li>
                 </ul>
             </div>
             <div className="list goodsContainer _2c">
