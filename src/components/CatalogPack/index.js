@@ -57,7 +57,7 @@ const CatalogListPack = ({ items, activeTags, activeSizes }) => {
                 </ul>
             </div>
             <div className="list goodsContainer _2c">
-                {activeItems.map((item, key) => <ItemCardPack item={item} key={key}/>)}
+                {activeItems.map((item, key) => <ItemCardPack size={activeSizes} item={item} key={key}/>)}
             </div>
         </div>
     )

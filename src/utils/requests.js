@@ -45,7 +45,7 @@ export async function get_instagram_photos() {
 
  export const get_items = async () => {
     let result =[];
-    let sizes = ['35 - 39'];
+    let sizes = ['35 - 39', '40 - 45'];
     let response = [];
     let tags = ['Серый', 'Черный', 'Белый', 'Красный', 'Оранжевый', 'Желтый', 'Зеленый', 'Розовый', 'Синий', 'Разноцветный'];
     let itemss = await fetch ('/php/tovarList.php')

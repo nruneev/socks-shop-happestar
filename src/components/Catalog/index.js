@@ -6,6 +6,9 @@ import { ItemCard } from '../ItemCard';
 const CatalogList = ({ items, activeTags, activeSizes }) => {
 
     const sort = ['cost', 'new'];
+
+    console.log(activeSizes)
+
     let [sort_type, changeSort] = useState([]);
 
      let activeItems = items.filter((item) => {
@@ -56,7 +59,7 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
                 </ul>
             </div>
             <div className="list goodsContainer _2c">
-                {activeItems.map((item, key) => <ItemCard item={item} key={key}/>)}
+                {activeItems.map((item, key) => <ItemCard size={activeSizes} item={item} key={key}/>)}
             </div>
         </div>
     )

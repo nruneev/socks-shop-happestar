@@ -13,7 +13,7 @@ statusClasses.set(STATUS.NEW, 'new');
 statusClasses.set(STATUS.SELL, 'sell');
 
 
-const ItemCardPack = ({ item, width }) => {
+const ItemCardPack = ({ item, width, size }) => {
     if(width) {
         width -= 4;
         let items = document.getElementsByClassName('item');
@@ -24,7 +24,7 @@ const ItemCardPack = ({ item, width }) => {
     const { t } = useTranslation();
 
     let [activeSize, setActiveSize] = useState(0);
-    let itemInCart = packItems.find((el) => el.id === item.id);
+    let itemInCart = packItems.find((el) => (el.ids === item.id && el.sizes === size[0]));
 
     let button = itemInCart ?
         <p className='active'>
@@ -52,11 +52,6 @@ const ItemCardPack = ({ item, width }) => {
                 <h3 className="product__title">
                     <a href={"//good?id=" + item.id}>{item.name}</a>
                 </h3>
-                <ToggleButtons buttons={item.sizes} activeId={activeSize} setActiveId={(id) => {
-                    let count = 1;
-                    setItem(item, count);
-                    setActiveSize(id);
-                }}/>
                 <div className='item-body'>
                     {button}
                 </div>

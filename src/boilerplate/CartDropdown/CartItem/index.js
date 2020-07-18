@@ -15,10 +15,10 @@ const CartItem = ({ item, removeItem }) => {
                 <p className="art">{item.article}</p>
             </td>
             <td>
-                <a className="img" href={"/good?id=" + item.id}>
+                <a className="img" href={"/good?id=" + item.ids}>
                     <img src={item.src} alt={item.name}/>
                 </a>
-                <div className="cnt"><a href={"/good?id=" + item.id}>{item.name}</a></div>
+                <div className="cnt"><a href={"/good?id=" + item.ids}>{item.name}</a></div>
             </td>
             <td>
                 <span>{item.sizes}</span>

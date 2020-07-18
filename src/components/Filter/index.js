@@ -1,6 +1,7 @@
 import './index.sass'
-import React from 'react';
+import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
+import {ToggleButtons} from "../../boilerplate/ToggleButtonsText";
 
 
 const Filter = ({ tags, sizes, activeTags, toggleTag, activeSizes, toggleSize}) => {
@@ -15,7 +16,9 @@ const Filter = ({ tags, sizes, activeTags, toggleTag, activeSizes, toggleSize}) 
                         <ul className="tags">
                         {sizes.map((size, key) =>  {
                             let className = activeSizes.includes(size) ? 'active' : '';
-                            return <li key={key} className={'tag ' + className} onClick={() => toggleSize(size)}>{size}</li>
+                            return <li key={key} className={'tag ' + className} onClick={() => {
+                                toggleSize(size);
+                            }}>{size}</li>
                         } )}
                         </ul>
                     </div>
