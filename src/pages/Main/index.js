@@ -17,7 +17,7 @@ const Main = () => {
             <div className='content'>
                 <BannersBlock banners={banners}/>
                
-                <div className="wrapper">
+                <div className="wrapperssss">
                     <section className="descr">
                         <div className="descr__wrap">
                             <h2 className="title title--x2 descr__title">ИНТЕРНЕТ МАГАЗИН МОДНЫХ НОСКОВ</h2>
