@@ -15,10 +15,10 @@ const CartItem = ({ item, removeItem }) => {
                 <p className="art">{item.article}</p>
             </td>
             <td>
-                <a className="img" href={"/good?id=" + item.id}>
+                <a className="img" href={"/good?id=" + item.ids}>
                     <img src={item.src} alt={item.name}/>
                 </a>
-                <div className="cnt"><a href={"/good?id=" + item.id}>{item.name}</a></div>
+                <div className="cnt"><a href={"/good?id=" + item.ids}>{item.name}</a></div>
             </td>
             <td>
                 <span>{item.sizes}</span>
@@ -38,7 +38,7 @@ const CartItem = ({ item, removeItem }) => {
                 <p className="sum _rub_ total">{item.cost * item.count}Р</p>
             </td>
 
-            <td>
+            <td className='trash_td'>
                 <FaTrashAlt className='trash' onClick={() => removeItem(item.id)}/>
             </td>
         </tr>

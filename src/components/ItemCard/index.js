@@ -1,10 +1,9 @@
 import './index.sass'
 import React from 'react';
 import { CartContext } from '../../utils/contexts';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaCartArrowDown, FaTrashAlt } from 'react-icons/fa'
-import { ToggleButtons } from "../../boilerplate/ToggleButtonsText";
+import { FaCartArrowDown} from 'react-icons/fa'
 import { STATUS } from '../../utils/requests';
 
 const statusClasses = new Map();
@@ -13,7 +12,7 @@ statusClasses.set(STATUS.NEW, 'new');
 statusClasses.set(STATUS.SELL, 'sell');
 
 
-const ItemCard = ({ item, width }) => {
+const ItemCard = ({ item, width, size }) => {
     if(width) {
         width -= 4;
         let items = document.getElementsByClassName('item');
@@ -23,20 +22,38 @@ const ItemCard = ({ item, width }) => {
     const { setItem, cartItems } = useContext(CartContext);
     const { t } = useTranslation();
 
-    let [activeSize, setActiveSize] = useState(0);
-    let itemInCart = cartItems.find((el) => el.id === item.id);
+    let itemInCart = cartItems.find((el) => (el.ids === item.id && el.sizes === size[0]));
 
     let button = itemInCart ?
         <button className='active'>
-            <span onClick={() => setItem(item, --itemInCart.count)}>–</span>
+            <span onClick={() => setItem(itemInCart, --itemInCart.count)}>–</span>
             <span>{itemInCart.count}</span>
-            <span onClick={() => setItem(item, ++itemInCart.count)}>+</span>
+            <span onClick={() => setItem(itemInCart, ++itemInCart.count)}>+</span>
         </button> :
         <>
             <div className='info'>
                 <label className='cost'>{item.cost}₽</label>
             </div>
-            <button onClick={() => setItem(item)}><FaCartArrowDown/></button>
+            <button onClick={() => {
+                const activeSize = sessionStorage.getItem('size');
+                if (activeSize) {
+                    setItem({
+                        id: Math.abs(Math.random() * 100),
+                        ids: item.id,
+                        article: item.article,
+                        src: item.src,
+                        name: item.name,
+                        cost: item.cost,
+                        discount: 15,
+                        prev_cost: item.cost,
+                        status: item.status,
+                        tags: item.tags,
+                        sizes: activeSize
+                    });
+                } else {
+                    alert('Вы не выбрали размер');
+                }
+            }}><FaCartArrowDown/></button>
         </>;
 
     let statusClass = statusClasses.get(item.status);
@@ -50,11 +67,6 @@ const ItemCard = ({ item, width }) => {
                 <h3 className="product__title">
                     <a href={"//good?id=" + item.id}>{item.name}</a>
                 </h3>
-                <ToggleButtons buttons={item.sizes} activeId={activeSize} setActiveId={(id) => {
-                    let count = itemInCart ? itemInCart.count : 1;
-                    setItem(item, count);
-                    setActiveSize(id);
-                }}/>
                 <div className='item-body'>
                     {button}
                 </div>

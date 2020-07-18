@@ -54,10 +54,8 @@ function getSizes(items) {
 
 function getToggle(actives, setActives) {
     return (element) => {
-        if (actives.includes(element))
-            setActives(actives.filter((el) => el !== element));
-        else
-            setActives([...actives, element])
+        setActives(actives = [element]);
+        sessionStorage.setItem('size', element)
     };
 }
 
