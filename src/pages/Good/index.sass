@@ -5,7 +5,6 @@
   font-style: normal
   color: inherit
 
-
 .wrapper
   padding-top: 150px
 
@@ -17,6 +16,184 @@
   background: white
   border-radius: 1px
   margin: 0 auto 111px
+
+  .prod_mobile
+    display: none
+
+    .mod_top
+      padding: 1px 5px
+      width: 100%
+
+      p
+        color: #131313
+        text-transform: uppercase
+        font-size: 24px
+        line-height: 28px
+        letter-spacing: .55px
+        text-align: left
+        margin-top: 15px
+        margin-bottom: 10px
+
+    .photos
+      display: block
+      height: 300px
+      width: 100%
+      margin: 0 auto 55px
+
+    .content
+      border: none
+      display: inline-block
+      margin: 0 auto 0 0
+      padding-left: 10px
+      text-align: left
+      vertical-align: top
+      width: 100%
+      padding-bottom: 0
+
+      .info
+        border-bottom: 1px solid #ebf0f3
+        border-top: 1px solid #ebf0f3
+        margin: 5px 0
+        margin-top: 10px
+        padding: 25px 0 20px
+
+        .art
+          color: #4a4a4a
+          font-size: 14px
+          letter-spacing: 0.3px
+          margin-bottom: 20px
+          padding-left: 110px
+          position: relative
+
+          &:before
+            content: attr(data-title)
+            font-size: 12px
+            font-weight: 700
+            left: 1px
+            letter-spacing: 1.2px
+            position: absolute
+            text-transform: uppercase
+            top: 1px
+            width: 70px
+
+          .count
+            display: flex
+            margin-top: 20px
+            padding: 0!important
+
+            ._counter_
+              border-radius: 2px
+              padding: 0
+              margin-top: 0
+              list-style: none
+              border: 1px solid #d8e1e5
+              cursor: default
+              height: 35px
+              text-align: center
+              width: 95px
+
+              li
+                float: left
+                height: 100%
+                width: 33.33%
+                font-size: 15px
+                line-height: 35px
+                padding-top: 0
+                letter-spacing: 0.36px
+                color: #101010
+
+              li + li
+                border-left: 1px solid #d8e1e5
+
+              ._minus, ._plus
+                color: #8e8e8e
+                cursor: pointer
+
+        .sizes
+          padding-left: 110px
+          position: relative
+
+          &:before
+            color: #4a4a4a
+            font-size: 12px
+            content: attr(data-title)
+            left: 0
+            position: absolute
+            text-transform: uppercase
+            width: 60px
+            line-height: normal
+            letter-spacing: 1.4px
+            font-weight: 700
+            top: 16px
+
+          li
+            cursor: pointer
+            display: inline-block
+            height: 30px
+            line-height: 30px
+            margin: 0 0 9px 3px
+            text-align: center
+            transition: .4s
+            border: 1px solid #D8E1E5
+            background: #fff
+            width: 60px
+            font-size: 12px
+            letter-spacing: 0.2px
+            font-weight: 600
+            color: #5D5D5D
+
+            &:hover
+              border: 1px solid #5D5D5D
+
+          .active
+            background:  #5D5D5D
+            color: white
+
+      .cost
+        display: flex
+        align-items: center
+        margin: 15px 0
+        margin-top: 18px
+
+        .cur
+          font-size: 30px
+          font-weight: 600
+          letter-spacing: 0.5px
+          font-size: 32px
+
+      .btns
+        margin: 15px 0
+
+        ._incart
+          background: #5d5d5d
+          border-radius: 1px
+          border: none
+          color: #fff
+          cursor: pointer
+          font-size: 12px
+          height: 40px
+          position: relative
+          text-transform: uppercase
+          transition: .15s ease-in-out
+          vertical-align: top
+          width: 100%
+          white-space: nowrap
+          letter-spacing: 0.7px
+          font-weight: 600
+
+        .act
+          border: 1px solid #5d5d5d
+          background: white
+          color: #5d5d5d
+
+      .descr
+        height: fit-content
+        padding: 15px 0
+        border-bottom: 1px solid #ebf0f3
+        word-wrap: break-word
+        font-size: 14px
+        letter-spacing: .81px
+        color: #5d5d5d
 
   .prod
     display: -webkit-flex
@@ -311,3 +488,13 @@
             height: 35px
             letter-spacing: 0
             width: 180px
+
+@media(max-width: $mobile)
+  .prod_mobile
+    display: block!important
+
+  .prod
+    display: none!important
+
+  .wrapper
+    padding-top: 70px !important
