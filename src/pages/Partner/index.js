@@ -26,15 +26,14 @@ const Partner = () => {
                 <h1>{t('become_a_partner')}</h1>
                 <div className='steps'>
                     {steps.map((step, key) => {
-                            return (
-                                    <div className='content'>
-                                        <h1>{step.title}</h1>
-                                        <p>
-                                            <span>{step.text}</span>
-                                        </p>
-                                    </div>
-                            )}
+                        return (
+                            <div className='content'>
+                                <p>
+                                    <span>{step.text}</span>
+                                </p>
+                            </div>
                         )}
+                    )}
                 </div>
             </article>
         </div>
