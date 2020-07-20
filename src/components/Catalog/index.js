@@ -7,11 +7,21 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
 
     const sort = ['cost', 'new'];
 
-    console.log(activeSizes)
+    let [nav_type, setType] = useState([])
+
+    const changeNav = (type) => {
+        if (type === 'col_2') {
+            setType(['col_2']);
+        } else {
+            setType(['col_1']);
+        }
+    }
+
+    const classNamer = nav_type[0] === 'col_2' ? '_2c' : '';
 
     let [sort_type, changeSort] = useState([]);
 
-     let activeItems = items.filter((item) => {
+    let activeItems = items.filter((item) => {
          if(!activeTags.includes(...item.tags) && activeTags.length !== 0)
              return false;
          if(!item.sizes.includes(...activeSizes) && activeSizes.length !== 0)
@@ -20,8 +30,7 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
          return true;
      });
 
-
-     const changeSorts = (type) => {
+    const changeSorts = (type) => {
          let oder = "";
 
          if (type === "new") {
@@ -47,7 +56,7 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
     return (
         <div className='content  content--indent-mt'>
             <div className='sorting'>
-                <i className="_show_filters"></i>
+                <i className="_show_filters"/>
                 <ul className="ul _lm" data-title="Сортировать по:">
                     {
                         sort.map((size, key) =>  {
@@ -57,8 +66,10 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
                     } )}
                     <li><span>по</span> скидке</li>
                 </ul>
+                <i className="c2" onClick={() => changeNav('col_2')}/>
+                <i className="c1" onClick={() => changeNav('')}/>
             </div>
-            <div className="list goodsContainer _2c">
+            <div className={'list goodsContainer ' + classNamer}>
                 {activeItems.map((item, key) => <ItemCard size={activeSizes} item={item} key={key}/>)}
             </div>
         </div>
