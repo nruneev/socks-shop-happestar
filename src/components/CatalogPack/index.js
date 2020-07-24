@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {ItemCardPack} from "../ItemCardPack";
 
 
-const CatalogListPack = ({ items, activeTags, activeSizes }) => {
+const CatalogListPack = ({ items, length, activeTags, activeSizes }) => {
 
     const sort = ['cost', 'new'];
 
@@ -63,15 +63,15 @@ const CatalogListPack = ({ items, activeTags, activeSizes }) => {
                         sort.map((size, key) =>  {
                             let className = sort_type[0] === size ? 'active' : '';
                             let text = size === "new" ? 'новизне' : 'цене';
-                            return <li onClick={() => changeSorts(size)} key={key} className={className}><span>по</span> {text}</li>
+                            return <li onClick={() => changeSorts(size)} key={key} className={className}>{text}</li>
                         } )}
-                    <li><span>по</span> скидке</li>
+                    <li>скидке</li>
                 </ul>
                 <i className="c2" onClick={() => changeNav('col_2')}/>
                 <i className="c1" onClick={() => changeNav('')}/>
             </div>
             <div className={'list goodsContainer ' + classNamer}>
-                {activeItems.map((item, key) => <ItemCardPack size={activeSizes} item={item} key={key}/>)}
+                {activeItems.map((item, key) => <ItemCardPack length={length} size={activeSizes} item={item} key={key}/>)}
             </div>
         </div>
     )

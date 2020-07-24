@@ -10,9 +10,9 @@ import {get_promo} from "../../../utils/helpers";
 const CartBlock = ({ items, removeItem, closeCart }) => {
 
         let promo = '';
-        let promo_price = localStorage.getItem('promo_price') ? localStorage.getItem('promo_price') : 0;
+        let [promo_price, setPromo] = useState(0);
 
-        let [totalPrice, setPrice] = useState([]);
+        let totalPrice = 0;
 
         const { t } = useTranslation();
 
@@ -24,16 +24,14 @@ const CartBlock = ({ items, removeItem, closeCart }) => {
         const promoFetch = () => {
             console.log(promo);
             get_promo(promo).then((result) => {
-                promo_price = parseInt(result.price, 10);
-                localStorage.setItem('promo_price', promo_price);
-                setPrice(totalPrice = 0);
-                setPrice(0);
+                promo = parseInt(result.price, 10);
+                setPromo(promo);
             })
         }
 
         console.log(promo_price);
 
-        items.map((item, key) => totalPrice += (item.cost * item.count));
+        items.map((item, key) => totalPrice += parseInt(item.cost, 10) * parseInt(item.count, 10));
 
         if (items.length > 0) {
             return (
@@ -116,7 +114,7 @@ const CartBlock = ({ items, removeItem, closeCart }) => {
                                         <div className="table-price__wrap">
                                             <div className="table-price__row table-price__value">
                                                 <p>Итого:</p>
-                                                <span>{parseInt(totalPrice, 10) - promo_price}&nbsp;<i className="rub-symbol">₽</i></span>
+                                                <span>{parseInt(totalPrice, 10) - parseInt(promo_price, 10)}&nbsp;<i className="rub-symbol">₽</i></span>
                                             </div>
                                         </div>
                                     </div>

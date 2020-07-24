@@ -14,8 +14,11 @@
 
 .chsn
   border: 1px solid #5d5d5d !important
-  background: black
-  color: white !important
+  color: transparent
+  position: relative
+
+  img
+    display: block !important
 
 .wrapper
   min-width: 320px
@@ -130,6 +133,14 @@
         width: 37px
         padding: 0 10px
         color: #5d5d5d
+
+        img
+          display: none
+          position: absolute
+          top: 3.5px
+          left: 3.5px
+          width: 27px
+          height: 27px
 
       li:hover
         color: #000

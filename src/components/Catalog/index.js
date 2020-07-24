@@ -62,9 +62,9 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
                         sort.map((size, key) =>  {
                         let className = sort_type[0] === size ? 'active' : '';
                         let text = size === "new" ? 'новизне' : 'цене';
-                        return <li onClick={() => changeSorts(size)} key={key} className={className}><span>по</span> {text}</li>
+                        return <li onClick={() => changeSorts(size)} key={key} className={className}>{text}</li>
                     } )}
-                    <li><span>по</span> скидке</li>
+                    <li>скидке</li>
                 </ul>
                 <i className="c2" onClick={() => changeNav('col_2')}/>
                 <i className="c1" onClick={() => changeNav('')}/>

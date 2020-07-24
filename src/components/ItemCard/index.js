@@ -35,8 +35,7 @@ const ItemCard = ({ item, width, size }) => {
                 <label className='cost'>{item.cost}₽</label>
             </div>
             <button onClick={() => {
-                const activeSize = sessionStorage.getItem('size');
-                if (activeSize) {
+                if (size[0]) {
                     setItem({
                         id: Math.abs(Math.random() * 100),
                         ids: item.id,
@@ -48,10 +47,10 @@ const ItemCard = ({ item, width, size }) => {
                         prev_cost: item.cost,
                         status: item.status,
                         tags: item.tags,
-                        sizes: activeSize
+                        sizes: size[0]
                     });
                 } else {
-                    alert('Вы не выбрали размер');
+                    alert('Вы не выбрали размер носков');
                 }
             }}><FaCartArrowDown/></button>
         </>;

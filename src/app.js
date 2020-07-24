@@ -56,7 +56,10 @@ const App = () => {
         }
     };
 
-    const removeItemPack = (id) => setItemPack(packItems = packItems.filter((el) => el.id !== id));
+    const removeItemPack = (id) => {
+        let element = packItems.filter((el) => el.ids === id);
+        setItemPack(packItems = packItems.filter((el) => el.id !== element[0].id));
+    }
 
     const setItemsPack = (item, count) => {
         let packItem, index;
