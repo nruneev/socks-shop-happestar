@@ -82,6 +82,13 @@ const Pack = () => {
 
     return (
         <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
+            <div className='linker'>
+                <ul>
+                    <li><a href={'./'}>Главная</a></li>
+                    <li><span>Собрать свой набор</span></li>
+                </ul>
+                <h1>Собрать свой набор</h1>
+            </div>
             <div className='left-menu'>
                 <div className='group'>
                     <div className='name'>Наборы</div>

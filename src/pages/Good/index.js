@@ -47,6 +47,13 @@ const Good = () => {
                 <div className="prod">
                     <div className="mod_top"></div>
                     <div className="photos">
+                        <div className='linker'>
+                            <ul>
+                                <li><a href={'./'}>Главная</a></li>
+                                <li><a href={'./catalog'}>Каталог</a></li>
+                                <li><span>{item.name}</span></li>
+                            </ul>
+                        </div>
                         <div className="main-wrap">
                             <img src={item.src} alt={item.name}/>
                         </div>
@@ -91,6 +98,13 @@ const Good = () => {
                 </div>
                 <div className='prod_mobile'>
                     <div className="mod_top">
+                        <div className='linker'>
+                            <ul>
+                                <li><a href={'./'}>Главная</a></li>
+                                <li><a href={'./catalog'}>Каталог</a></li>
+                                <li><span>{item.name}</span></li>
+                            </ul>
+                        </div>
                         <p>{item.name}</p>
                     </div>
                     <div className='photos'>

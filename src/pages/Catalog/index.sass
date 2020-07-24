@@ -1,7 +1,58 @@
 @import '../../variables'
 
+.linker
+  padding-left: 0
+  margin-bottom: 25px
+  width: 100%
+  height: fit-content
+  display: block
+  color: #8e8e8e
+  letter-spacing: 0
+  font-size: 14px
+
+  h1
+    font-size: 3em
+    margin: 0
+    letter-spacing: .1em
+    padding: 0 10px
+
+  ul
+    display: inline-flex
+    list-style: none
+    line-height: 30px
+    padding: 0 10px
+
+  li
+    margin-right: 19px
+
+    a
+      color: #a8a8a8
+      position: relative
+      text-decoration: none
+      -webkit-transition: .15s ease-in-out
+      -o-transition: .15s ease-in-out
+      transition: .15s ease-in-out
+      font-size: 14px
+      line-height: 18px
+      letter-spacing: .5px
+
+      &:before
+        background-image: linear-gradient(to right,#707070 40%,rgba(255,255,255,0) 0)
+        background-position: bottom
+        -webkit-background-size: 3px 2px
+        background-size: 3px 2px
+        background-repeat: repeat-x
+        content: ""
+        height: 2px
+        opacity: .4
+        position: absolute
+        right: -15px
+        top: 5px
+        width: 12px
+
 .filter
   position: fixed
+  top: 275px
 
 .wrapper
   min-width: 320px
@@ -38,3 +89,7 @@
 @media (max-width: 1000px)
   .filter
     position: relative !important
+    top: 0
+
+.wrapper
+  padding-top: 65px

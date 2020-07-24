@@ -1,10 +1,6 @@
 import './index.sass'
 import React from 'react'
 import {useTranslation} from "react-i18next";
-import {MdPhoneIphone} from "react-icons/md";
-import {IoIosMail} from "react-icons/io";
-import {FaFacebookF, FaInstagram, FaTelegramPlane, FaVk} from "react-icons/fa";
-
 
 const Contacts = () => {
     let { t } = useTranslation();
@@ -12,6 +8,12 @@ const Contacts = () => {
     return (
         <div className='contacts page'>
             <div className='contacts-container'>
+                <div className='linkers'>
+                    <ul>
+                        <li><a href={'./'}>Главная</a></li>
+                        <li><span>Магазины Happestar</span></li>
+                    </ul>
+                </div>
                 <h1>{t('our_contacts')}</h1>
                 <div className="tabs__nav">
                     <a className="tabs__nav-item">Санкт-Петербург</a>
