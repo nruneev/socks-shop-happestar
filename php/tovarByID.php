@@ -10,7 +10,7 @@
         echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     }
 
-    $res = $mysqli->query('SELECT * FROM tovars WHERE id = '.$_GET['id']);
+    $res = $mysqli->query('SELECT t.*, color.color_id FROM tovars t LEFT JOIN communication_tovar_color color on t.id = color.tovar_id Where t.id = '.$_GET['id']);
 
     while($row = mysqli_fetch_assoc($res)) {
         $test = $row;

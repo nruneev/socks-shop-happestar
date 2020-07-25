@@ -1,0 +1,98 @@
+@import "../../variables"
+
+.product
+  width: calc(33.33% - 15px)
+  overflow: hidden
+  margin: 0 auto 30px
+  text-align: center
+  background-color: #fff
+  -webkit-box-shadow: -5px 0 15px rgba(0,0,0,.05)
+  box-shadow: -5px 0 15px rgba(0,0,0,.05)
+  -webkit-border-radius: 1px
+  border-radius: 1px
+  padding: 10px 10px 15px
+
+  .product__wrap
+    position: relative
+    display: block
+    text-decoration: none
+    color: #000
+
+    .product__image-wrap
+      position: relative
+      display: block
+
+      .product__image
+        display: block
+        max-width: 100%
+        margin: 0 auto 30px
+
+    .product__title
+      width: 70%
+      min-height: 35px
+      margin: 0 auto 10px
+      font-size: 18px
+      line-height: 17px
+      font-weight: 600
+      letter-spacing: .35px
+
+      a
+        text-decoration: none
+        color: #000
+
+    .item-body
+      margin-top: 14px
+
+      button
+        position: relative
+        @include contentCentered
+        width: 30%
+        height: 100%
+        margin: 0 auto
+        background: $second_color
+        border: none
+        color: $font_color
+        font-size: 25px
+        font-weight: 500
+        outline: none
+        cursor: pointer
+        transition: 0.5s
+        z-index: 0
+
+        svg
+          transition: 0.5s
+
+        &:hover
+          background: adjust_color($background_second, $alpha: 0.1)
+          svg
+            transform: translateY(3px)
+
+        &:active
+          transform: scale(0.9)
+
+      .active
+        width: 100%
+        justify-content: space-around
+
+      .info
+
+        .cost
+          padding-bottom: 5px
+          font-size: 18px
+          line-height: 26px
+          font-weight: 700
+          letter-spacing: .9px
+          text-transform: uppercase
+
+@media (min-width: 1000px)
+  .product__image
+    margin-bottom: 15px
+
+  .product__title
+    width: 90%
+    margin-bottom: 7px
+
+@media (max-width: 675px)
+  .product
+    width: calc(100% - 15px) !important
+
