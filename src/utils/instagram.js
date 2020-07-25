@@ -1,17 +1,12 @@
-const token = '5431003189.884120b.e0e756e4fc8045208f93ffa7fbae46e2';
+const token = '639a10016ef1b8a7bc1442ad978c1154';
 
 const userId = '5431003189';
 
-
-const inst_url = "https://graph.instagram.com/" + userId + "/media";
-
-
-const inst_url_second_part = "?fields=media_url&access_token=";
-
+const inst_url = "https://api.instagram.com/v1/users/" + userId + "/media/recent?access_token="  + token;
 
 export const request_to_instagram = async () => {
 
-    let response = await fetch(inst_url + inst_url_second_part + token);
+    let response = await fetch(inst_url);
 
     return await response.json();
 

@@ -9,13 +9,14 @@ header
   align-items: center
   justify-content: center
   width: 100vw
-  height: $header_height
+  height: 70px
   color: white
   background: $background_main
 
   .menu
     position: absolute
     left: 5%
+    bottom: 13px
     width: 40px
     height: 40px
     cursor: pointer
@@ -33,14 +34,17 @@ header
     width: 180px
     background-image: url('../../image/logo.png')
     margin-left: 25px
-    margin-top: -8px
 
   .cart
     position: absolute
-    right: 5%
-    font-size: 40px
-    height: 100%
-    width: 100px
+    right: 7%
+    bottom: 8px
+    font-size: 40px !important
+    height: 40px !important
+
+    .count
+      top: -5px !important
+      right: -10px !important
 
 @media (max-width: 600px)
   .cart
