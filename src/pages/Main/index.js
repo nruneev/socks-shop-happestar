@@ -33,7 +33,7 @@ const Main = () => {
                         </div>
                     </section>
                 </div>
-                <div className="follow-us container">
+                <div className="follow-us containerer">
                     <h2 className="title title--x2 follow-us__title">
                         СЛЕДИТЕ ЗА НАМИ В INSTAGRAM
                     </h2>

@@ -15,6 +15,7 @@ import {PayAndDelivery} from "./pages/PayAndDelivery";
 import {Partner} from "./pages/Partner";
 import {Contacts} from "./pages/Contacts";
 import {Good} from "./pages/Good";
+import {Cart} from "./pages/Cart";
 
 
 const cartItemField = 'cartItems';
@@ -111,6 +112,9 @@ const App = () => {
                                 </Route>
                                 <Route path='/catalog'>
                                     <Catalog/>
+                                </Route>
+                                <Route path='/cart'>
+                                    <Cart/>
                                 </Route>
                                 <Route path='/good'>
                                     <Good/>

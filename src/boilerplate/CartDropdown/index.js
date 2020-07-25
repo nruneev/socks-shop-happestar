@@ -1,21 +1,15 @@
 import './index.sass'
-import React, { useContext, useState } from 'react'
-import { FaShoppingCart } from 'react-icons/fa';
+import React, { useContext } from 'react'
 import { CartContext } from '../../utils/contexts';
-import { CartBlock } from './CartBlock';
 
 
 const CartDropdown = ({ className }) => {
     let { cartItems, removeItem, setItem } = useContext(CartContext);
     let countBlock = cartItems.length > 0 ? <span className='count'>{cartItems.length}</span> : '';
 
-    let [isCartShown, setIsCartShown] = useState(false);
-    let cartBlock = isCartShown ? <CartBlock items={cartItems} removeItem={removeItem}
-                                             closeCart={() => setIsCartShown(false)} /> : '';
-
     return (<>
-            <div className={'cart ' + className}>
-                <div className='icon-cart' onClick={() => setIsCartShown(true)}>
+            <a href={'./cart'} className={'cart ' + className}>
+                <div className='icon-cart'>
                     <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="shopping-cart" role="img"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
                          className="svg-inline--fa fa-shopping-cart fa-w-18 fa-9x">
@@ -25,8 +19,7 @@ const CartDropdown = ({ className }) => {
                     </svg>
                 </div>
                 {countBlock}
-            </div>
-            {cartBlock}
+            </a>
         </>)
 };
 
