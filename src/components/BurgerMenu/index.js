@@ -1,7 +1,7 @@
 import './index.sass'
 import { stack as Menu } from 'react-burger-menu'
 import React from 'react'
-import { FaBuffer, FaRegHandshake, FaHome } from 'react-icons/fa';
+import { FaBuffer, FaRegHandshake, FaHome, FaUser } from 'react-icons/fa';
 import { FiPackage }  from 'react-icons/fi';
 import { MdPayment, MdHistory } from 'react-icons/md';
 import { IoMdContacts, IoMdClose } from 'react-icons/io';
@@ -26,6 +26,7 @@ const BurgerMenu = ({ isOpen, closeMenu }) => {
             <Link className='menu-item' to='/catalog' onClick={closeMenu}><FaBuffer/>Весь каталог</Link>
             <Link className='menu-item' to='/pack' onClick={closeMenu}><FiPackage/>Собрать свой набор</Link>
             <Link className='menu-item' to='/partner' onClick={closeMenu}><FaRegHandshake/>Стать партнером</Link>
+            <Link className='menu-item' to='/customer' onClick={closeMenu}><FaUser/>Покупателю</Link>
             <Link className='menu-item' to='/pay-and-delivery' onClick={closeMenu}><MdPayment/>Оплата и доставка</Link>
             <Link className='menu-item' to='/contacts' onClick={closeMenu}><IoMdContacts/>Контакты</Link>
         </Menu>
