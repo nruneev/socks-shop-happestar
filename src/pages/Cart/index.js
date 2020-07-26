@@ -138,14 +138,16 @@ const Cart = () => {
     } else {
         return (
                 <div className={'cart-dropdown'}>
-                    <div className='linker'>
-                        <ul>
-                            <li><a href={'./'}>Главная</a></li>
-                            <li><span>Корзина</span></li>
-                        </ul>
-                        <h1>Корзина</h1>
+                    <div className="wrapperers">
+                        <div className='linker'>
+                            <ul>
+                                <li><a href={'./'}>Главная</a></li>
+                                <li><span>Корзина</span></li>
+                            </ul>
+                            <h1>Корзина</h1>
+                        </div>
+                        <p className='without_item'>В корзине ничего нет</p>
                     </div>
-                    <p className='without_item'>В корзине ничего нет</p>
                 </div>
         )
     }

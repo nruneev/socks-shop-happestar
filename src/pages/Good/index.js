@@ -7,6 +7,7 @@ import {get_item} from "../../utils/helpers";
 import {CartContext} from "../../utils/contexts";
 import {get_items, useFetch} from "../../utils/requests";
 import {ItemCardGood} from "../../components/ItemCardGood";
+import {FaCartArrowDown} from "react-icons/fa";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -47,6 +48,7 @@ const Good = () => {
     console.log(itemer);
 
     let [actualPhotos, setActual] = useState(0);
+    let [count, setCount] = useState(0);
 
     let [item, pushItem] = useState({});
 
@@ -89,6 +91,7 @@ const Good = () => {
             pushItem({
                 id: result[0].id,
                 article: result[0].article,
+                src: result[0].photoMain,
                 composition: result[0].composition,
                 photos: [result[0].photoMain, result[0].photoLeft, result[0].photoDetail],
                 name: result[0].name,
@@ -105,15 +108,36 @@ const Good = () => {
 
     const {setItem, cartItems } = useContext(CartContext);
     let isAdd = false;
-    let itemInCart = cartItems.find((el) => el.id === item.id);
+    let [activeSize, setActiveSize] = useState('');
+    let itemInCart = cartItems.find((el) => el.ids === item.id && el.sizes === activeSize);
+    console.log(itemInCart);
+
+    let classNamess = '';
+
+    let counter = itemInCart ?
+        <ul className='_counter_'>
+            <li className="_minus" onClick={() => setItem(itemInCart, --itemInCart.count)}>–</li>
+            <li className="_num">{itemInCart.count}</li>
+            <li className="_plus" onClick={() => setItem(itemInCart, ++itemInCart.count)}>+</li>
+        </ul> :
+        <>
+            <ul className="_counter_">
+                <li className="_minus" onClick={() => {
+                    if (count > 0) {
+                        setCount(--count)
+                    }
+                }}>–</li>
+                <li className="_num">{count}</li>
+                <li className="_plus" onClick={() => setCount(++count)}>+</li>
+            </ul>
+        </>;
+
     if (itemInCart) {
         isAdd = true;
     } else {
         itemInCart = item;
         itemInCart.count = 0;
     }
-    let [activeSize, setActiveSize] = useState(0);
-    let classNamess = '';
 
     if(preload) {
         return (<div>Загрузка</div>)
@@ -154,18 +178,13 @@ const Good = () => {
                             <ul className="sizes " data-title="размер">
                                 {item.sizes.map((size, key) => {
                                     classNamess = isAdd ? "act" : "";
-                                    let className = activeSize === key ? "active" : "";
-                                    return <li className={className} onClick={() => setActiveSize(key)}>{size}</li>
+                                    let className = activeSize === size ? "active" : "";
+                                    return <li className={className} onClick={() => setActiveSize(size)}>{size}</li>
                                 })}
                             </ul>
-
                             <div className="art" data-title="количество">
                                 <td className="count">
-                                    <ul className="_counter_">
-                                        <li className="_minus" onClick={() => setItem(itemInCart, --itemInCart.count)}>–</li>
-                                        <li className="_num">{itemInCart.count}</li>
-                                        <li className="_plus" onClick={() => setItem(itemInCart, ++itemInCart.count)}>+</li>
-                                    </ul>
+                                    {counter}
                                 </td>
                             </div>
                         </div>
@@ -173,7 +192,27 @@ const Good = () => {
                             <span className="cur _rub_">{item.cost} <i className="rub-symbol">₽</i></span>
                         </div>
                         <div className="btns">
-                            <button onClick={() => isAdd ? null : setItem(item)} className={"_incart  js---buy-btn " + classNamess}>
+                            <button onClick={() => {
+                                if (!isAdd) {
+                                    if (activeSize !== '') {
+                                        setItem({
+                                            id: Math.abs(Math.random() * 100),
+                                            ids: item.id,
+                                            article: item.article,
+                                            src: item.src,
+                                            name: item.name,
+                                            cost: item.cost,
+                                            discount: 15,
+                                            prev_cost: item.cost,
+                                            status: item.status,
+                                            tags: item.tags,
+                                            sizes: activeSize
+                                        }, count)
+                                    } else {
+                                        alert('Выберите размер!')
+                                    }
+                                }
+                            }} className={"_incart  js---buy-btn " + classNamess}>
                                 {isAdd ? "Товар уже в корзине" : "Положить в корзину"}
                             </button>
                         </div>
@@ -274,17 +313,13 @@ const Good = () => {
                             <ul className="sizes " data-title="размер">
                                 {item.sizes.map((size, key) => {
                                     classNamess = isAdd ? "act" : "";
-                                    let className = activeSize === key ? "active" : "";
-                                    return <li className={className} onClick={() => setActiveSize(key)}>{size}</li>
+                                    let className = activeSize === size ? "active" : "";
+                                    return <li className={className} onClick={() => setActiveSize(size)}>{size}</li>
                                 })}
                             </ul>
                             <div className="art" data-title="количество">
                                 <td className="count">
-                                    <ul className="_counter_">
-                                        <li className="_minus" onClick={() => setItem(itemInCart, --itemInCart.count)}>–</li>
-                                        <li className="_num">{itemInCart.count}</li>
-                                        <li className="_plus" onClick={() => setItem(itemInCart, ++itemInCart.count)}>+</li>
-                                    </ul>
+                                    {counter}
                                 </td>
                             </div>
                         </div>
@@ -292,7 +327,27 @@ const Good = () => {
                             <span className="cur _rub_">{item.cost} <i className="rub-symbol">₽</i></span>
                         </div>
                         <div className="btns">
-                            <button onClick={() => isAdd ? null : setItem(item)} className={"_incart  js---buy-btn " + classNamess}>
+                            <button onClick={() => {
+                                if (!isAdd) {
+                                    if (activeSize !== '') {
+                                        setItem({
+                                            id: Math.abs(Math.random() * 100),
+                                            ids: item.id,
+                                            article: item.article,
+                                            src: item.src,
+                                            name: item.name,
+                                            cost: item.cost,
+                                            discount: 15,
+                                            prev_cost: item.cost,
+                                            status: item.status,
+                                            tags: item.tags,
+                                            sizes: activeSize
+                                        }, count)
+                                    } else {
+                                        alert('Выберите размер!')
+                                    }
+                                }
+                            }} className={"_incart  js---buy-btn " + classNamess}>
                                 {isAdd ? "Товар уже в корзине" : "Положить в корзину"}
                             </button>
                         </div>

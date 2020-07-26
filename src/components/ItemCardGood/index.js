@@ -13,17 +13,6 @@ statusClasses.set(STATUS.SELL, 'sell');
 
 
 const ItemCardGood = ({ item, width, size }) => {
-    if(width) {
-        width -= 4;
-        let items = document.getElementsByClassName('item');
-        items && [].forEach.call(items, ((item) => item.style.width = width));
-    }
-
-    const { setItem, cartItems } = useContext(CartContext);
-    const { t } = useTranslation();
-
-    let itemInCart = cartItems.find((el) => (el.ids === item.id && el.sizes === size[0]));
-
     let button =
         <>
             <div className='info'>

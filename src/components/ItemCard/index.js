@@ -50,7 +50,7 @@ const ItemCard = ({ item, width, size }) => {
                         sizes: size[0]
                     });
                 } else {
-                    alert('Вы не выбрали размер носков');
+                    alert('Вы не выбрали размер');
                 }
             }}><FaCartArrowDown/></button>
         </>;

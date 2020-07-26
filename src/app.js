@@ -52,6 +52,10 @@ const App = () => {
             cartItem.count = count;
             setItemsCart([...cartItems.slice(0, index), cartItem, ...cartItems.slice(index + 1, cartItems.length)]);
         }
+        else if (count > 1){
+            cartItem = {...item, count: count};
+            setItemsCart([...cartItems, cartItem]);
+        }
         else {
             cartItem = {...item, count: 1};
             setItemsCart([...cartItems, cartItem]);
