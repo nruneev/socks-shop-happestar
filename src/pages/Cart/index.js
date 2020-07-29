@@ -10,6 +10,26 @@ import {CartItemMobile} from "../../boilerplate/CartDropdown/CartItemMobile";
 
 
 const Cart = () => {
+    let [pvz, setPVZ] = useState([]);
+    let [startUpload, setUpload] = useState(false);
+
+    if (!startUpload) {
+        fetch('/php/listPVZ.php', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((el) => {
+            let element = el.json();
+            return (element);
+        }).then(function (data) {
+            let qwerty = data.pvz;
+            qwerty = qwerty.filter((eq) => eq.regionCode === "82")
+            setPVZ(qwerty);
+        }).catch((e) => console.log(e))
+        setUpload(true);
+    }
+
     let [openWindow, setWindow] = useState('');
 
     const containerStyle = {
@@ -56,8 +76,6 @@ const Cart = () => {
         room: '',
         index: ''
     });
-
-    console.log(oderPar);
 
     let { cartItems, removeItem, setItem } = useContext(CartContext);
 
@@ -330,11 +348,13 @@ const Cart = () => {
                                                             onLoad={onLoad}
                                                             onUnmount={onUnmount}
                                                         >
-                                                            <Marker
-                                                                onLoad={onLoad}
-                                                                position={center}
-                                                                onClick={() => console.log('click')}
-                                                            />
+                                                            {pvz.map((el) => {
+                                                                const coord = {
+                                                                    lat: parseFloat(el.coordY),
+                                                                    lng: parseFloat(el.coordX)
+                                                                };
+                                                                return (<Marker onLoad={onLoad} position={coord} onClick={() => console.log(coord)}/>)
+                                                            })}
                                                         </GoogleMap>
                                                     </LoadScript>
                                                 </div>
