@@ -1,14 +1,63 @@
 import './index.sass'
 import React, {useContext, useState} from 'react';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { Marker } from '@react-google-maps/api';
+
 import {CartContext} from "../../utils/contexts";
-import {useTranslation} from "react-i18next";
 import {get_promo} from "../../utils/helpers";
 import {CartItem} from "../../boilerplate/CartDropdown/CartItem";
 import {CartItemMobile} from "../../boilerplate/CartDropdown/CartItemMobile";
 
 
 const Cart = () => {
+    let [openWindow, setWindow] = useState('');
+
+    const containerStyle = {
+        width: 'calc(100% - 30px)',
+        height: '400px'
+    };
+
+    const center = {
+        lat: 59.938732,
+        lng: 30.316229
+    };
+
+    var myOptions = {
+        zoom: 8,
+        center: center
+    }
+
+    const [map, setMap] = React.useState(null)
+
+    const onLoad = React.useCallback(function callback() {
+        const bounds = new window.google.maps.Map(myOptions);
+        setMap(bounds)
+    }, [])
+
+    const onUnmount = React.useCallback(function callback(map) {
+        setMap(null)
+    }, [])
+
     let [completeOder, setComlete] = useState('');
+
+    let [deliveryPrice, setDeliveryPrice] = useState(0);
+
+    let [oderPar, setOderPar] = useState({
+        name: '',
+        surname: '',
+        fatherName: '',
+        email: '',
+        phone: '',
+        delivery: '',
+        pay: '',
+        promo: '',
+        street: '',
+        home: '',
+        room: '',
+        index: ''
+    });
+
+    console.log(oderPar);
 
     let { cartItems, removeItem, setItem } = useContext(CartContext);
 
@@ -16,9 +65,6 @@ const Cart = () => {
     let [promo_price, setPromo] = useState(0);
 
     let totalPrice = 0;
-
-    const { t } = useTranslation();
-
 
     const promoSet = (el) => {
         promo = el.target.value;
@@ -135,15 +181,22 @@ const Cart = () => {
                             <div className='tcnt'>
                                 <form noValidate='noValidate' className='noRegForm' method='post' acceptCharset='utf-8'>
                                     <div className='dlist'>
-                                        <div className='forDeliveryTypes'>
+                                        <div className={'forDeliveryTypes ' + openWindow}>
                                             <div className='item _delivery'>
                                                 <i className='ico'/>
                                                 <div className='ttl'>
                                                     <span>1. Доставка</span>
                                                 </div>
                                                 <div className='edit'>
-                                                    <ul className='list'>
-                                                        <li className='itm' data-id='SDEK'>
+                                                    <ul className={'list ' + oderPar.delivery}>
+                                                        <li className='itm' onClick={() => {
+                                                            setOderPar({
+                                                                ...oderPar,
+                                                                delivery: 'SDEK'
+                                                            });
+                                                            setDeliveryPrice(265);
+                                                            setWindow('adress');
+                                                        }} data-id='SDEK' >
                                                             <div className='logo'>
                                                                 <img src='/static/media/cdek2.png'/>
                                                             </div>
@@ -161,7 +214,14 @@ const Cart = () => {
                                                                 <li className="del_val-time">от 2 рабочих дней</li>
                                                             </ul>
                                                         </li>
-                                                        <li className='itm' data-id='SDEK_PICKUP'>
+                                                        <li className='itm' onClick={() => {
+                                                            setOderPar({
+                                                                ...oderPar,
+                                                                delivery: 'SDEK_PICKUP'
+                                                            });
+                                                            setDeliveryPrice(125);
+                                                            setWindow('map');
+                                                        }} data-id='SDEK_PICKUP'>
                                                             <div className='logo'>
                                                                 <img src='/static/media/cdek2.png'/>
                                                             </div>
@@ -179,7 +239,14 @@ const Cart = () => {
                                                                 <li className="del_val-time">от 2 рабочих дней</li>
                                                             </ul>
                                                         </li>
-                                                        <li className='itm' data-id='POST'>
+                                                        <li className='itm' onClick={() => {
+                                                            setOderPar({
+                                                                ...oderPar,
+                                                                delivery: 'POST'
+                                                            });
+                                                            setDeliveryPrice(242);
+                                                            setWindow('adress');
+                                                        }} data-id='POST'>
                                                             <div className='logo'>
                                                                 <img src='/static/media/pochta_rf.png'/>
                                                             </div>
@@ -201,7 +268,7 @@ const Cart = () => {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="item  _address  js---order-contacts-form">
+                                            <div className="item  _address  adr js---order-contacts-form">
                                                 <i className="ico"/>
                                                 <div className="ttl">
                                                     Адрес доставки
@@ -210,25 +277,66 @@ const Cart = () => {
                                                     <div className="inputs tmpAddressData">
                                                             <div className="suggestions__wrap">
                                                                 <input type="text" className="input"
-                                                                       name="address[street]" value=""
+                                                                       name="address[street]"
+                                                                       onChange={(el) => setOderPar({
+                                                                           ...oderPar,
+                                                                           name: el.target.value
+                                                                       })}
                                                                        placeholder="Улица"/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
                                                                 <input type="text" className="input input--small"
-                                                                       name="address[building]" value=""
+                                                                       name="address[building]"
+                                                                       onChange={(el) => setOderPar({
+                                                                           ...oderPar,
+                                                                           name: el.target.value
+                                                                       })}
                                                                        placeholder="Дом" required=""/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
                                                                 <input type="text" className="input input--small"
-                                                                       name="address[flat]" value=""
+                                                                       name="address[flat]"
+                                                                       onChange={(el) => setOderPar({
+                                                                           ...oderPar,
+                                                                           name: el.target.value
+                                                                       })}
                                                                        placeholder="Квартира/Офис"/>
                                                             </div>
                                                             <div className="inputs__hint-wrap">
                                                                 <input type="text" className="input text"
-                                                                       placeholder="Индекс" value=""
+                                                                       placeholder="Индекс"
+                                                                       onChange={(el) => setOderPar({
+                                                                           ...oderPar,
+                                                                           name: el.target.value
+                                                                       })}
                                                                        name="address[postcode]" required=""/>
                                                             </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div className="item  _address  maps_google">
+                                                <i className="ico"/>
+                                                <div className="ttl">
+                                                    Адрес доставки
+                                                </div>
+                                                <div className="edit">
+                                                    <LoadScript
+                                                        googleMapsApiKey="AIzaSyD2bDPulysZlPIjG1fO3kNqIvbsbWjXrPw"
+                                                    >
+                                                        <GoogleMap
+                                                            mapContainerStyle={containerStyle}
+                                                            center={center}
+                                                            zoom={10}
+                                                            onLoad={onLoad}
+                                                            onUnmount={onUnmount}
+                                                        >
+                                                            <Marker
+                                                                onLoad={onLoad}
+                                                                position={center}
+                                                                onClick={() => console.log('click')}
+                                                            />
+                                                        </GoogleMap>
+                                                    </LoadScript>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,34 +349,56 @@ const Cart = () => {
                                                 <div className="inputs tmpUserData">
                                                     <div className="suggestions__wrap">
                                                         <input type="text" className="input suggestions-input"
-                                                               placeholder="Фамилия*" name="user[last_name]" value=""
+                                                               placeholder="Фамилия*"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
+                                                               onChange={(el) => setOderPar({
+                                                                   ...oderPar,
+                                                                   surname: el.target.value
+                                                               })}
                                                                />
                                                     </div>
 
                                                     <div className="suggestions__wrap">
                                                         <input type="text" className="input suggestions-input"
-                                                               placeholder="Имя*" name="user[first_name]" value=""
+                                                               placeholder="Имя*"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
+                                                               onChange={(el) => setOderPar({
+                                                                   ...oderPar,
+                                                                   name: el.target.value
+                                                               })}
                                                                />
                                                     </div>
 
                                                     <div className="suggestions__wrap">
                                                         <input type="text" className="input" placeholder="Отчество"
-                                                               name="user[middle_name]" value=""/>
+                                                               onChange={(el) => setOderPar({
+                                                                   ...oderPar,
+                                                                   fatherName: el.target.value
+                                                               })}
+                                                        />
                                                     </div>
 
                                                     <div className="suggestions__wrap">
                                                         <input type="tel" className="input"
-                                                               placeholder="Номер телефона*" name="user[phone]" value=""
-                                                               required=""/>
+                                                               placeholder="Номер телефона*"
+                                                               required=""
+                                                               onChange={(el) => setOderPar({
+                                                                   ...oderPar,
+                                                                   phone: el.target.value
+                                                               })}
+                                                        />
                                                     </div>
 
                                                     <div className="suggestions__wrap">
                                                         <input type="email" className="input" placeholder="Email*"
-                                                               name="user[email]" value="" required=""/>
+                                                               required=""
+                                                               onChange={(el) => setOderPar({
+                                                                   ...oderPar,
+                                                                   email: el.target.value
+                                                               })}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -277,10 +407,15 @@ const Cart = () => {
                                             <i className="ico"/>
                                             <div className="ttl">3. Оплата</div>
                                             <div className="edit">
-                                                <div className="forPaymentTypes" data-error="Выберите тип оплаты">
+                                                <div className={"forPaymentTypes " + oderPar.pay} data-error="Выберите тип оплаты">
                                                     <ul className="ilist _pays">
                                                         <li className="itm " data-action="setPaymentType"
-                                                            data-id="CASH">
+                                                            data-id="CASH"
+                                                            onClick={() => setOderPar({
+                                                                ...oderPar,
+                                                                pay: 'Cash'
+                                                            })}
+                                                        >
                                                             <img src="/static/media/pay_img_1.svg"
                                                                  alt=""/>
                                                                 <span>Наличными при получении</span>
@@ -290,10 +425,10 @@ const Cart = () => {
                                                 <div className="next _submit">
                                                     <div className="formalizeTotal">
                                                         <div className="_submit-item">
-                                                            <span>Стоимость доставки:</span> 242&nbsp;<i
+                                                            <span>Стоимость доставки: </span>{deliveryPrice}&nbsp;<i
                                                             className="rub-symbol">₽</i></div>
                                                         <div className="_submit-item  _submit-item--final">
-                                                            <span>Итого:</span> 1 240&nbsp;<i
+                                                            <span>Итого: </span>{parseInt(totalPrice, 10) - promo_price + deliveryPrice}&nbsp;<i
                                                             className="rub-symbol">₽</i>
                                                         </div>
                                                     </div>

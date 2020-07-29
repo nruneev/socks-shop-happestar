@@ -1,5 +1,28 @@
 @import "../../variables"
 
+.adress
+  .adr
+    display: block!important
+
+  .maps_google
+    display: none!important
+
+.map
+  .adr
+    display: none!important
+
+  .maps_google
+    display: block!important
+
+.SDEK li:nth-child(1) img, .SDEK_PICKUP li:nth-child(2) img, .POST li:nth-child(3) img
+  filter: none !important
+
+.SDEK li:nth-child(1)::before, .SDEK_PICKUP li:nth-child(2)::before, .POST li:nth-child(3)::before
+  background: #f4d600 !important
+
+.Cash::before
+  background: #f4d600 !important
+
 .active
   .tcnt
     display: block!important
@@ -320,6 +343,7 @@
               width: 200px
 
               img
+                filter: grayscale(1)
                 max-width: 128px
                 margin-bottom: 10px
                 margin-right: auto
@@ -383,6 +407,9 @@
           height: calc(100% - 35px)
           position: absolute
           width: 2px
+
+._address
+  display: none
 
 .wrapperers
   min-width: 320px
