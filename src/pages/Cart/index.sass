@@ -1,5 +1,74 @@
 @import "../../variables"
 
+.cont_block
+  position: relative
+
+.open_pvz
+  display: block!important
+
+.map_panel
+  display: none
+  background: #fff
+  letter-spacing: .35px
+  padding: 15px
+  position: absolute
+  right: 40px
+  top: 10px
+  width: 212px
+
+  img
+    width: 60%
+
+  .addr
+    font-size: 14px
+    line-height: 20px
+    letter-spacing: 0
+    color: #7a7a7a
+    width: calc(100% - 10px)
+    margin-bottom: 10px
+
+    p
+      margin-bottom: 6px
+
+      span
+        color: #000
+
+      a
+        color: #7a7a7a
+        text-decoration: none
+
+  .del_val
+    color: #161616
+    display: inline-block
+    vertical-align: middle
+    list-style: none
+    margin: 0
+    padding: 0
+    min-width: 190px
+
+    li
+      background-repeat: no-repeat
+      margin: 4px 0 5px
+      padding-left: 25px
+      font-size: 14px
+      font-weight: 300
+      height: auto
+      line-height: 20px
+      background-position: 3px 3px
+
+    .del_val-rub
+      margin-bottom: 8px!important
+      background-image: url(/static/media/delivery-rub.svg)
+
+    .del_val-time
+      background-image: url(/static/media/delivery-clock.svg)
+
+  .txt
+    font-size: 14px
+    line-height: 17px
+    color: #717171
+    margin: 15px 0
+
 .adress
   .adr
     display: block!important

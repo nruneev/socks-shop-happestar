@@ -11,6 +11,7 @@ import {CartItemMobile} from "../../boilerplate/CartDropdown/CartItemMobile";
 
 const Cart = () => {
     let [pvz, setPVZ] = useState([]);
+    let [currentPVZ, setCurrentPVZ] = useState({});
     let [startUpload, setUpload] = useState(false);
 
     if (!startUpload) {
@@ -24,7 +25,6 @@ const Cart = () => {
             return (element);
         }).then(function (data) {
             let qwerty = data.pvz;
-            qwerty = qwerty.filter((eq) => eq.regionCode === "82")
             setPVZ(qwerty);
         }).catch((e) => console.log(e))
         setUpload(true);
@@ -34,7 +34,7 @@ const Cart = () => {
 
     const containerStyle = {
         width: 'calc(100% - 30px)',
-        height: '400px'
+        height: '485px'
     };
 
     const center = {
@@ -74,8 +74,11 @@ const Cart = () => {
         street: '',
         home: '',
         room: '',
-        index: ''
+        index: '',
+        adressPVZ: '',
     });
+
+    console.log(oderPar);
 
     let { cartItems, removeItem, setItem } = useContext(CartContext);
 
@@ -338,25 +341,63 @@ const Cart = () => {
                                                     Адрес доставки
                                                 </div>
                                                 <div className="edit">
-                                                    <LoadScript
-                                                        googleMapsApiKey="AIzaSyD2bDPulysZlPIjG1fO3kNqIvbsbWjXrPw"
-                                                    >
-                                                        <GoogleMap
-                                                            mapContainerStyle={containerStyle}
-                                                            center={center}
-                                                            zoom={10}
-                                                            onLoad={onLoad}
-                                                            onUnmount={onUnmount}
-                                                        >
-                                                            {pvz.map((el) => {
-                                                                const coord = {
-                                                                    lat: parseFloat(el.coordY),
-                                                                    lng: parseFloat(el.coordX)
-                                                                };
-                                                                return (<Marker onLoad={onLoad} position={coord} onClick={() => console.log(coord)}/>)
-                                                            })}
-                                                        </GoogleMap>
-                                                    </LoadScript>
+                                                    <div className='maper'>
+                                                        <div className='cont_block'>
+                                                            <LoadScript
+                                                                googleMapsApiKey="AIzaSyD2bDPulysZlPIjG1fO3kNqIvbsbWjXrPw"
+                                                            >
+                                                                <GoogleMap
+                                                                    mapContainerStyle={containerStyle}
+                                                                    center={center}
+                                                                    zoom={10}
+                                                                    onLoad={onLoad}
+                                                                    onUnmount={onUnmount}
+                                                                >
+                                                                    {pvz.map((el) => {
+                                                                        const coord = {
+                                                                            lat: parseFloat(el.coordY),
+                                                                            lng: parseFloat(el.coordX)
+                                                                        };
+                                                                        return (<Marker onLoad={onLoad} position={coord} onClick={() => setCurrentPVZ({
+                                                                            address: el.address,
+                                                                            time: el.workTime,
+                                                                            tel: el.phone,
+                                                                            class: 'open_pvz'
+                                                                        })}/>)
+                                                                    })}
+                                                                </GoogleMap>
+                                                            </LoadScript>
+                                                            <div className={'map_panel ' + currentPVZ.class}>
+                                                                <img src='/static/media/cdek2.png'/>
+                                                                <div className="addr">
+                                                                    <p>
+                                                                        <span>{currentPVZ.address}</span>
+                                                                    </p>
+                                                                    <p>{currentPVZ.time}</p>
+                                                                    <p>
+                                                                        <a href={'tel:' + currentPVZ.tel}>{currentPVZ.tel}</a>
+                                                                    </p>
+                                                                </div>
+                                                                <ul className='del_val'>
+                                                                    <li className='del_val-rub'>
+                                                                        <b>125</b>
+                                                                        <i className="rub-symbol">₽</i>
+                                                                    </li>
+                                                                    <li className="del_val-time">от 2 рабочих дней</li>
+                                                                </ul>
+                                                                <div className="txt">
+                                                                    Заберите заказ в пункте выдачи после получения SMS о его
+                                                                    готовности
+                                                                </div>
+                                                                <button className='_btn_' type='button'
+                                                                        onClick={() => setOderPar({
+                                                                            ...oderPar,
+                                                                            adressPVZ: currentPVZ.address
+                                                                        })}
+                                                                >{oderPar.adressPVZ === currentPVZ.address ? 'Пункт выбран' : 'Забрать здесь'}</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
