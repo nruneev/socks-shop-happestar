@@ -101,6 +101,26 @@ const Cart = () => {
 
     cartItems.map((item, key) => totalPrice += parseInt(item.cost, 10) * parseInt(item.count, 10));
 
+    const createOder = () => {
+
+        const address = oderPar.index + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
+        const comment = '';
+
+        const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
+        fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((el) => {
+            let element = el.json();
+            return (element);
+        }).then(function (data) {
+            let qwerty = data;
+            console.log(qwerty)
+        }).catch((e) => console.log(e))
+    }
+
     if (cartItems.length > 0) {
         return (
                 <div className={'cart-dropdown'}>
@@ -298,28 +318,28 @@ const Cart = () => {
                                                     <div className="inputs tmpAddressData">
                                                             <div className="suggestions__wrap">
                                                                 <input type="text" className="input"
-                                                                       name="address[street]"
+                                                                       name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
-                                                                           name: el.target.value
+                                                                           street: el.target.value
                                                                        })}
                                                                        placeholder="Улица"/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
                                                                 <input type="text" className="input input--small"
-                                                                       name="address[building]"
+                                                                       name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
-                                                                           name: el.target.value
+                                                                           home: el.target.value
                                                                        })}
                                                                        placeholder="Дом" required=""/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
                                                                 <input type="text" className="input input--small"
-                                                                       name="address[flat]"
+                                                                       name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
-                                                                           name: el.target.value
+                                                                           room: el.target.value
                                                                        })}
                                                                        placeholder="Квартира/Офис"/>
                                                             </div>
@@ -328,9 +348,9 @@ const Cart = () => {
                                                                        placeholder="Индекс"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
-                                                                           name: el.target.value
+                                                                           index: el.target.value
                                                                        })}
-                                                                       name="address[postcode]" required=""/>
+                                                                       name="address" required=""/>
                                                             </div>
                                                     </div>
                                                 </div>
@@ -493,7 +513,7 @@ const Cart = () => {
                                                             className="rub-symbol">₽</i>
                                                         </div>
                                                     </div>
-                                                    <button className="_btn_" type="submit">Оформить заказ</button>
+                                                    <button onClick={() => createOder()} className="_btn_" type="button">Оформить заказ</button>
                                                     <div className="_submit-text">
                                                         Нажимая кнопку «Оформить заказ», Вы даете согласие на обработку
                                                         своих персональных данных
