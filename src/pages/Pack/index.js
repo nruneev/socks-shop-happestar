@@ -5,9 +5,11 @@ import { useFetch } from '../../utils/requests';
 import { get_items } from '../../utils/requests';
 import {CartContext, PackContext} from "../../utils/contexts";
 import {CatalogListPack} from "../../components/CatalogPack";
+import { useHistory } from "react-router-dom";
 
 
 const Pack = () => {
+    let history = useHistory();
     let items = useFetch(get_items, []);
 
     const {packItems, removeItemPack} = useContext(PackContext);
@@ -65,11 +67,12 @@ const Pack = () => {
                 return el.article + ", ";
             }),
             id: Math.abs(Math.random() * 100),
-            name: 'Набор пользователя',
+            name: 'Ваш набор',
             src: packItems[0].src,
             sizes: sizess,
             cost: 390 * packItems.length,
             count: 1,
+            isNabor: true,
             item: packItems
         }
 
@@ -85,9 +88,10 @@ const Pack = () => {
             <div className='linker'>
                 <ul>
                     <li><a href={'./'}>Главная</a></li>
+                    <li><a onClick={() => history.goBack()}>Назад</a></li>
                     <li><span>Собрать свой набор</span></li>
                 </ul>
-                <h1>Собрать свой набор</h1>
+                <h1>Собрать набор</h1>
             </div>
             <div className='left-menu'>
                 <div className='group'>

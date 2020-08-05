@@ -4,9 +4,11 @@ import { Filter } from '../../components/Filter';
 import { CatalogList } from '../../components/Catalog';
 import { useFetch } from '../../utils/requests';
 import { get_items } from '../../utils/requests';
+import {useHistory} from "react-router-dom";
 
 
 const Catalog = () => {
+    let history = useHistory();
     let items = useFetch(get_items, []);
     let tags = getTags(items);
     let sizes = getSizes(items);
@@ -21,6 +23,7 @@ const Catalog = () => {
             <div className='linker'>
                 <ul>
                     <li><a href={'./'}>Главная</a></li>
+                    <li><a onClick={() => history.goBack()}>Назад</a></li>
                     <li><span>Каталог</span></li>
                 </ul>
                 <h1>Каталог</h1>

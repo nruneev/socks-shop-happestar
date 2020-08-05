@@ -1,19 +1,17 @@
 import './index.sass'
 import React, {useContext, useState} from 'react';
-import {
-    useLocation
-} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import {get_item} from "../../utils/helpers";
 import {CartContext} from "../../utils/contexts";
 import {get_items, useFetch} from "../../utils/requests";
 import {ItemCardGood} from "../../components/ItemCardGood";
-import {FaCartArrowDown} from "react-icons/fa";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
 const Good = () => {
+    let history = useHistory();
     let itemer = useFetch(get_items, []);
 
     let [preload, setPreload] = useState(true);
@@ -163,6 +161,7 @@ const Good = () => {
                         <div className='linkerer'>
                             <ul>
                                 <li><a href={'./'}>Главная</a></li>
+                                <li><a onClick={() => history.goBack()}>Назад</a></li>
                                 <li><a href={'./catalog'}>Каталог</a></li>
                                 <li><span>{item.name}</span></li>
                             </ul>
@@ -206,6 +205,7 @@ const Good = () => {
                                             prev_cost: item.cost,
                                             status: item.status,
                                             tags: item.tags,
+                                            isNabor: false,
                                             sizes: activeSize
                                         }, count)
                                     } else {
@@ -293,6 +293,7 @@ const Good = () => {
                         <div className='linkerer'>
                             <ul>
                                 <li><a href={'./'}>Главная</a></li>
+                                <li><a onClick={() => history.goBack()}>Назад</a></li>
                                 <li><a href={'./catalog'}>Каталог</a></li>
                                 <li><span>{item.name}</span></li>
                             </ul>
@@ -341,6 +342,7 @@ const Good = () => {
                                             prev_cost: item.cost,
                                             status: item.status,
                                             tags: item.tags,
+                                            isNabor: false,
                                             sizes: activeSize
                                         }, count)
                                     } else {

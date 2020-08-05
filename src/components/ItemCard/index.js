@@ -47,6 +47,7 @@ const ItemCard = ({ item, width, size }) => {
                         prev_cost: item.cost,
                         status: item.status,
                         tags: item.tags,
+                        isNabor: false,
                         sizes: size[0]
                     });
                 } else {

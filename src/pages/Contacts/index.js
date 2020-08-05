@@ -1,8 +1,10 @@
 import './index.sass'
 import React from 'react'
 import {useTranslation} from "react-i18next";
+import {useHistory} from "react-router-dom";
 
 const Contacts = () => {
+    let history = useHistory();
     let { t } = useTranslation();
 
     return (
@@ -11,6 +13,7 @@ const Contacts = () => {
                 <div className='linkers'>
                     <ul>
                         <li><a href={'./'}>Главная</a></li>
+                        <li><a onClick={() => history.goBack()}>Назад</a></li>
                         <li><span>Магазины Happestar</span></li>
                     </ul>
                 </div>

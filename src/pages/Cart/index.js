@@ -7,9 +7,11 @@ import {CartContext} from "../../utils/contexts";
 import {get_promo} from "../../utils/helpers";
 import {CartItem} from "../../boilerplate/CartDropdown/CartItem";
 import {CartItemMobile} from "../../boilerplate/CartDropdown/CartItemMobile";
+import {useHistory} from "react-router-dom";
 
 
 const Cart = () => {
+    let history = useHistory();
     let [pvz, setPVZ] = useState([]);
     let [currentPVZ, setCurrentPVZ] = useState({});
     let [startUpload, setUpload] = useState(false);
@@ -128,6 +130,7 @@ const Cart = () => {
                         <div className='linker'>
                             <ul>
                                 <li><a href={'./'}>Главная</a></li>
+                                <li><a onClick={() => history.goBack()}>Назад</a></li>
                                 <li><span>Корзина</span></li>
                             </ul>
                             <h1>Корзина</h1>
@@ -136,8 +139,8 @@ const Cart = () => {
                             <table>
                                 <thead className="thead">
                                 <tr>
-                                    <th>Артикул</th>
                                     <th>Название</th>
+                                    <th>Артикул</th>
                                     <th>Размер</th>
                                     <th>Цена</th>
                                     <th>Количество</th>

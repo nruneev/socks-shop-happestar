@@ -8,17 +8,35 @@ import {CartContext} from "../../../utils/contexts";
 const CartItem = ({ item, removeItem }) => {
     let { setItem } = useContext(CartContext);
     const { t } = useTranslation();
+    if (item.isNabor) {
+        console.log(item);
+    }
+
+    const block = item.isNabor ?
+
+        <div className='blockItem'>
+            {item.item.map((el) => {
+                return (<p className='nabor-item'>
+                            <img src={el.src}/>
+                            {el.name}
+                            <span>{el.sizes}</span>
+                        </p>)
+            })}
+        </div>
+        :
+        <p className="art">{item.article}</p>;
+
 
     return (
         <tr className='tr goodInCart'>
-            <td>
-                <p className="art">{item.article}</p>
-            </td>
-            <td>
+            <td className='imageName'>
                 <a className="img" href={"/good?id=" + item.ids}>
                     <img src={item.src} alt={item.name}/>
                 </a>
                 <div className="cnt"><a href={"/good?id=" + item.ids}>{item.name}</a></div>
+            </td>
+            <td>
+                {block}
             </td>
             <td>
                 <span>{item.sizes}</span>
