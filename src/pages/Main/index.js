@@ -26,7 +26,7 @@ const Main = () => {
                                     Команда HAPPESTAR ® является ярким воплощением модных тенденций, шагая в ногу со временем
                                     и используя свое жизненное кредо весьма успешно в бизнесе.</p>
                                 <div className="descr__link-wrap">
-                                    <a href="/brand-history" className="descr__link">
+                                    <a href="/history" className="descr__link">
                                         <span>Подробнее</span>
                                     </a>
                                 </div>
