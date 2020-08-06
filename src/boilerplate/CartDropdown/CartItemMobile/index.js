@@ -10,7 +10,7 @@ const CartItemMobile = ({ item, removeItem }) => {
     const { t } = useTranslation();
 
     return (
-        <li className="list goodsInCartMobile">
+        <li className="lists goodsInCartMobile">
             <a href={"/good?id=" + item.id} className="img">
                 <img src={item.src} alt={item.name}/>
             </a>

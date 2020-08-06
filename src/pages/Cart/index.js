@@ -189,7 +189,7 @@ const Cart = () => {
                             </table>
                         </div>
                         <div className="mobile">
-                            <ul className="list goodsInCartMobile">
+                            <ul className="lists goodsInCartMobile">
                                 {cartItems.map((item, key) => <CartItemMobile item={item} removeItem={removeItem} key={key}/>)}
                             </ul>
                             <div className="bottom">
