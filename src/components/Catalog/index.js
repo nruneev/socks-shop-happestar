@@ -1,9 +1,11 @@
 import './index.sass'
 import React, {useState} from 'react';
 import { ItemCard } from '../ItemCard';
+import {useHistory} from "react-router-dom";
 
 
 const CatalogList = ({ items, setMenu, activeTags, activeSizes }) => {
+    let history = useHistory();
 
     const sort = ['cost', 'new'];
 
@@ -55,7 +57,16 @@ const CatalogList = ({ items, setMenu, activeTags, activeSizes }) => {
 
     return (
         <div className='content  content--indent-mt'>
-            <div className='sorting'>
+            <div className="mobileTopCatalog">
+                <div className='linker mobile'>
+                    <ul>
+                        <li><a href={'./'}>Главная</a></li>
+                        <li><a onClick={() => history.goBack()}>Назад</a></li>
+                        <li><span>Каталог</span></li>
+                    </ul>
+                    <h1>Каталог</h1>
+                </div>
+                <div className='sorting'>
                 <i className="_show_filters" onClick={() => setMenu('open')}/>
                 <ul className="ul _lm" data-title="Сортировать по:">
                     {
@@ -68,6 +79,7 @@ const CatalogList = ({ items, setMenu, activeTags, activeSizes }) => {
                 </ul>
                 <i className="c2" onClick={() => changeNav('col_2')}/>
                 <i className="c1" onClick={() => changeNav('')}/>
+            </div>
             </div>
             <div className={'list goodsContainer ' + classNamer}>
                 {activeItems.map((item, key) => <ItemCard size={activeSizes} item={item} key={key}/>)}

@@ -1,3 +1,8 @@
+.mobileTopCatalog
+  background: #e8f0f3
+  z-index: 1
+  display: block
+
 .content
   width: 74%
   margin-left: auto
@@ -113,6 +118,13 @@
       margin-left: 0
 
 @media (max-width: 1000px)
+  .mobileTopCatalog
+    width: calc(100% - 20px)
+    position: fixed
+
+  .list
+    margin-top: 160px
+
   ._2c
     -webkit-box-pack: start !important
     -webkit-justify-content: flex-start !important
@@ -129,7 +141,6 @@
 
   .content
     width: 100%
-    margin-top: 25px
 
   ._show_filters
     display: block!important
@@ -156,7 +167,7 @@
 
   .sorting .ul
     float: none!important
-    margin: 0 auto 0 30px!important
+    margin: 0 auto 0 15px!important
     padding: 0 7px 0 0!important
     text-align: center!important
     width: calc(100% - 90px)!important
