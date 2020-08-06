@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {ItemCardPack} from "../ItemCardPack";
 
 
-const CatalogListPack = ({ items, length, activeTags, activeSizes }) => {
+const CatalogListPack = ({ items, setMenu, length, activeTags, activeSizes }) => {
 
     const sort = ['cost', 'new'];
 
@@ -57,7 +57,7 @@ const CatalogListPack = ({ items, length, activeTags, activeSizes }) => {
     return (
         <div className='content  content--indent-mt'>
             <div className='sorting'>
-                <i className="_show_filters"/>
+                <i className="_show_filters" onClick={() => setMenu('open')}/>
                 <ul className="ul _lm" data-title="Сортировать по:">
                     {
                         sort.map((size, key) =>  {

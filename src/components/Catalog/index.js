@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import { ItemCard } from '../ItemCard';
 
 
-const CatalogList = ({ items, activeTags, activeSizes }) => {
+const CatalogList = ({ items, setMenu, activeTags, activeSizes }) => {
 
     const sort = ['cost', 'new'];
 
@@ -56,7 +56,7 @@ const CatalogList = ({ items, activeTags, activeSizes }) => {
     return (
         <div className='content  content--indent-mt'>
             <div className='sorting'>
-                <i className="_show_filters"/>
+                <i className="_show_filters" onClick={() => setMenu('open')}/>
                 <ul className="ul _lm" data-title="Сортировать по:">
                     {
                         sort.map((size, key) =>  {

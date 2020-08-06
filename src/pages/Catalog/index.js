@@ -5,9 +5,12 @@ import { CatalogList } from '../../components/Catalog';
 import { useFetch } from '../../utils/requests';
 import { get_items } from '../../utils/requests';
 import {useHistory} from "react-router-dom";
+import {IoMdClose} from "react-icons/io/index";
 
 
 const Catalog = () => {
+    let [openMenu, setMenu] = useState('')
+
     let history = useHistory();
     let items = useFetch(get_items, []);
     let tags = getTags(items);
@@ -20,6 +23,14 @@ const Catalog = () => {
 
     return (
         <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
+            <div className='linker mobile'>
+                <ul>
+                    <li><a href={'./'}>Главная</a></li>
+                    <li><a onClick={() => history.goBack()}>Назад</a></li>
+                    <li><span>Каталог</span></li>
+                </ul>
+                <h1>Каталог</h1>
+            </div>
             <div className='left-slide'>
                 <div className='linker'>
                     <ul>
@@ -32,7 +43,12 @@ const Catalog = () => {
                 <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
                 activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
             </div>
-            <CatalogList items={items} activeTags={activeTags} activeSizes={activeSizes}/>
+            <div className={'left-slide-mobile ' + openMenu}>
+                <IoMdClose onClick={() => setMenu('')} className='cross'/>
+                <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
+                        activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
+            </div>
+            <CatalogList items={items} setMenu={setMenu} activeTags={activeTags} activeSizes={activeSizes}/>
         </div>
     )
 };
