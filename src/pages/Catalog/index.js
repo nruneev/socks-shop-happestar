@@ -20,16 +20,18 @@ const Catalog = () => {
 
     return (
         <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
-            <div className='linker'>
-                <ul>
-                    <li><a href={'./'}>Главная</a></li>
-                    <li><a onClick={() => history.goBack()}>Назад</a></li>
-                    <li><span>Каталог</span></li>
-                </ul>
-                <h1>Каталог</h1>
+            <div className='left-slide'>
+                <div className='linker'>
+                    <ul>
+                        <li><a href={'./'}>Главная</a></li>
+                        <li><a onClick={() => history.goBack()}>Назад</a></li>
+                        <li><span>Каталог</span></li>
+                    </ul>
+                    <h1>Каталог</h1>
+                </div>
+                <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
+                activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
             </div>
-            <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
-            activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
             <CatalogList items={items} activeTags={activeTags} activeSizes={activeSizes}/>
         </div>
     )

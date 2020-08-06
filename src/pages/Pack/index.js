@@ -85,135 +85,137 @@ const Pack = () => {
 
     return (
         <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
-            <div className='linker'>
-                <ul>
-                    <li><a href={'./'}>Главная</a></li>
-                    <li><a onClick={() => history.goBack()}>Назад</a></li>
-                    <li><span>Собрать свой набор</span></li>
-                </ul>
-                <h1>Собрать набор</h1>
-            </div>
-            <div className='left-menu'>
-                <div className='group'>
-                    <div className='name'>Наборы</div>
-                    <div className='inner'>
-                        <ul className="tags count">
-                            {
-                                length_nabor.map((el) => {
-                                    let classNamer = el === lengthNabor ? "active" : "";
-                                    if(el === lengthNabor ) {
-                                        if (el === 3) {
-                                            class_three = 'vis';
-                                            class_four = '';
-                                            class_five = ''
-                                            class_six = '';
-                                            class_eight = '';
-                                        } else if (el === 4) {
-                                            class_three = '';
-                                            class_four = 'vis';
-                                            class_five = '';
-                                            class_six = '';
-                                            class_eight = '';
-                                        } else if (el === 5) {
-                                            class_three = '';
-                                            class_four = '';
-                                            class_five = 'vis'
-                                            class_six = '';
-                                            class_eight = '';
-                                        } else if(el === 6) {
-                                            class_four = '';
-                                            class_six = 'vis';
-                                            class_eight = '';
-                                        } else if (el === 8) {
-                                            class_four = '';
-                                            class_six = '';
-                                            class_eight = 'vis';
-                                        } else {
-                                            class_four = '';
-                                            class_six = '';
-                                            class_eight = '';
-                                        }
-                                    }
-                                    return <li onClick={() => {
-                                        if (el >= packItems.length) {
-                                            setLengths(el)
-                                        } else {
-                                            alert('Вы не можете уменьшить размер набора. Пожалуйста, удалите лишние пары и повторите попытку');
-                                        }
-                                    }} className={'tag ' + classNamer}>{el}</li>
-                                })
-                            }
-                        </ul>
-                        <ul className={"options three" + class_three}>
-                            {num_three.map((el, key) => {
-                                let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
-                                classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                let src = '';
-                                if (packItems.length > 0 && packItems[key]) {
-                                    src = packItems[key].src;
-                                }
-                                return <li data-src={src} className={'option ' + classNamer}>{el}
-                                    <img src={src}/>
-                                </li>;
-                            })}
-                        </ul>
-                        <ul className={"options four" + class_four}>
-                            {num_four.map((el, key) => {
-                                let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
-                                classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                let src = '';
-                                if (packItems.length > 0 && packItems[key]) {
-                                    src = packItems[key].src;
-                                }
-                                return <li data-src={src} className={'option ' + classNamer}>{el}
-                                    <img src={src}/>
-                                </li>;
-                            })}
-                        </ul>
-                        <ul className={"options five" + class_five}>
-                            {num_five.map((el, key) => {
-                                let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
-                                let src = '';
-                                if (packItems.length > 0 && packItems[key]) {
-                                    src = packItems[key].src;
-                                }
-                                classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                return <li data-src={src} className={'option ' + classNamer}>{el}
-                                    <img src={src}/>
-                                </li>;
-                            })}
-                        </ul>
-                        <ul className={"options six" + class_six}>
-                            {num_six.map((el, key) => {
-                                let classNamer = key <= packItems.length - 1 ? 'chsn' : ''
-                                let src = '';
-                                if (packItems.length > 0 && packItems[key]) {
-                                    src = packItems[key].src;
-                                }
-                                classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                return <li data-src={src} className={'option ' + classNamer}>{el}
-                                    <img src={src}/>
-                                </li>
-                            })}
-                        </ul>
-                        <ul className={"options eight" + class_eight}>
-                            {num_eight.map((el, key) => {
-                                let classNamer = key <= packItems.length - 1 ? 'chsn' : ''
-                                let src = '';
-                                if (packItems.length > 0 && packItems[key]) {
-                                    src = packItems[key].src;
-                                }
-                                classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                return <li data-src={src} className={'option ' + classNamer}>{el}
-                                    <img src={src}/>
-                                </li>
-                            })}
-                        </ul>
-                        <button onClick={() => setNabor()} className={'button ' + classButton}>ДОбавить</button>
-                    </div>
+            <div className='left-slide'>
+                <div className='linker'>
+                    <ul>
+                        <li><a href={'./'}>Главная</a></li>
+                        <li><a onClick={() => history.goBack()}>Назад</a></li>
+                        <li><span>Собрать свой набор</span></li>
+                    </ul>
+                    <h1>Собрать набор</h1>
                 </div>
-                <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
-                        activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
+                <div className='left-menu'>
+                    <div className='group'>
+                        <div className='name'>Наборы</div>
+                        <div className='inner'>
+                            <ul className="tags count">
+                                {
+                                    length_nabor.map((el) => {
+                                        let classNamer = el === lengthNabor ? "active" : "";
+                                        if(el === lengthNabor ) {
+                                            if (el === 3) {
+                                                class_three = 'vis';
+                                                class_four = '';
+                                                class_five = ''
+                                                class_six = '';
+                                                class_eight = '';
+                                            } else if (el === 4) {
+                                                class_three = '';
+                                                class_four = 'vis';
+                                                class_five = '';
+                                                class_six = '';
+                                                class_eight = '';
+                                            } else if (el === 5) {
+                                                class_three = '';
+                                                class_four = '';
+                                                class_five = 'vis'
+                                                class_six = '';
+                                                class_eight = '';
+                                            } else if(el === 6) {
+                                                class_four = '';
+                                                class_six = 'vis';
+                                                class_eight = '';
+                                            } else if (el === 8) {
+                                                class_four = '';
+                                                class_six = '';
+                                                class_eight = 'vis';
+                                            } else {
+                                                class_four = '';
+                                                class_six = '';
+                                                class_eight = '';
+                                            }
+                                        }
+                                        return <li onClick={() => {
+                                            if (el >= packItems.length) {
+                                                setLengths(el)
+                                            } else {
+                                                alert('Вы не можете уменьшить размер набора. Пожалуйста, удалите лишние пары и повторите попытку');
+                                            }
+                                        }} className={'tag ' + classNamer}>{el}</li>
+                                    })
+                                }
+                            </ul>
+                            <ul className={"options three" + class_three}>
+                                {num_three.map((el, key) => {
+                                    let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
+                                    let src = '';
+                                    if (packItems.length > 0 && packItems[key]) {
+                                        src = packItems[key].src;
+                                    }
+                                    return <li data-src={src} className={'option ' + classNamer}>{el}
+                                        <img src={src}/>
+                                    </li>;
+                                })}
+                            </ul>
+                            <ul className={"options four" + class_four}>
+                                {num_four.map((el, key) => {
+                                    let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
+                                    let src = '';
+                                    if (packItems.length > 0 && packItems[key]) {
+                                        src = packItems[key].src;
+                                    }
+                                    return <li data-src={src} className={'option ' + classNamer}>{el}
+                                        <img src={src}/>
+                                    </li>;
+                                })}
+                            </ul>
+                            <ul className={"options five" + class_five}>
+                                {num_five.map((el, key) => {
+                                    let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
+                                    let src = '';
+                                    if (packItems.length > 0 && packItems[key]) {
+                                        src = packItems[key].src;
+                                    }
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
+                                    return <li data-src={src} className={'option ' + classNamer}>{el}
+                                        <img src={src}/>
+                                    </li>;
+                                })}
+                            </ul>
+                            <ul className={"options six" + class_six}>
+                                {num_six.map((el, key) => {
+                                    let classNamer = key <= packItems.length - 1 ? 'chsn' : ''
+                                    let src = '';
+                                    if (packItems.length > 0 && packItems[key]) {
+                                        src = packItems[key].src;
+                                    }
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
+                                    return <li data-src={src} className={'option ' + classNamer}>{el}
+                                        <img src={src}/>
+                                    </li>
+                                })}
+                            </ul>
+                            <ul className={"options eight" + class_eight}>
+                                {num_eight.map((el, key) => {
+                                    let classNamer = key <= packItems.length - 1 ? 'chsn' : ''
+                                    let src = '';
+                                    if (packItems.length > 0 && packItems[key]) {
+                                        src = packItems[key].src;
+                                    }
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
+                                    return <li data-src={src} className={'option ' + classNamer}>{el}
+                                        <img src={src}/>
+                                    </li>
+                                })}
+                            </ul>
+                            <button onClick={() => setNabor()} className={'button ' + classButton}>ДОбавить</button>
+                        </div>
+                    </div>
+                    <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
+                            activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
+                </div>
             </div>
             <CatalogListPack items={items} length={lengthNabor} activeTags={activeTags} activeSizes={activeSizes}/>
         </div>
