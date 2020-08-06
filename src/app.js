@@ -17,6 +17,7 @@ import {Contacts} from "./pages/Contacts";
 import {Good} from "./pages/Good";
 import {Cart} from "./pages/Cart";
 import {Customer} from "./pages/Customer";
+import {AboutUs} from "./pages/AboutUs";
 
 
 const cartItemField = 'cartItems';
@@ -120,6 +121,9 @@ const App = () => {
                                 </Route>
                                 <Route path='/cart'>
                                     <Cart/>
+                                </Route>
+                                <Route path='/history'>
+                                    <AboutUs/>
                                 </Route>
                                 <Route path='/customer'>
                                     <Customer/>
