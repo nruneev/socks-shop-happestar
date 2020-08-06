@@ -60,7 +60,7 @@ const ItemCardPack = ({ length, item, width, size }) => {
             }><FaCartArrowDown/></button>
         </p> :
         <>
-            <div className='info'>
+            <div className='infos'>
                 <label className='cost'>{item.cost}₽</label>
             </div>
             <button onClick={() => {
@@ -91,7 +91,7 @@ const ItemCardPack = ({ length, item, width, size }) => {
                     alert('Вы не выбрали размер набора');
                 }
             }
-            }><FaCartArrowDown/></button>
+            }>Добавить</button>
         </>;
 
     let statusClass = statusClasses.get(item.status);

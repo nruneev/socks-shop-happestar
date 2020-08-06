@@ -7,7 +7,7 @@ const CatalogListPack = ({ items, setMenu, length, activeTags, activeSizes }) =>
 
     const sort = ['cost', 'new'];
 
-    let [nav_type, setType] = useState([])
+    let [nav_type, setType] = useState(['col_2'])
 
     const changeNav = (type) => {
         if (type === 'col_2') {

@@ -41,9 +41,31 @@
         color: #000
 
     .item-body
-      margin-top: 14px
 
       button
+        position: relative
+        display: flex
+        align-items: center
+        justify-content: center
+        width: calc(100% - 20px)
+        margin: 0 auto
+        font-size: 12px
+        letter-spacing: .5px
+        text-transform: uppercase
+        color: #fff
+        background: #131313
+        text-decoration: none
+        font-weight: 700
+        outline: none
+        cursor: pointer
+        transition: .5s
+        z-index: 0
+        border: 1px solid #d5e3e4
+        line-height: 11px!important
+        height: 35px!important
+        padding: 0 15px!important
+
+      .counter_buttoner
         position: relative
         @include contentCentered
         width: 30%
@@ -74,7 +96,8 @@
         width: 100%
         justify-content: space-around
 
-      .info
+      .infos
+        width: 100% !important
 
         .cost
           padding-bottom: 5px

@@ -25,13 +25,13 @@ const ItemCard = ({ item, width, size }) => {
     let itemInCart = cartItems.find((el) => (el.ids === item.id && el.sizes === size[0]));
 
     let button = itemInCart ?
-        <button className='active'>
+        <button className='active counter_buttoner'>
             <span onClick={() => setItem(itemInCart, --itemInCart.count)}>–</span>
             <span>{itemInCart.count}</span>
             <span onClick={() => setItem(itemInCart, ++itemInCart.count)}>+</span>
         </button> :
         <>
-            <div className='info'>
+            <div className='infos'>
                 <label className='cost'>{item.cost}₽</label>
             </div>
             <button onClick={() => {
@@ -53,7 +53,7 @@ const ItemCard = ({ item, width, size }) => {
                 } else {
                     alert('Вы не выбрали размер');
                 }
-            }}><FaCartArrowDown/></button>
+            }}>Добавить</button>
         </>;
 
     let statusClass = statusClasses.get(item.status);
