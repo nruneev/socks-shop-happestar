@@ -104,23 +104,35 @@ const Cart = () => {
     cartItems.map((item, key) => totalPrice += parseInt(item.cost, 10) * parseInt(item.count, 10));
 
     const createOder = () => {
+        if ((oderPar.delivery === 'SDEK_PICKUP' && oderPar.adressPVZ !=='' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'PICKUP' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'SDEK' && oderPar.index !== '' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || ((oderPar.delivery === 'HAPPESTAR' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== ''))) {
+            let address = ''
 
-        const address = oderPar.index + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
-        const comment = '';
-
-        const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
-        fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
+            if (oderPar.delivery === 'SDEK_PICKUP') {
+                address = oderPar.adressPVZ;
+            } else if (oderPar.delivery === 'PICKUP') {
+                address = 'Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2'
+            } else {
+                address = oderPar.index + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
             }
-        }).then((el) => {
-            let element = el.json();
-            return (element);
-        }).then(function (data) {
-            let qwerty = data;
-            console.log(qwerty)
-        }).catch((e) => console.log(e))
+
+            const comment = '';
+
+            const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
+            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((el) => {
+                let element = el.json();
+                return (element);
+            }).then(function (data) {
+                let qwerty = data;
+                console.log(qwerty)
+            }).catch((e) => console.log(e))
+        } else {
+            alert('Вы не заполнили все нужные поля!')
+        }
     }
 
     if (cartItems.length > 0) {
@@ -286,24 +298,48 @@ const Cart = () => {
                                                         <li className='itm' onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
-                                                                delivery: 'POST'
+                                                                delivery: 'PICKUP'
                                                             });
-                                                            setDeliveryPrice(242);
-                                                            setWindow('adress');
-                                                        }} data-id='POST'>
+                                                            setDeliveryPrice(0);
+                                                            setWindow('');
+                                                        }} data-id='PICKUP'>
                                                             <div className='logo'>
-                                                                <img src='/static/media/pochta_rf.png'/>
+                                                                <img src='/static/media/logo.png'/>
                                                             </div>
                                                             <div className='del_desc'>
-                                                                <b>Почта</b>
-                                                                С ПН-ПТ с 9:00 до 18:00
-                                                                SMS-уведомление о статусе заказа
-                                                                Доставка до ближайшего отделения Почты России
-                                                                Заказ хранится в почтовом отделении 30 дней
+                                                                <b>Самовывоз</b>
+                                                                Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2 С пн-сб 10:00 до 19:00
                                                             </div>
                                                             <ul className='del_val'>
                                                                 <li className='del_val-rub'>
-                                                                    <b>242</b>
+                                                                    <b>0</b>
+                                                                    <i className="rub-symbol">₽</i>
+                                                                </li>
+                                                                <li className="del_val-time">от 1 рабочего дня</li>
+                                                            </ul>
+                                                        </li>
+                                                        <li className='itm' onClick={() => {
+                                                            setOderPar({
+                                                                ...oderPar,
+                                                                delivery: 'HAPPESTAR'
+                                                            });
+                                                            if (parseInt(totalPrice, 10) - promo_price < 3000) {
+                                                                setDeliveryPrice(242);
+                                                            } else {
+                                                                setDeliveryPrice(0);
+                                                            }
+                                                            setWindow('adress');
+                                                        }} data-id='HAPPESTAR'>
+                                                            <div className='logo'>
+                                                                <img src='/static/media/logo.png'/>
+                                                            </div>
+                                                            <div className='del_desc'>
+                                                                <b>Курьерская доставка</b>
+                                                                200 рублей в пределах КАД (при заказе от 3000 руб. доставка по СПб, в пределах КАД - бесплатно)
+                                                            </div>
+                                                            <ul className='del_val'>
+                                                                <li className='del_val-rub'>
+                                                                    <b>{parseInt(totalPrice, 10) - promo_price < 3000 ? 242 : 0}</b>
                                                                     <i className="rub-symbol">₽</i>
                                                                 </li>
                                                                 <li className="del_val-time">от 3 рабочих дней</li>
@@ -433,7 +469,7 @@ const Cart = () => {
                                                 <div className="inputs tmpUserData">
                                                     <div className="suggestions__wrap">
                                                         <input type="text" className="input suggestions-input"
-                                                               placeholder="Фамилия*"
+                                                               placeholder="Фамилия"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
                                                                onChange={(el) => setOderPar({
