@@ -44,8 +44,6 @@ if ($db->connect_errno) {
     echo "Не удалось подключиться к MySQL: (" . $db->connect_errno . ") " . $db->connect_error;
 }
 
-echo substr($query, 0, -2);
-
 $db->query("INSERT INTO orders (orderJson, promo, name, surname, email, phone, delivery_id, pay_id, comment, address, update_at, create_at) VALUES ('".$params['orderJson']."', '".$params['promo']."', '".$params['name']."', '".$params['surname']."', '".$params['email']."', '".$params['phone']."', '".$params['delivery']."', '".$params['pay']."', '".$params['comment']."', '".$params['address']."', '".$params['update_at']."', '".$params['create_at']."')");
 $id = $db->insert_id;
 
@@ -78,19 +76,25 @@ $out .= "<td>Телефон</td>";
 $out .= "<td>".$_GET['phone']."</td>";
 $out .= "</tr>";
 
+$delivery = "";
+if($_GET['delivery'] === "SDEK") {
+    $delivery = "Доставка СДЭК";
+} elseif ($_GET['delivery'] === "SDEK_PICKUP") {
+    $delivery = "Самовывоз СДЭК";
+} elseif ($_GET['delivery'] === "PICKUP") {
+    $delivery = "Самовывоз";
+} elseif ($_GET['delivery'] === "HAPPESTAR") {
+    $delivery = "Курьерская доставка";
+}
+
 $out .= "<tr>";
 $out .= "<td>Доставка</td>";
-$out .= "<td>".($_GET['delivery'])."</td>";
+$out .= "<td>".($delivery)."</td>";
 $out .= "</tr>";
 
 $out .= "<tr>";
 $out .= "<td>Оплата</td>";
-$out .= "<td>".$_GET['pay']."</td>";
-$out .= "</tr>";
-
-$out .= "<tr>";
-$out .= "<td>Комментарий к заказу</td>";
-$out .= "<td></td>";
+$out .= "<td>Наличными при получении</td>";
 $out .= "</tr>";
 
 $out .= "<tr>";
@@ -154,19 +158,19 @@ $out .= "</html>";
 $mail = new PHPMailer(true);
 $mail->isSMTP();
 
-$mail->SMTPDebug = 1;
+$mail->SMTPDebug = 0;
 
 $mail->Host = 'ssl://smtp.mail.ru';
 
 $mail->SMTPAuth = true;
-$mail->Username = 'nikita.runeev@mail.ru'; // логин от вашей почты
-$mail->Password = 'nikita1'; // пароль от почтового ящика
+$mail->Username = 'Happestar@mail.ru '; // логин от вашей почты
+$mail->Password = '1711rpm'; // пароль от почтового ящика
 $mail->SMTPSecure = 'SSL';
 $mail->Port = '465';
 
 $mail->CharSet = 'UTF-8';
-$mail->From = 'nikita.runeev@mail.ru';  // адрес почты, с которой идет отправка
-$mail->FromName = 'Happestar'; // имя отправителя
+$mail->From = 'Happestar@mail.ru ';  // адрес почты, с которой идет отправка
+$mail->FromName = 'Интернет-Магазин Happestar'; // имя отправителя
 
 try {
     $mail->addAddress('nruneev@mail.ru', 'Name');
@@ -174,20 +178,58 @@ try {
 
 $mail->isHTML(true);
 
-$mail->Subject = "Деньги пришли";
+$mail->Subject = "Ваш заказ №".$id." подтвержден и оформлен";
 $mail->Body = $out;
-$mail->AltBody = "Уууууууууууууууууууууууууу";
+$mail->AltBody = "";
 
 //$mail->SMTPDebug = 1;
 
 try {
     if ($mail->send()) {
         $answer = '1';
-        echo 'Письмо может быть отправлено. ';
     } else {
         $answer = '0';
-        echo 'Письмо не может быть отправлено. ';
         echo 'Ошибка: ' . $mail->ErrorInfo;
     }
 } catch (\PHPMailer\PHPMailer\Exception $e) {}
+
+$mails = new PHPMailer(true);
+$mails->isSMTP();
+
+$mails->SMTPDebug = 0;
+
+$mails->Host = 'ssl://smtp.mail.ru';
+
+$mails->SMTPAuth = true;
+$mails->Username = 'Happestar@mail.ru '; // логин от вашей почты
+$mails->Password = '1711rpm'; // пароль от почтового ящика
+$mails->SMTPSecure = 'SSL';
+$mails->Port = '465';
+
+$mails->CharSet = 'UTF-8';
+$mails->From = 'Happestar@mail.ru ';  // адрес почты, с которой идет отправка
+$mails->FromName = 'Интернет-Магазин Happestar'; // имя отправителя
+
+try {
+    $mails->addAddress('nruneev@mail.ru', 'Name');
+} catch (\PHPMailer\PHPMailer\Exception $e) {}
+
+$mails->isHTML(true);
+
+$mails->Subject = "Новый заказ №".$id;
+$mails->Body = $out;
+$mails->AltBody = "";
+
+//$mail->SMTPDebug = 1;
+
+try {
+    if ($mails->send()) {
+        $answer = '1';
+    } else {
+        $answer = '0';
+        echo 'Ошибка: ' . $mail->ErrorInfo;
+    }
+} catch (\PHPMailer\PHPMailer\Exception $e) {}
+
+echo $id;
 
