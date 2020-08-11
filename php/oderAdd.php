@@ -148,13 +148,6 @@ if(isset($basket)) {
 $out .= "</body>";
 $out .= "</html>";
 
-//mail("Happestar@mail.ru", "Новый заказ №" . $id, $out, $headers);
-//
-////mail($post['email'], "Ваш заказ подтвержден и оформлен", "Здравствуйте! Спасибо, что выбрали наш интернет-магазин! Ваш заказ №".$id." на сумму ".$_SESSION['priceAll']." руб.");
-//mail($post['email'], "Ваш заказ подтвержден и оформлен", $out, $headers);
-//
-//unset($_SESSION['basket']);
-//
 $mail = new PHPMailer(true);
 $mail->isSMTP();
 
@@ -173,7 +166,7 @@ $mail->From = 'Happestar@mail.ru ';  // адрес почты, с которой
 $mail->FromName = 'Интернет-Магазин Happestar'; // имя отправителя
 
 try {
-    $mail->addAddress('nruneev@mail.ru', 'Name');
+    $mail->addAddress($_GET['email'], 'Name');
 } catch (\PHPMailer\PHPMailer\Exception $e) {}
 
 $mail->isHTML(true);
@@ -207,11 +200,11 @@ $mails->SMTPSecure = 'SSL';
 $mails->Port = '465';
 
 $mails->CharSet = 'UTF-8';
-$mails->From = 'Happestar@mail.ru ';  // адрес почты, с которой идет отправка
+$mails->From = 'Happestar@mail.ru';  // адрес почты, с которой идет отправка
 $mails->FromName = 'Интернет-Магазин Happestar'; // имя отправителя
 
 try {
-    $mails->addAddress('nruneev@mail.ru', 'Name');
+    $mails->addAddress('Happestar@mail.ru', 'Name');
 } catch (\PHPMailer\PHPMailer\Exception $e) {}
 
 $mails->isHTML(true);

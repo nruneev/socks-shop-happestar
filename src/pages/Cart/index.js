@@ -12,6 +12,7 @@ import {useHistory} from "react-router-dom";
 
 const Cart = () => {
     let history = useHistory();
+    let [idOder, setIDOder] = useState(0);
     let [pvz, setPVZ] = useState([]);
     let [currentPVZ, setCurrentPVZ] = useState({});
     let [startUpload, setUpload] = useState(false);
@@ -128,14 +129,15 @@ const Cart = () => {
                 return (element);
             }).then(function (data) {
                 let qwerty = data;
-                console.log(qwerty)
+                setIDOder(qwerty)
+                cartItems.map((el) => removeItem(el.id))
             }).catch((e) => console.log(e))
         } else {
             alert('Вы не заполнили все нужные поля!')
         }
     }
 
-    if (cartItems.length > 0) {
+    if (cartItems.length > 0 && idOder === 0) {
         return (
                 <div className={'cart-dropdown'}>
                     <div className="wrapperers">
@@ -567,7 +569,7 @@ const Cart = () => {
                     </div>
                 </div>
         )
-    } else {
+    } else if (idOder === 0){
         return (
                 <div className={'cart-dropdown'}>
                     <div className="wrapperers">
@@ -581,6 +583,33 @@ const Cart = () => {
                         <p className='without_item'>В корзине ничего нет</p>
                     </div>
                 </div>
+        )
+    }else {
+        return(
+            <div className={'cart-dropdown'}>
+                <div className="wrapperers">
+                    <div className='linker'>
+                        <ul>
+                            <li><a href={'./'}>Главная</a></li>
+                            <li><a onClick={() => history.goBack()}>Назад</a></li>
+                            <li><span>Корзина</span></li>
+                        </ul>
+                        <h1>Корзина</h1>
+                    </div>
+                    <div className="table okTable">
+                        <div className='iconAccess'>
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check-circle" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                     className="svg-inline--fa fa-check-circle fa-w-16 fa-9x">
+                                    <path fill="currentColor"
+                                          d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                                          className=""></path>
+                                </svg>
+                            </div>
+                        <h1 className='qwertyasd'>Заказ №{idOder} оформлен!</h1>
+                    </div>
+                </div>
+            </div>
         )
     }
 };
