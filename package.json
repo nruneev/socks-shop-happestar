@@ -5,6 +5,7 @@
   "homepage": "/",
   "dependencies": {
     "@react-google-maps/api": "^1.9.9",
+    "big-integer": "^1.6.48",
     "ra-data-json-server": "^3.6.2",
     "react": "^16.13.0",
     "react-admin": "^3.6.2",

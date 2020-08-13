@@ -1,13 +1,14 @@
-const token = '639a10016ef1b8a7bc1442ad978c1154';
-
-const userId = '5431003189';
-
-const inst_url = "https://api.instagram.com/v1/users/" + userId + "/media/recent?access_token="  + token;
-
 export const request_to_instagram = async () => {
 
-    let response = await fetch(inst_url);
+    let photo = [];
 
-    return await response.json();
-
+    let response = await fetch('/php/instagram.php').then((el) => {
+        let element = el.json();
+        return (element)
+    }).then(function (data) {
+        let qwerty = data;
+        photo = qwerty;
+        console.log(qwerty);
+    }).catch((e) => console.log(e));
+    return photo;
 };

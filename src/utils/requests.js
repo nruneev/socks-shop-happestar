@@ -6,17 +6,33 @@ const LIMIT_OF_INSTAGRAM_PHOTOS = 18;
 
 export async function get_instagram_photos() {
     try {
-        //let response = await request_to_instagram();
-        //let images = response.data.map((element) => ({ link: element.link, url: element.images.standard_resolution.url }));
-
-        return images;
+        let response = await request_to_instagram();
+        let imagess = response.map((element) => ({ link: link(element.id), url: element.image }));
+        imagess.map((el) => imagess.push(el));
+        return imagess;
     }
     catch (e) {
         console.error(e);
     }
 }
+let link = (tag) => {
+    let bigInt = require('big-integer');
 
- export async function get_attention_photos() {
+    let id = bigInt(tag.split('_', 1)[0]);
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+    let remainder;
+    let shortcode = '';
+
+    while (id.greater(0)) {
+        let division = id.divmod(64);
+        id = division.quotient;
+        shortcode = `${alphabet.charAt(division.remainder)}${shortcode}`;
+    }
+
+    return shortcode;
+}
+
+export async function get_attention_photos() {
     try {
         return attentions;
     }
