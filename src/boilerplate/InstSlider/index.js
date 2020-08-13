@@ -10,10 +10,11 @@ const InstSlider = ({ className, images, timeout = 3000 }) => {
     useEffect(() => intervalChangeId(getNextImage(images), setActiveId, timeout), [images, timeout]);
 
     return (
-        <div className={'carousels ' + classForSliderName}>
-            {images.map((image, key) => {
-                let imgClassName = (key <= activeId) && (key >= activeId-9) ? 'active' : '';
-                return (<ImageInst className={'inst-block ' + imgClassName} image={image} key={key}/>)})}
+        <div className={'carouselsss ' + classForSliderName}>
+            <div className='images'>
+                {images.map((image, key) => {
+                    return (<ImageInst className={'inst-block'} image={image} key={key}/>)})}
+            </div>
         </div>
     )
 };

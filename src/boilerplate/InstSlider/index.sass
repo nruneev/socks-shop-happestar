@@ -1,25 +1,30 @@
 @import '../../variables'
 
-.carousels
+@keyframes roll
+  from
+    transform: translateX(0)
+  to
+    transform: translateX(-100%)
+
+
+.carouselsss
   position: relative
-  display: flex
-  justify-content: center
   height: 245px
-  align-items: flex-end
-  z-index: 0
+
+  .images
+    width: 4410px
+    height: 245px
+    animation: roll 28s linear infinite
+    font-size: 0
 
   .inst-block
     position: relative
     height: 245px
     width: 245px
-    display: none
-    opacity: 0
+    display: table-cell
+    opacity: 1
     text-decoration: none
-    transition: opacity 2s
 
     img
       height: 245px
       width: 245px
-
-  .active
-    display: contents
