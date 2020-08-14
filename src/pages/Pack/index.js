@@ -154,10 +154,14 @@ const Pack = () => {
                                     let src = '';
                                     if (packItems.length > 0 && packItems[key]) {
                                         src = packItems[key].src;
+                                        return (<li data-src={src} onClick={() => removeItemPack(packItems[key].ids)} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
+                                    } else {
+                                        return (<li data-src={src} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
                                     }
-                                    return <li data-src={src} className={'option ' + classNamer}>{el}
-                                        <img src={src}/>
-                                    </li>;
                                 })}
                             </ul>
                             <ul className={"options four" + class_four}>
@@ -167,49 +171,65 @@ const Pack = () => {
                                     let src = '';
                                     if (packItems.length > 0 && packItems[key]) {
                                         src = packItems[key].src;
+                                        return (<li data-src={src} onClick={() => removeItemPack(packItems[key].ids)} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
+                                    } else {
+                                        return (<li data-src={src} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
                                     }
-                                    return <li data-src={src} className={'option ' + classNamer}>{el}
-                                        <img src={src}/>
-                                    </li>;
                                 })}
                             </ul>
                             <ul className={"options five" + class_five}>
                                 {num_five.map((el, key) => {
                                     let classNamer = key <= packItems.length - 1 ? 'chsn' : '';
                                     let src = '';
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
                                     if (packItems.length > 0 && packItems[key]) {
                                         src = packItems[key].src;
+                                        return (<li data-src={src} onClick={() => removeItemPack(packItems[key].ids)} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
+                                    } else {
+                                        return (<li data-src={src} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
                                     }
-                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                    return <li data-src={src} className={'option ' + classNamer}>{el}
-                                        <img src={src}/>
-                                    </li>;
                                 })}
                             </ul>
                             <ul className={"options six" + class_six}>
                                 {num_six.map((el, key) => {
                                     let classNamer = key <= packItems.length - 1 ? 'chsn' : ''
                                     let src = '';
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
                                     if (packItems.length > 0 && packItems[key]) {
                                         src = packItems[key].src;
+                                        return (<li data-src={src} onClick={() => removeItemPack(packItems[key].ids)} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
+                                    } else {
+                                        return (<li data-src={src} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
                                     }
-                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                    return <li data-src={src} className={'option ' + classNamer}>{el}
-                                        <img src={src}/>
-                                    </li>
                                 })}
                             </ul>
                             <ul className={"options eight" + class_eight}>
                                 {num_eight.map((el, key) => {
                                     let classNamer = key <= packItems.length - 1 ? 'chsn' : ''
                                     let src = '';
+                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
                                     if (packItems.length > 0 && packItems[key]) {
                                         src = packItems[key].src;
+                                        return (<li data-src={src} onClick={() => removeItemPack(packItems[key].ids)} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
+                                    } else {
+                                        return (<li data-src={src} className={'option ' + classNamer}>{el}
+                                            <img src={src}/>
+                                        </li>);
                                     }
-                                    classButton = packItems.length === lengthNabor ? 'shw' : '';
-                                    return <li data-src={src} className={'option ' + classNamer}>{el}
-                                        <img src={src}/>
-                                    </li>
                                 })}
                             </ul>
                             <button onClick={() => setNabor()} className={'button ' + classButton}>ДОбавить</button>

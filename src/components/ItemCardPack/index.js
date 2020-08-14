@@ -24,48 +24,14 @@ const ItemCardPack = ({ length, item, width, size }) => {
 
     let itemInCart = packItems.filter((el) => (el.ids === item.id && el.sizes === size[0]));
 
-    let button = itemInCart.length > 0 ?
-        <p className='active'>
-            <div className='info'>
-                <label className='cost'>{item.cost}₽</label>
-                <FaTrashAlt className='trash' onClick={() => removeItemPack(item.id)}/>
-            </div>
-            <button onClick={() => {
-                if (length.length != 0) {
-                    if (size[0]) {
-                        if (packItems.length < parseInt(length, 10)) {
-                            setItem({
-                                id: Math.abs(Math.random() * 100),
-                                ids: item.id,
-                                article: item.article,
-                                src: item.src,
-                                name: item.name,
-                                cost: item.cost,
-                                discount: 15,
-                                prev_cost: item.cost,
-                                status: item.status,
-                                tags: item.tags,
-                                sizes: size[0]
-                            });
-                        } else {
-                            alert('Ваш набор собран, добавьте его в корзину');
-                        }
-                    } else {
-                        alert('Вы не выбрали размер');
-                    }
-                } else {
-                    alert('Вы не выбрали размер набора');
-                }
-            }
-            }><FaCartArrowDown/></button>
-        </p> :
+    let button =
         <>
             <div className='infos'>
                 <label className='cost'>{item.cost}₽</label>
             </div>
             <button onClick={() => {
                 console.log(length);
-                if (length.length != 0) {
+                if (length.length !== 0) {
                     if (size[0]) {
                         if (packItems.length < parseInt(length, 10)) {
                             setItem({
