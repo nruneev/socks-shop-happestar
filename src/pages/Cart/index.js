@@ -79,6 +79,7 @@ const Cart = () => {
         room: '',
         index: '',
         adressPVZ: '',
+        codePVZ: ''
     });
 
     console.log(oderPar);
@@ -119,7 +120,7 @@ const Cart = () => {
             const comment = '';
 
             const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
-            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll, {
+            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -421,6 +422,7 @@ const Cart = () => {
                                                                         };
                                                                         return (<Marker onLoad={onLoad} position={coord} onClick={() => setCurrentPVZ({
                                                                             address: el.address,
+                                                                            code: el.code,
                                                                             time: el.workTime,
                                                                             tel: el.phone,
                                                                             class: 'open_pvz'
@@ -453,7 +455,8 @@ const Cart = () => {
                                                                 <button className='_btn_' type='button'
                                                                         onClick={() => setOderPar({
                                                                             ...oderPar,
-                                                                            adressPVZ: currentPVZ.address
+                                                                            adressPVZ: currentPVZ.address,
+                                                                            codePVZ: currentPVZ.code
                                                                         })}
                                                                 >{oderPar.adressPVZ === currentPVZ.address ? 'Пункт выбран' : 'Забрать здесь'}</button>
                                                             </div>
