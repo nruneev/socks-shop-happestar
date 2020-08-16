@@ -9,6 +9,20 @@ const CartItemMobile = ({ item, removeItem }) => {
     let { setItem } = useContext(CartContext);
     const { t } = useTranslation();
 
+    const block = item.isNabor ?
+
+        <div className='blockItem'>
+            {item.item.map((el) => {
+                return (<p className='nabor-item'>
+                    <img src={el.src}/>
+                    {el.name}
+                    <span>{el.sizes}</span>
+                </p>)
+            })}
+        </div>
+        :
+        <p className="art">{item.article}</p>;
+
     return (
         <li className="lists goodsInCartMobile">
             <a href={"/good?id=" + item.id} className="img">
@@ -18,8 +32,7 @@ const CartItemMobile = ({ item, removeItem }) => {
                 <a href={"/good?id=" + item.id} className="name">{item.name}</a>
                 <div className="desc">
                     <p>
-                        <span>Арт.</span>
-                        {item.article}
+                        {block}
                     </p>
                     <p>
                         <span>Размер:</span>

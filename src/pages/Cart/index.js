@@ -130,8 +130,7 @@ const Cart = () => {
                 return (element);
             }).then(function (data) {
                 let qwerty = data;
-                setIDOder(qwerty)
-                cartItems.map((el) => removeItem(el.id))
+                setIDOder(qwerty);
             }).catch((e) => console.log(e))
         } else {
             alert('Вы не заполнили все нужные поля!')
@@ -587,7 +586,8 @@ const Cart = () => {
                     </div>
                 </div>
         )
-    }else {
+    } else {
+        cartItems.map((el) => removeItem(el.id));
         return(
             <div className={'cart-dropdown'}>
                 <div className="wrapperers">
@@ -601,15 +601,16 @@ const Cart = () => {
                     </div>
                     <div className="table okTable">
                         <div className='iconAccess'>
-                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check-circle" role="img"
-                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                     className="svg-inline--fa fa-check-circle fa-w-16 fa-9x">
-                                    <path fill="currentColor"
-                                          d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
-                                          className=""></path>
-                                </svg>
+                            <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="check-circle"
+                                 role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                 className="svg-inline--fa fa-check-circle fa-w-16 fa-9x">
+                                <path fill="currentColor"
+                                      d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"
+                                      className=""></path>
+                            </svg>
                             </div>
                         <h1 className='qwertyasd'>Заказ №{idOder} оформлен!</h1>
+                        <p className='qwertyasd1'>Мы отправили на почту письмо с подтверждением Вашего заказа.</p>
                     </div>
                 </div>
             </div>
