@@ -41,7 +41,7 @@ const CatalogListPack = ({ items, setMenu, length, activeTags, activeSizes }) =>
                 items = items.reverse();
                 oder = 'desc';
             } else {
-                items = items.sort((a, b) => a.new > b.new ? 1 : -1);
+                items = items.sort((a, b) => parseInt(a.status, 10) < parseInt(b.status, 10) ? 1 : -1);
                 oder = 'asc';
             }
         } else {

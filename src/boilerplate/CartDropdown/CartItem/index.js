@@ -19,12 +19,24 @@ const CartItem = ({ item, removeItem }) => {
                 return (<p className='nabor-item'>
                             <img src={el.src}/>
                             {el.name}
-                            <span>{el.sizes}</span>
+                            <span>{el.article}</span>
                         </p>)
             })}
         </div>
         :
         <p className="art">{item.article}</p>;
+
+    const sizer = item.isNabor ?
+
+        <div className='blockItem'>
+            {item.item.map((el) => {
+                return (<p className='nabor-item'>
+                    <span>{el.sizes}</span>
+                </p>)
+            })}
+        </div>
+        :
+        <p className="art">{item.sizes}</p>;
 
 
     return (
@@ -39,7 +51,7 @@ const CartItem = ({ item, removeItem }) => {
                 {block}
             </td>
             <td>
-                <span>{item.sizes}</span>
+                {sizer}
             </td>
             <td>
                 <span className="coast">{item.cost}₽</span>

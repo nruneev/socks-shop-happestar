@@ -217,19 +217,37 @@ const Good = () => {
                             </button>
                         </div>
                         <ul className={'accrd ' + classDescr}>
-                            <li className='child' onClick={() => setDescr(1)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 1) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(1)
+                                }
+                            }}>
                                 <div className='ttl'>Описание</div>
                                 <div className='descr'>
                                     <p>{item.description}</p>
                                 </div>
                             </li>
-                            <li className='child' onClick={() => setDescr(2)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 2) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(2)
+                                }
+                            }}>
                                 <div className='ttl'>Cостав</div>
                                 <div className='descr'>
                                     <p>{item.composition}</p>
                                 </div>
                             </li>
-                            <li className='child' onClick={() => setDescr(3)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 3) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(3)
+                                }
+                            }}>
                                 <div className='ttl'>Доставка</div>
                                 <div className='descr'>
                                     <p>
@@ -273,7 +291,13 @@ const Good = () => {
                                     </p>
                                 </div>
                             </li>
-                            <li className='child' onClick={() => setDescr(4)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 4) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(4)
+                                }
+                            }}>
                                 <div className='ttl'>Оплата</div>
                                 <div className='descr'>
                                     <p>
@@ -354,19 +378,37 @@ const Good = () => {
                             </button>
                         </div>
                         <ul className={'accrd ' + classDescr}>
-                            <li className='child' onClick={() => setDescr(1)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 1) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(1)
+                                }
+                            }}>
                                 <div className='ttl'>Описание</div>
                                 <div className='descr'>
                                     <p>{item.description}</p>
                                 </div>
                             </li>
-                            <li className='child' onClick={() => setDescr(2)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 2) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(2)
+                                }
+                            }}>
                                 <div className='ttl'>Cостав</div>
                                 <div className='descr'>
                                     <p>{item.composition}</p>
                                 </div>
                             </li>
-                            <li className='child' onClick={() => setDescr(3)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 3) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(3)
+                                }
+                            }}>
                                 <div className='ttl'>Доставка</div>
                                 <div className='descr'>
                                     <p>
@@ -410,7 +452,13 @@ const Good = () => {
                                     </p>
                                 </div>
                             </li>
-                            <li className='child' onClick={() => setDescr(4)}>
+                            <li className='child' onClick={() => {
+                                if (descr !== 0 && descr === 4) {
+                                    setDescr(0)
+                                } else {
+                                    setDescr(4)
+                                }
+                            }}>
                                 <div className='ttl'>Оплата</div>
                                 <div className='descr'>
                                     <p>

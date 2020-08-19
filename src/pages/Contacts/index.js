@@ -27,7 +27,7 @@ const Contacts = () => {
                         <div className="shops__descr">
                             <p>
                                 <span>Адрес</span>
-                                <span>Лиговский пр., 74, лит. Д, Лофт Проект Этажи</span>
+                                <span>Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2</span>
                             </p>
                             <p>
                                 <span>Открыто</span>
@@ -57,8 +57,9 @@ const Contacts = () => {
                 </div>
             </div>
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1999.6107043147874!2d30.353081516224186!3d59.92200797040204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46963114d45d296b%3A0xa447ad80081097b1!2z0JvQvtGE0YIg0J_RgNC-0LXQutGCINCt0YLQsNC20Lg!5e0!3m2!1sru!2sru!4v1590411006882!5m2!1sru!2sru"
-                width="800" height="450" frameBorder="0"/>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2003.1618537814982!2d30.387807414391283!3d59.86305860000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46962f6c276128ff%3A0xe48d8dc081f10e8b!2sFrunzenskiy!5e0!3m2!1sen!2sru!4v1597868572319!5m2!1sen!2sru"
+                allowFullScreen="" aria-hidden="false"
+                tabIndex="0"/>
         </div>
     );
 };

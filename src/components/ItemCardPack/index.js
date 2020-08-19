@@ -65,6 +65,9 @@ const ItemCardPack = ({ length, item, width, size }) => {
     return (
         <article className={'product ' + statusClass}>
             <div className="product__wrap">
+                <p className='status_item'>
+                    {item.status === "1" ? "New!" : ""}&#160;
+                </p>
                 <a href={"/good?id=" + item.id} className='product__image-wrap'>
                     <img className="product__image " src={item.src} alt={item.name}/>
                 </a>

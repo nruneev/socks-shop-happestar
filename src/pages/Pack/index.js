@@ -70,7 +70,7 @@ const Pack = () => {
             }),
             id: Math.abs(Math.random() * 100),
             name: 'Ваш набор',
-            src: packItems[0].src,
+            src: '/static/media/box.jpg',
             sizes: sizess,
             cost: 390 * packItems.length,
             count: 1,

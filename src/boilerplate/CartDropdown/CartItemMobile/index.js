@@ -16,12 +16,16 @@ const CartItemMobile = ({ item, removeItem }) => {
                 return (<p className='nabor-item'>
                     <img src={el.src}/>
                     {el.name}
+                    <span>{el.article}</span>
                     <span>{el.sizes}</span>
                 </p>)
             })}
         </div>
         :
-        <p className="art">{item.article}</p>;
+        <>
+            <p className="art">{item.article}</p>
+            <p><span>Размер:</span>{item.sizes}</p>
+        </>;
 
     return (
         <li className="lists goodsInCartMobile">
@@ -33,10 +37,6 @@ const CartItemMobile = ({ item, removeItem }) => {
                 <div className="desc">
                     <p>
                         {block}
-                    </p>
-                    <p>
-                        <span>Размер:</span>
-                        {item.sizes}
                     </p>
                 </div>
                 <div className="coast">
