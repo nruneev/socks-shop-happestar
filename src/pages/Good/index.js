@@ -150,7 +150,11 @@ const Good = () => {
                         <div className='thumbs'>
                             {item.photos.map((el, key) => {
                                 const classer = key === actualPhotos ? 'selected' : '';
-                                return (<div className={'swiper-slide ' + classer} onClick={() => setActual(key)}><img src={el}/></div>)
+                                if (el !== '') {
+                                    return (
+                                        <div className={'swiper-slide ' + classer} onClick={() => setActual(key)}><img
+                                            src={el}/></div>)
+                                }
                             })}
                         </div>
                         <div className="main-wrap">
