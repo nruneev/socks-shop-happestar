@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import './index.sass'
 import {useTranslation} from "react-i18next";
+import {useHistory} from "react-router-dom";
 
 const Partner = () => {
+    let history = useHistory();
+
     const { t } = useTranslation();
 
     const steps = [
@@ -21,21 +24,16 @@ const Partner = () => {
     ];
 
     return (
-        <div className='page partner'>
-            <article>
-                <h1>{t('become_a_partner')}</h1>
-                <div className='steps'>
-                    {steps.map((step, key) => {
-                        return (
-                            <div className='content'>
-                                <p>
-                                    <span>{step.text}</span>
-                                </p>
-                            </div>
-                        )}
-                    )}
-                </div>
-            </article>
+        <div className='wrapper'>
+            <div className='linker'>
+                <ul>
+                    <li><a href={'./'}>Главная</a></li>
+                    <li><a onClick={() => history.goBack()}>Назад</a></li>
+                    <li><span>Оплата и Доставка</span></li>
+                </ul>
+                <h1>Оплата и Доставка</h1>
+            </div>
+            <img className="imagePart" src='static/media/graph.svg'/>
         </div>
     )
 };

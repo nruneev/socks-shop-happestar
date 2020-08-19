@@ -77,7 +77,7 @@ const Cart = () => {
         street: '',
         home: '',
         room: '',
-        index: '',
+        city: '',
         adressPVZ: '',
         codePVZ: ''
     });
@@ -106,7 +106,7 @@ const Cart = () => {
     cartItems.map((item, key) => totalPrice += parseInt(item.cost, 10) * parseInt(item.count, 10));
 
     const createOder = () => {
-        if ((oderPar.delivery === 'SDEK_PICKUP' && oderPar.adressPVZ !=='' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'PICKUP' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'SDEK' && oderPar.index !== '' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || ((oderPar.delivery === 'HAPPESTAR' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== ''))) {
+        if ((oderPar.delivery === 'SDEK_PICKUP' && oderPar.adressPVZ !=='' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'PICKUP' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'SDEK' && oderPar.city !== '' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || ((oderPar.delivery === 'HAPPESTAR' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== ''))) {
             let address = ''
 
             if (oderPar.delivery === 'SDEK_PICKUP') {
@@ -114,7 +114,7 @@ const Cart = () => {
             } else if (oderPar.delivery === 'PICKUP') {
                 address = 'Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2'
             } else {
-                address = oderPar.index + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
+                address = oderPar.city + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
             }
 
             const comment = '';
@@ -357,6 +357,16 @@ const Cart = () => {
                                                 </div>
                                                 <div className="edit">
                                                     <div className="inputs tmpAddressData">
+                                                        <div className="inputs__hint-wrap">
+                                                            <input type="text" className="input text"
+                                                                   placeholder="Город"
+                                                                   onChange={(el) => setOderPar({
+                                                                       ...oderPar,
+                                                                       city: el.target.value
+                                                                   })}
+                                                                   name="address" required=""/>
+                                                        </div>
+
                                                             <div className="suggestions__wrap">
                                                                 <input type="text" className="input"
                                                                        name="address"
@@ -383,15 +393,6 @@ const Cart = () => {
                                                                            room: el.target.value
                                                                        })}
                                                                        placeholder="Квартира/Офис"/>
-                                                            </div>
-                                                            <div className="inputs__hint-wrap">
-                                                                <input type="text" className="input text"
-                                                                       placeholder="Индекс"
-                                                                       onChange={(el) => setOderPar({
-                                                                           ...oderPar,
-                                                                           index: el.target.value
-                                                                       })}
-                                                                       name="address" required=""/>
                                                             </div>
                                                     </div>
                                                 </div>
