@@ -75,6 +75,8 @@ export async function get_attention_photos() {
             id: parent.id,
             article: parent.article,
             src: parent.photoMain,
+            mainPhoto: parent.photoMain,
+            altPhoto: parent.photoDetail,
             name: parent.name,
             cost: parent.price,
             discount: 15,

@@ -133,7 +133,7 @@ const Cart = () => {
                 setIDOder(qwerty);
             }).catch((e) => console.log(e))
         } else {
-            alert('Вы не заполнили все нужные поля!')
+            alert('Вы не заполнили все нужные поля!');
         }
     }
 
@@ -358,7 +358,7 @@ const Cart = () => {
                                                 <div className="edit">
                                                     <div className="inputs tmpAddressData">
                                                         <div className="inputs__hint-wrap">
-                                                            <input type="text" className="input text"
+                                                            <input type="text" className={"input text "}
                                                                    placeholder="Город"
                                                                    onChange={(el) => setOderPar({
                                                                        ...oderPar,
@@ -368,7 +368,7 @@ const Cart = () => {
                                                         </div>
 
                                                             <div className="suggestions__wrap">
-                                                                <input type="text" className="input"
+                                                                <input type="text" className={"input "}
                                                                        name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
@@ -377,7 +377,7 @@ const Cart = () => {
                                                                        placeholder="Улица"/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
-                                                                <input type="text" className="input input--small"
+                                                                <input type="text" className={"input input--small "}
                                                                        name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
@@ -386,7 +386,7 @@ const Cart = () => {
                                                                        placeholder="Дом" required=""/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
-                                                                <input type="text" className="input input--small"
+                                                                <input type="text" className={"input input--small "}
                                                                        name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
@@ -473,7 +473,7 @@ const Cart = () => {
                                             <div className="edit">
                                                 <div className="inputs tmpUserData">
                                                     <div className="suggestions__wrap">
-                                                        <input type="text" className="input suggestions-input"
+                                                        <input type="text" className={"input suggestions-input "}
                                                                placeholder="Фамилия"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
@@ -485,7 +485,7 @@ const Cart = () => {
                                                     </div>
 
                                                     <div className="suggestions__wrap">
-                                                        <input type="text" className="input suggestions-input"
+                                                        <input type="text" className={"input suggestions-input "}
                                                                placeholder="Имя*"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
@@ -506,7 +506,7 @@ const Cart = () => {
                                                     </div>
 
                                                     <div className="suggestions__wrap">
-                                                        <input type="tel" className="input"
+                                                        <input type="tel" className={"input "}
                                                                placeholder="Номер телефона*"
                                                                required=""
                                                                onChange={(el) => setOderPar({
@@ -517,7 +517,7 @@ const Cart = () => {
                                                     </div>
 
                                                     <div className="suggestions__wrap">
-                                                        <input type="email" className="input" placeholder="Email*"
+                                                        <input type="email" className={"input "} placeholder="Email*"
                                                                required=""
                                                                onChange={(el) => setOderPar({
                                                                    ...oderPar,
@@ -532,7 +532,7 @@ const Cart = () => {
                                             <i className="ico"/>
                                             <div className="ttl">3. Оплата</div>
                                             <div className="edit">
-                                                <div className={"forPaymentTypes " + oderPar.pay} data-error="Выберите тип оплаты">
+                                                <div className={"forPaymentTypes "} data-error="Выберите тип оплаты">
                                                     <ul className="ilist _pays">
                                                         <li className="itm " data-action="setPaymentType"
                                                             data-id="CASH"
