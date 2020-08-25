@@ -1,5 +1,6 @@
 import './index.sass'
-import React, {useContext, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
+import { Link, animateScroll as scroll } from "react-scroll";
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { Marker } from '@react-google-maps/api';
 
@@ -45,7 +46,7 @@ const Cart = () => {
         lng: 30.316229
     };
 
-    var myOptions = {
+    let myOptions = {
         zoom: 8,
         center: center
     }
@@ -65,6 +66,22 @@ const Cart = () => {
 
     let [deliveryPrice, setDeliveryPrice] = useState(0);
 
+    let [error, setError] = useState({
+        name: '',
+        surname: '',
+        delivery: '',
+        email: '',
+        phone: '',
+        codePVZ: '',
+        street: '',
+        home: '',
+        room: '',
+        city: '',
+        pay: ''
+    });
+
+    console.log(error);
+
     let [oderPar, setOderPar] = useState({
         name: '',
         surname: '',
@@ -82,12 +99,11 @@ const Cart = () => {
         codePVZ: ''
     });
 
-    console.log(oderPar);
-
     let { cartItems, removeItem, setItem } = useContext(CartContext);
 
     let promo = '';
     let [promo_price, setPromo] = useState(0);
+    let [scroller, setScroller] = useState(1);
 
     let totalPrice = 0;
 
@@ -103,7 +119,64 @@ const Cart = () => {
         })
     }
 
+    let refError = {
+        client: React.createRef(),
+        delivery: React.createRef(),
+        codePVZ: React.createRef(),
+        address: React.createRef(),
+        pay: React.createRef()
+    };
+
     cartItems.map((item, key) => totalPrice += parseInt(item.cost, 10) * parseInt(item.count, 10));
+
+    const validForm = () => {
+        let obj = {
+            name: oderPar.name !== '' ? '' : 'error',
+            surname: oderPar.surname !== '' ? '' : 'error',
+            delivery: oderPar.delivery !== '' ? '' : 'error',
+            email: oderPar.email !== '' ? '' : 'error',
+            phone: oderPar.phone !== '' ? '' : 'error',
+            codePVZ: '',
+            street: '',
+            home: '',
+            room: '',
+            city: '',
+            pay: oderPar.pay !== '' ? '' : 'error'
+        };
+        if (oderPar.delivery === 'SDEK') {
+            obj = {
+                ...obj,
+                street: oderPar.street !== '' ? '' : 'error',
+                home: oderPar.home !== '' ? '' : 'error',
+                room: oderPar.room !== '' ? '' : 'error',
+                city: oderPar.city !== '' ? '' : 'error',
+            }
+        } else if (oderPar.delivery === 'SDEK_PICKUP') {
+            obj = {
+                ...obj,
+                codePVZ: oderPar.codePVZ !== '' ? '' : 'error'
+            }
+        } else if (oderPar.delivery === 'HAPPESTAR') {
+            obj = {
+                ...obj,
+                street: oderPar.street !== '' ? '' : 'error',
+                home: oderPar.home !== '' ? '' : 'error',
+                room: oderPar.room !== '' ? '' : 'error',
+            }
+        }
+        if (obj.delivery === 'error') {
+            window.scrollTo(0, refError.delivery.current.offsetTop - 100)
+        } else if (obj.codePVZ === 'error') {
+            window.scrollTo(0, refError.codePVZ.current.offsetTop - 100)
+        } else if (obj.city === 'error' || obj.street === 'error' || obj.home === 'error' || obj.room === 'error') {
+            window.scrollTo(0, refError.address.current.offsetTop - 100)
+        } else if (obj.name === 'error' || obj.surname === 'error' || obj.email === 'error' || obj.phone === 'error') {
+            window.scrollTo(0, refError.client.current.offsetTop - 100)
+        } else if (obj.pay === 'error') {
+            window.scrollTo(0, refError.pay.current.offsetTop - 100)
+        }
+        setError(obj);
+    }
 
     const createOder = () => {
         if ((oderPar.delivery === 'SDEK_PICKUP' && oderPar.adressPVZ !=='' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'PICKUP' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'SDEK' && oderPar.city !== '' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || ((oderPar.delivery === 'HAPPESTAR' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== ''))) {
@@ -133,7 +206,7 @@ const Cart = () => {
                 setIDOder(qwerty);
             }).catch((e) => console.log(e))
         } else {
-            alert('Вы не заполнили все нужные поля!');
+            validForm();
         }
     }
 
@@ -191,7 +264,9 @@ const Cart = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div onClick={() => setComlete('active')} className="table-price__btns-wrap checkoutBtns">
+                                                <div onClick={() => {
+                                                    setComlete('active');
+                                                }} className="table-price__btns-wrap checkoutBtns">
                                                     <a
                                                        className="table-price__link _checkout">Оформить заказ</a>
                                                 </div>
@@ -228,7 +303,9 @@ const Cart = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div onClick={() => setComlete('active')} className="table-price__btns-wrap checkoutBtns">
+                                    <div onClick={() => {
+                                        setComlete('active');
+                                    }} className="table-price__btns-wrap checkoutBtns">
                                         <a
                                            className="table-price__link _checkout">Оформить заказ</a>
                                     </div>
@@ -240,14 +317,14 @@ const Cart = () => {
                                 <form noValidate='noValidate' className='noRegForm' method='post' acceptCharset='utf-8'>
                                     <div className='dlist'>
                                         <div className={'forDeliveryTypes ' + openWindow}>
-                                            <div className='item _delivery'>
+                                            <div className='item _delivery' ref={refError.delivery}>
                                                 <i className='ico'/>
                                                 <div className='ttl'>
                                                     <span>1. Доставка</span>
                                                 </div>
                                                 <div className='edit'>
                                                     <ul className={'list ' + oderPar.delivery}>
-                                                        <li className='itm' onClick={() => {
+                                                        <li className={'itm ' + error.delivery} onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
                                                                 delivery: 'SDEK'
@@ -272,7 +349,7 @@ const Cart = () => {
                                                                 <li className="del_val-time">от 2 рабочих дней</li>
                                                             </ul>
                                                         </li>
-                                                        <li className='itm' onClick={() => {
+                                                        <li className={'itm ' + error.delivery} onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
                                                                 delivery: 'SDEK_PICKUP'
@@ -297,7 +374,7 @@ const Cart = () => {
                                                                 <li className="del_val-time">от 2 рабочих дней</li>
                                                             </ul>
                                                         </li>
-                                                        <li className='itm' onClick={() => {
+                                                        <li className={'itm ' + error.delivery} onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
                                                                 delivery: 'PICKUP'
@@ -320,7 +397,7 @@ const Cart = () => {
                                                                 <li className="del_val-time">от 1 рабочего дня</li>
                                                             </ul>
                                                         </li>
-                                                        <li className='itm' onClick={() => {
+                                                        <li className={'itm ' + error.delivery} onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
                                                                 delivery: 'HAPPESTAR'
@@ -350,7 +427,7 @@ const Cart = () => {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="item  _address  adr js---order-contacts-form">
+                                            <div className="item  _address  adr js---order-contacts-form" ref={refError.address}>
                                                 <i className="ico"/>
                                                 <div className="ttl">
                                                     Адрес доставки
@@ -358,7 +435,7 @@ const Cart = () => {
                                                 <div className="edit">
                                                     <div className="inputs tmpAddressData">
                                                         <div className="inputs__hint-wrap">
-                                                            <input type="text" className={"input text "}
+                                                            <input type="text" className={"input text " + error.city}
                                                                    placeholder="Город"
                                                                    onChange={(el) => setOderPar({
                                                                        ...oderPar,
@@ -368,7 +445,7 @@ const Cart = () => {
                                                         </div>
 
                                                             <div className="suggestions__wrap">
-                                                                <input type="text" className={"input "}
+                                                                <input type="text" className={"input " + error.street}
                                                                        name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
@@ -377,7 +454,7 @@ const Cart = () => {
                                                                        placeholder="Улица"/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
-                                                                <input type="text" className={"input input--small "}
+                                                                <input type="text" className={"input input--small " + error.home}
                                                                        name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
@@ -386,7 +463,7 @@ const Cart = () => {
                                                                        placeholder="Дом" required=""/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
-                                                                <input type="text" className={"input input--small "}
+                                                                <input type="text" className={"input input--small " + error.room}
                                                                        name="address"
                                                                        onChange={(el) => setOderPar({
                                                                            ...oderPar,
@@ -397,7 +474,7 @@ const Cart = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="item  _address  maps_google">
+                                            <div className="item  _address  maps_google" ref={refError.codePVZ}>
                                                 <i className="ico"/>
                                                 <div className="ttl">
                                                     Адрес доставки
@@ -465,7 +542,7 @@ const Cart = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="item _info  js---order-contacts-form">
+                                        <div className="item _info  js---order-contacts-form" ref={refError.client}>
                                             <i className="ico"/>
                                             <div className="ttl">
                                                 2. Контактная информация
@@ -473,7 +550,7 @@ const Cart = () => {
                                             <div className="edit">
                                                 <div className="inputs tmpUserData">
                                                     <div className="suggestions__wrap">
-                                                        <input type="text" className={"input suggestions-input "}
+                                                        <input type="text" className={"input suggestions-input " + error.surname}
                                                                placeholder="Фамилия"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
@@ -485,7 +562,7 @@ const Cart = () => {
                                                     </div>
 
                                                     <div className="suggestions__wrap">
-                                                        <input type="text" className={"input suggestions-input "}
+                                                        <input type="text" className={"input suggestions-input " + error.name}
                                                                placeholder="Имя*"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
@@ -506,7 +583,7 @@ const Cart = () => {
                                                     </div>
 
                                                     <div className="suggestions__wrap">
-                                                        <input type="tel" className={"input "}
+                                                        <input type="tel" className={"input " + error.phone}
                                                                placeholder="Номер телефона*"
                                                                required=""
                                                                onChange={(el) => setOderPar({
@@ -517,7 +594,7 @@ const Cart = () => {
                                                     </div>
 
                                                     <div className="suggestions__wrap">
-                                                        <input type="email" className={"input "} placeholder="Email*"
+                                                        <input type="email" className={"input " + error.email} placeholder="Email*"
                                                                required=""
                                                                onChange={(el) => setOderPar({
                                                                    ...oderPar,
@@ -528,7 +605,7 @@ const Cart = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="item _payment">
+                                        <div className="item _payment" ref={refError.pay}>
                                             <i className="ico"/>
                                             <div className="ttl">3. Оплата</div>
                                             <div className="edit">

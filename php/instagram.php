@@ -24,7 +24,7 @@ if (!empty($matches[1][0])) {
     if (!empty($media)) {
         foreach ($media as $row) {
             //print_r($row['node']);
-            $data[] = json_encode([
+            $data[] = ([
                 'id'       => $row['node']['id'],
                 'image'    => $row['node']['thumbnail_src'],
             ]);
