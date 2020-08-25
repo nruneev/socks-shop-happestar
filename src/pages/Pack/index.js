@@ -85,8 +85,17 @@ const Pack = () => {
         }
     }
 
+    let classerPack = packItems.length === lengthNabor ? 'activeBlock' : '';
+
     return (
         <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
+            <div className={'packComplete ' + classerPack}>
+                <span className='bgPack'></span>
+                <div className="blockPack">
+                    <p>Ваш набор собран!</p>
+                    <div onClick={() => setNabor()} className={"button"}>Добавить</div>
+                </div>
+            </div>
             <div className='left-slide'>
                 <div className='linker'>
                     <ul>
