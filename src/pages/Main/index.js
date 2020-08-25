@@ -10,7 +10,6 @@ const Main = () => {
     const features = useFetch(get_features, []);
     let banners = useFetch(get_banners, []);
     let images = useFetch(get_instagram_photos, []);
-    console.log(images);
 
     return (
         <div className='page main'>

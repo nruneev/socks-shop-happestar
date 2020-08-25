@@ -13,8 +13,7 @@
     "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",
     "react-placeholder": "^4.0.0",
-    "react-router-dom": "^5.1.2",
-    "react-scroll": "^1.8.1"
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "gh-pages": "^2.2.0",

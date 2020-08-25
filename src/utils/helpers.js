@@ -1,10 +1,10 @@
 import React, {useLayoutEffect, useState} from "react";
 
-export function intervalChangeId(getNextId, setActiveId, timeout) {
+export function intervalChangeId(getNextId, setIndex, timeout) {
     let next = getNextId.next();
     let id = next.value;
     let timerId = setInterval(() => {
-        setActiveId(id);
+        setIndex(id);
         next = getNextId.next();
         id = next.value;
     }, timeout);

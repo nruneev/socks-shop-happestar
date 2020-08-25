@@ -1,20 +1,44 @@
 @import '../../variables'
 
-@keyframes roll
-  from
-    transform: translateX(0)
-  to
-    transform: translateX(-100%)
+.arrowControlLeft
+  cursor: pointer
+  position: absolute
+  height: 100%
+  width: 100px
+  background: black
+  z-index: 1
+  opacity: .4
+  top: 0
+  left: 0
 
+  svg
+    color: white
+    width: 50%
+    margin: 5em 0
+
+.arrowControlRight
+  cursor: pointer
+  position: absolute
+  height: 100%
+  width: 100px
+  background: black
+  z-index: 1
+  opacity: .4
+  top: 0
+  right: 0
+
+  svg
+    color: white
+    width: 50%
+    margin: 5em 0
 
 .carouselsss
   position: relative
   height: 245px
 
   .images
-    width: 2940px
+    width: 100%
     height: 245px
-    animation: roll 90s linear infinite
     font-size: 0
 
   .inst-block
@@ -22,7 +46,6 @@
     height: 245px
     width: 245px
     display: table-cell
-    opacity: 1
     text-decoration: none
 
     img

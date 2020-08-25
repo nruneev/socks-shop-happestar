@@ -8,7 +8,6 @@ export async function get_instagram_photos() {
     try {
         let response = await request_to_instagram();
         let imagess = response.map((element) => ({ link: link(element.id), url: element.image }));
-        imagess.map((el) => imagess.push(el));
         return imagess;
     }
     catch (e) {

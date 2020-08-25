@@ -1,6 +1,5 @@
 import './index.sass'
 import React, {useContext, useRef, useState} from 'react';
-import { Link, animateScroll as scroll } from "react-scroll";
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { Marker } from '@react-google-maps/api';
 

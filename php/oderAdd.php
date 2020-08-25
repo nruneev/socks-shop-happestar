@@ -213,22 +213,25 @@ $delivery = "";
 if($_GET['delivery'] === "SDEK") {
     $delivery = "Доставка СДЭК";
 
-    $url = 'http://integration.cdek.ru/';
+    $url = 'http://integration.cdek.ru/addDelivery';
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
                 <deliveryrequest account="lkF4bMkgvNCtyoLN2AivcZWI1IS9QrIs" date="'.date("Y-m-d H:i:s").'"
                     number="'.$id.'" ordercount="1" secure="HUMAmsbKdutWXHMWcfG9crJUglmXHq15">
-                    <order comment="Заказ №'.$id.'"
+                    <order deliveryrecipientcost="0.0"
+        deliveryrecipientvatrate="VATX" deliveryrecipientvatsum="0.0" comment="Заказ №'.$id.'"
                        number="number'.$id.'" phone="'.$_GET['phone'].'"
                        reccitycode="137" recipientcompany="test"
-                       recipientcurrency="rub" recipientemail="'.$_GET['email'].'"
+                       recipientemail="'.$_GET['email'].'"
                        recipientname="'.$_GET['surname']. ' ' . $_GET['name'].'" sendcitycode="137" tarifftypecode="1">
                        <address flat="'.$_GET['room'].'" house="'.$_GET['home'].'" street="'.$_GET['street'].'"/>
                        <sender name="Интернет-Магазин Happestar">
                            <address flat="секция 25.2" house="90" street="ул. Бухарестская"/>
                            <phone>+79117813100</phone>
                        </sender>
-                       <package barcode="package'.$id.'" comment="Заказ №'.$id.'
-                           sizea="10.0" sizeb="10.0" sizec="10.0" weight="1000.0"/>
+                       <package barcode="package'.$id.'" comment="Заказ №'.$id.'"
+                           sizea="10.0" sizeb="10.0" sizec="10.0" weight="1000.0">
+                            <Item Payment="'.$_GET['priceAll'].'" Cost="'.$_GET['priceAll'].'" WareKey="1" Amount="1"/>
+                       </package>
                     </order>
                 </deliveryrequest>';
 
@@ -254,7 +257,7 @@ if($_GET['delivery'] === "SDEK") {
                     <order comment="Заказ №'.$id.'"
                        number="number'.$id.'" phone="'.$_GET['phone'].'"
                        reccitycode="137" recipientcompany="test"
-                       recipientcurrency="rub" recipientemail="'.$_GET['email'].'"
+                       recipientemail="'.$_GET['email'].'"
                        recipientname="'.$_GET['surname'].' '. $_GET['name'].'" sendcitycode="137" tarifftypecode="1">
                        <address PvzCode="'.$_GET['codePVZ'].'"/>
                        <sender name="Интернет-Магазин Happestar">
