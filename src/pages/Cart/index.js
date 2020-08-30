@@ -11,6 +11,25 @@ import {useHistory} from "react-router-dom";
 
 
 const Cart = () => {
+    let [city, setCitys] = useState('');
+
+    let [priceDelivery, setPriceDelivery] = useState([0, 0]);
+
+    if (priceDelivery[0] === 0) {
+        fetch('/php/calc.php?ID_City=' + sessionStorage.getItem('ID_City') + '&postalCode=' + sessionStorage.getItem('postalCode'), {
+            method: 'GET',
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                setPriceDelivery([data.result[0].result.price, data.result[1].result.price])
+                if (oderPar.delivery === 'SDEK_PICKUP') {
+                    setDeliveryPrice(parseInt(data.result[1].result.price, 10))
+                }
+            }).catch(reason => console.log(reason));
+    }
+
     let history = useHistory();
     let [idOder, setIDOder] = useState(0);
     let [pvz, setPVZ] = useState([]);
@@ -18,7 +37,7 @@ const Cart = () => {
     let [startUpload, setUpload] = useState(false);
 
     if (!startUpload) {
-        fetch('/php/listPVZ.php', {
+        fetch('/php/listPVZ.php?ID_City=' + sessionStorage.getItem('ID_City'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,8 +60,8 @@ const Cart = () => {
     };
 
     const center = {
-        lat: 59.938732,
-        lng: 30.316229
+        lat: pvz[0] !== undefined ? parseFloat(pvz[0].coordY) : 59.57,
+        lng: pvz[0] !== undefined ? parseFloat(pvz[0].coordX) : 30.19
     };
 
     let myOptions = {
@@ -75,7 +94,6 @@ const Cart = () => {
         street: '',
         home: '',
         room: '',
-        city: '',
         pay: ''
     });
 
@@ -84,7 +102,6 @@ const Cart = () => {
     let [oderPar, setOderPar] = useState({
         name: '',
         surname: '',
-        fatherName: '',
         email: '',
         phone: '',
         delivery: '',
@@ -93,7 +110,7 @@ const Cart = () => {
         street: '',
         home: '',
         room: '',
-        city: '',
+        city: sessionStorage.getItem('city'),
         adressPVZ: '',
         codePVZ: ''
     });
@@ -139,7 +156,6 @@ const Cart = () => {
             street: '',
             home: '',
             room: '',
-            city: '',
             pay: oderPar.pay !== '' ? '' : 'error'
         };
         if (oderPar.delivery === 'SDEK') {
@@ -148,7 +164,6 @@ const Cart = () => {
                 street: oderPar.street !== '' ? '' : 'error',
                 home: oderPar.home !== '' ? '' : 'error',
                 room: oderPar.room !== '' ? '' : 'error',
-                city: oderPar.city !== '' ? '' : 'error',
             }
         } else if (oderPar.delivery === 'SDEK_PICKUP') {
             obj = {
@@ -167,7 +182,7 @@ const Cart = () => {
             window.scrollTo(0, refError.delivery.current.offsetTop - 100)
         } else if (obj.codePVZ === 'error') {
             window.scrollTo(0, refError.codePVZ.current.offsetTop - 100)
-        } else if (obj.city === 'error' || obj.street === 'error' || obj.home === 'error' || obj.room === 'error') {
+        } else if (obj.street === 'error' || obj.home === 'error' || obj.room === 'error') {
             window.scrollTo(0, refError.address.current.offsetTop - 100)
         } else if (obj.name === 'error' || obj.surname === 'error' || obj.email === 'error' || obj.phone === 'error') {
             window.scrollTo(0, refError.client.current.offsetTop - 100)
@@ -186,13 +201,13 @@ const Cart = () => {
             } else if (oderPar.delivery === 'PICKUP') {
                 address = 'Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2'
             } else {
-                address = oderPar.city + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
+                address = sessionStorage.getItem('city') + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
             }
 
             const comment = '';
 
             const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
-            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room, {
+            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room + '&priceDelivery=' + deliveryPrice, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -207,6 +222,23 @@ const Cart = () => {
         } else {
             validForm();
         }
+    }
+
+    let cityMagic = (e) => {
+        setCitys(e.target.value);
+    }
+
+    let magicCity = () => {
+        fetch('/static/media/data.json')
+            .then(function(response){ return response.json(); })
+            .then(function(data) {
+                let obj = data.Result.filter((el) => el.CityName.toUpperCase().includes(city.toUpperCase()));
+                sessionStorage.setItem('ID_City', obj[0].ID);
+                sessionStorage.setItem('city', city);
+                sessionStorage.setItem('postalCode', obj[0].PostCodeList.split(',')[0]);
+                setPriceDelivery([0, 0]);
+                setUpload(false);
+            }).catch(reason => console.log(reason));
     }
 
     if (cartItems.length > 0 && idOder === 0) {
@@ -328,7 +360,7 @@ const Cart = () => {
                                                                 ...oderPar,
                                                                 delivery: 'SDEK'
                                                             });
-                                                            setDeliveryPrice(265);
+                                                            setDeliveryPrice(parseInt(priceDelivery[0], 10));
                                                             setWindow('adress');
                                                         }} data-id='SDEK' >
                                                             <div className='logo'>
@@ -342,7 +374,7 @@ const Cart = () => {
                                                             </div>
                                                             <ul className='del_val'>
                                                                 <li className='del_val-rub'>
-                                                                    <b>265</b>
+                                                                    <b>{priceDelivery[0]}</b>
                                                                     <i className="rub-symbol">₽</i>
                                                                 </li>
                                                                 <li className="del_val-time">от 2 рабочих дней</li>
@@ -353,7 +385,7 @@ const Cart = () => {
                                                                 ...oderPar,
                                                                 delivery: 'SDEK_PICKUP'
                                                             });
-                                                            setDeliveryPrice(125);
+                                                            setDeliveryPrice(parseInt(priceDelivery[1], 10));
                                                             setWindow('map');
                                                         }} data-id='SDEK_PICKUP'>
                                                             <div className='logo'>
@@ -367,7 +399,7 @@ const Cart = () => {
                                                             </div>
                                                             <ul className='del_val'>
                                                                 <li className='del_val-rub'>
-                                                                    <b>125</b>
+                                                                    <b>{priceDelivery[1]}</b>
                                                                     <i className="rub-symbol">₽</i>
                                                                 </li>
                                                                 <li className="del_val-time">от 2 рабочих дней</li>
@@ -433,16 +465,6 @@ const Cart = () => {
                                                 </div>
                                                 <div className="edit">
                                                     <div className="inputs tmpAddressData">
-                                                        <div className="inputs__hint-wrap">
-                                                            <input type="text" className={"input text " + error.city}
-                                                                   placeholder="Город"
-                                                                   onChange={(el) => setOderPar({
-                                                                       ...oderPar,
-                                                                       city: el.target.value
-                                                                   })}
-                                                                   name="address" required=""/>
-                                                        </div>
-
                                                             <div className="suggestions__wrap">
                                                                 <input type="text" className={"input " + error.street}
                                                                        name="address"
@@ -450,7 +472,7 @@ const Cart = () => {
                                                                            ...oderPar,
                                                                            street: el.target.value
                                                                        })}
-                                                                       placeholder="Улица"/>
+                                                                       placeholder="Улица*"/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
                                                                 <input type="text" className={"input input--small " + error.home}
@@ -459,7 +481,7 @@ const Cart = () => {
                                                                            ...oderPar,
                                                                            home: el.target.value
                                                                        })}
-                                                                       placeholder="Дом" required=""/>
+                                                                       placeholder="Дом*" required=""/>
                                                             </div>
                                                             <div className="suggestions__wrap  suggestions__wrap--small">
                                                                 <input type="text" className={"input input--small " + error.room}
@@ -468,7 +490,7 @@ const Cart = () => {
                                                                            ...oderPar,
                                                                            room: el.target.value
                                                                        })}
-                                                                       placeholder="Квартира/Офис"/>
+                                                                       placeholder="Квартира/Офис*"/>
                                                             </div>
                                                     </div>
                                                 </div>
@@ -479,6 +501,10 @@ const Cart = () => {
                                                     Адрес доставки
                                                 </div>
                                                 <div className="edit">
+                                                    <div className={'changeCity'}>
+                                                        <input type={'text'} placeholder="Введите город" onChange={(e) => cityMagic(e)}/>
+                                                        <div className={'buttonCity'} onClick={() => magicCity()}>Найти</div>
+                                                    </div>
                                                     <div className='maper'>
                                                         <div className='cont_block'>
                                                             <LoadScript
@@ -519,7 +545,7 @@ const Cart = () => {
                                                                 </div>
                                                                 <ul className='del_val'>
                                                                     <li className='del_val-rub'>
-                                                                        <b>125</b>
+                                                                        <b>{priceDelivery[1]}</b>
                                                                         <i className="rub-symbol">₽</i>
                                                                     </li>
                                                                     <li className="del_val-time">от 2 рабочих дней</li>
@@ -550,7 +576,7 @@ const Cart = () => {
                                                 <div className="inputs tmpUserData">
                                                     <div className="suggestions__wrap">
                                                         <input type="text" className={"input suggestions-input " + error.surname}
-                                                               placeholder="Фамилия"
+                                                               placeholder="Фамилия*"
                                                                required="" autoComplete="off" autoCorrect="off"
                                                                autoCapitalize="off" spellCheck="false"
                                                                onChange={(el) => setOderPar({
@@ -570,15 +596,6 @@ const Cart = () => {
                                                                    name: el.target.value
                                                                })}
                                                                />
-                                                    </div>
-
-                                                    <div className="suggestions__wrap">
-                                                        <input type="text" className="input" placeholder="Отчество"
-                                                               onChange={(el) => setOderPar({
-                                                                   ...oderPar,
-                                                                   fatherName: el.target.value
-                                                               })}
-                                                        />
                                                     </div>
 
                                                     <div className="suggestions__wrap">
@@ -608,9 +625,9 @@ const Cart = () => {
                                             <i className="ico"/>
                                             <div className="ttl">3. Оплата</div>
                                             <div className="edit">
-                                                <div className={"forPaymentTypes "} data-error="Выберите тип оплаты">
+                                                <div className={"forPaymentTypes "  + oderPar.pay} data-error="Выберите тип оплаты">
                                                     <ul className="ilist _pays">
-                                                        <li className="itm " data-action="setPaymentType"
+                                                        <li className={"itm " + error.pay} data-action="setPaymentType"
                                                             data-id="CASH"
                                                             onClick={() => setOderPar({
                                                                 ...oderPar,
@@ -620,6 +637,17 @@ const Cart = () => {
                                                             <img src="/static/media/pay_img_1.svg"
                                                                  alt=""/>
                                                                 <span>Наличными при получении</span>
+                                                        </li>
+                                                        <li className={"itm " + error.pay} data-action="setPaymentType"
+                                                            data-id="CASHLESS"
+                                                            onClick={() => setOderPar({
+                                                                ...oderPar,
+                                                                pay: 'CashLess'
+                                                            })}
+                                                        >
+                                                            <img src="/static/media/pay_img_2.svg"
+                                                                 alt=""/>
+                                                            <span>Картой при получении</span>
                                                         </li>
                                                     </ul>
                                                 </div>

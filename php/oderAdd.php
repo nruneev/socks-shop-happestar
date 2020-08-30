@@ -64,9 +64,101 @@ $out .= "<p style='line-height: 18px; margin: 0 auto 25px; text-align: center; f
 $out .= "<b>Здравствуйте, ".$_GET['surname'] . ' ' . $_GET['name']."</b></br>";
 $delivery = "";
 if($_GET['delivery'] === "SDEK") {
-    $delivery = "получить, когда СДЭК подтвердит Ваш заказ и свяжется с Вами для уточнения деталей доставки.";
+    $url = 'https://integration.cdek.ru/new_orders.php';
+
+    $priceDelivery = $_GET['priceDelivery'];
+    $phone = $_GET['phone'];
+    $email = $_GET['email'];
+    $nameClient = $_GET['surname']. ' ' . $_GET['name'];
+    $priceAll = $_GET['priceAll'];
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>
+<deliveryrequest account="lkF4bMkgvNCtyoLN2AivcZWI1IS9QrIs"
+    date="'.date("Y-m-d H:i:s").'" number="'.$id.'" ordercount="1" secure="HUMAmsbKdutWXHMWcfG9crJUglmXHq15">
+    <order comment="Заказ №'.$id.'" deliveryrecipientcost="'.$priceDelivery.'"
+        deliveryrecipientvatrate="VATX" deliveryrecipientvatsum="0.0"
+        number="number-'.$id.'" phone="'.$phone.'" reccitycode="137"
+        recipientemail="'.$email.'" recipientname="'.$nameClient.'"
+        sendcitycode="137" tarifftypecode="137">
+        <address flat="'.$_GET['room'].'" house="'.$_GET['home'].'" street="'.$_GET['street'].'"/>
+        <sender company="Интернет-Магазин Happestar" name="Happestar">
+            <address flat="секция 25.2" house="90" street="ул. Бухарестская"/>
+            <phone>+79117813100</phone>
+        </sender>
+        <package barcode="barcode-'.$id.'" number="so'.$id.'" sizea="10.0" sizeb="10.0" sizec="10.0" weight="1000.0">
+            <item amount="1" comment="Заказ №'.$id.'" cost="'.$_GET['priceAll'].'"
+                payment="'.$priceAll.'" paymentvatrate="VATX" paymentvatsum="0.0"
+                warekey="warekey-'.$id.'" weight="1000.0"/>
+        </package>
+    </order>
+</deliveryrequest>';
+
+
+    //setting the curl parameters.
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+// Following line is compulsary to add as it is:
+    curl_setopt($ch, CURLOPT_POSTFIELDS,
+        "xml_request=" .$xml);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 300);
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    //convert the XML result into array
+    $array_data = json_decode(json_encode(simplexml_load_string($data)), true);
+
+    $nacladnay = $array_data['Order'][0]['@attributes']['DispatchNumber'];
+
+    $delivery = "получить, когда СДЭК подтвердит Ваш заказ и свяжется с Вами для уточнения деталей доставки. Номер накладной для отслеживания: №".$nacladnay;
 } elseif ($_GET['delivery'] === "SDEK_PICKUP") {
-    $delivery = "получить в пункте выдачи заказов СДЭК по адресу: ".$_GET['address'].".";
+    $url = 'https://integration.cdek.ru/new_orders.php';
+
+    $priceDelivery = $_GET['priceDelivery'];
+    $phone = $_GET['phone'];
+    $email = $_GET['email'];
+    $nameClient = $_GET['surname']. ' ' . $_GET['name'];
+    $priceAll = $_GET['priceAll'];
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>
+<deliveryrequest account="lkF4bMkgvNCtyoLN2AivcZWI1IS9QrIs"
+    date="'.date("Y-m-d H:i:s").'" number="'.$id.'" ordercount="1" secure="HUMAmsbKdutWXHMWcfG9crJUglmXHq15">
+    <order comment="Заказ №'.$id.'" deliveryrecipientcost="'.$priceDelivery.'"
+        deliveryrecipientvatrate="VATX" deliveryrecipientvatsum="0.0"
+        number="number-'.$id.'" phone="'.$phone.'" reccitycode="137"
+        recipientemail="'.$email.'" recipientname="'.$nameClient.'"
+        sendcitycode="137" tarifftypecode="368">
+        <address PvzCode="'.$_GET['codePVZ'].'"/>
+        <sender company="Интернет-Магазин Happestar" name="Happestar">
+            <address flat="секция 25.2" house="90" street="ул. Бухарестская"/>
+            <phone>+79117813100</phone>
+        </sender>
+        <package barcode="barcode-'.$id.'" number="so'.$id.'" sizea="10.0" sizeb="10.0" sizec="10.0" weight="1000.0">
+            <item amount="1" comment="Заказ №'.$id.'" cost="'.$_GET['priceAll'].'"
+                payment="'.$priceAll.'" paymentvatrate="VATX" paymentvatsum="0.0"
+                warekey="warekey-'.$id.'" weight="1000.0"/>
+        </package>
+    </order>
+</deliveryrequest>';
+
+
+    //setting the curl parameters.
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+// Following line is compulsary to add as it is:
+    curl_setopt($ch, CURLOPT_POSTFIELDS,
+        "xml_request=" .$xml);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 300);
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    //convert the XML result into array
+    $array_data = json_decode(json_encode(simplexml_load_string($data)), true);
+
+    $nacladnay = $array_data['Order'][0]['@attributes']['DispatchNumber'];
+
+    $delivery = "получить в пункте выдачи заказов СДЭК по адресу: ".$_GET['address'].". Номер накладной для отслеживания: №".$nacladnay;
 } elseif ($_GET['delivery'] === "PICKUP") {
     $delivery = "забрать в нашем магазине по адресу: ".$_GET['address'].".";
 } elseif ($_GET['delivery'] === "HAPPESTAR") {
@@ -77,7 +169,7 @@ $out .= "</p>";
 $basket = json_decode($_GET['item'], true);
 if(isset($basket)) {
     $item = 1;
-    $out .= "<table cellpadding=5 cellspacing=0 style='padding-top: 20px; border: 1px solid #c1c1c1;'>";
+    $out .= "<table border='1' bordercolor='#c1c1c1' cellpadding=5 cellspacing=0 style='width: 592px;'>";
     $out .= "<tr>";
     $out .= "<td>№</td>";
     $out .= "<td>Изображение</td>";
@@ -89,7 +181,7 @@ if(isset($basket)) {
     $out .= "</tr>";
     $tovars = $basket;
     foreach ($tovars as $key => $tovar) {
-        $orders = ($tovar['ids']);
+        $orders = ($tovar['id']);
         $orders++;
         $db->query("UPDATE tovars SET orders = '".$orders."' WHERE id = " . $tovar['id']);
 
@@ -106,8 +198,10 @@ if(isset($basket)) {
     }
     $out .= "</table>";
 }
-$out .= "<p style='line-height: 18px; margin: 0 auto 25px; text-align: center; font-size: 14px; color: #101010; width: 592px; font-family: Bebas Neue'>";
-$out .= "<span style='font-weight: bold; color: #5D5D5D;'>Итого: </span>".$_GET['priceAll']." Руб.</p>";
+$out .= "<p style='line-height: 18px; margin: 20px auto 10px; text-align: right; font-size: 14px; color: #101010; width: 592px; font-family: Bebas Neue'>";
+$out .= "<span style='font-weight: bold; color: #5D5D5D; text-transform: uppercase'>Доставка: </span>".$_GET['priceDelivery']." Руб.</p>";
+$out .= "<p style='line-height: 18px; margin: 0 auto 25px; text-align: right; font-size: 14px; color: #101010; width: 592px; font-family: Bebas Neue'>";
+$out .= "<span style='font-weight: bold; color: #5D5D5D; text-transform: uppercase'>Итого: </span>".$_GET['priceAll']." Руб.</p>";
 $out .= "<p style='line-height: 18px; margin: 30px auto 25px; text-align: center; font-size: 14px; color: #101010; width: 592px; font-family: Bebas Neue'>";
 $out .= "Спасибо, что воспользовались нашим сайтом! По всем возникшим вопросам просьба свяжитесь с нами <a href='tel:+79117813100'>по телефону</a> или написав нам на <a href='mailto:happestar@mail.ru'>почту</a>. Наш магазин находится по адресу: Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2 С.";
 $out .= "</p>";
@@ -212,75 +306,8 @@ $out2 .= "</tr>";
 $delivery = "";
 if($_GET['delivery'] === "SDEK") {
     $delivery = "Доставка СДЭК";
-
-    $url = 'http://integration.cdek.ru/addDelivery';
-    $xml = '<?xml version="1.0" encoding="UTF-8"?>
-                <deliveryrequest account="lkF4bMkgvNCtyoLN2AivcZWI1IS9QrIs" date="'.date("Y-m-d H:i:s").'"
-                    number="'.$id.'" ordercount="1" secure="HUMAmsbKdutWXHMWcfG9crJUglmXHq15">
-                    <order deliveryrecipientcost="0.0"
-        deliveryrecipientvatrate="VATX" deliveryrecipientvatsum="0.0" comment="Заказ №'.$id.'"
-                       number="number'.$id.'" phone="'.$_GET['phone'].'"
-                       reccitycode="137" recipientcompany="test"
-                       recipientemail="'.$_GET['email'].'"
-                       recipientname="'.$_GET['surname']. ' ' . $_GET['name'].'" sendcitycode="137" tarifftypecode="1">
-                       <address flat="'.$_GET['room'].'" house="'.$_GET['home'].'" street="'.$_GET['street'].'"/>
-                       <sender name="Интернет-Магазин Happestar">
-                           <address flat="секция 25.2" house="90" street="ул. Бухарестская"/>
-                           <phone>+79117813100</phone>
-                       </sender>
-                       <package barcode="package'.$id.'" comment="Заказ №'.$id.'"
-                           sizea="10.0" sizeb="10.0" sizec="10.0" weight="1000.0">
-                            <Item Payment="'.$_GET['priceAll'].'" Cost="'.$_GET['priceAll'].'" WareKey="1" Amount="1"/>
-                       </package>
-                    </order>
-                </deliveryrequest>';
-
-    $opts = array('http' =>
-        array(
-            'method'  => 'POST',
-            'content' => $xml,
-            'timeout' => 60
-        )
-    );
-
-    $context  = stream_context_create($opts);
-
-    $result = file_get_contents($url, false, $context, -1, 40000);
-
 } elseif ($_GET['delivery'] === "SDEK_PICKUP") {
     $delivery = "Самовывоз СДЭК";
-
-    $url = 'http://integration.cdek.ru/';
-    $xml = '<?xml version="1.0" encoding="UTF-8"?>
-                <deliveryrequest account="lkF4bMkgvNCtyoLN2AivcZWI1IS9QrIs" date="'.date("Y-m-d H:i:s").'"
-                    number="'.$id.'" ordercount="1" secure="HUMAmsbKdutWXHMWcfG9crJUglmXHq15">
-                    <order comment="Заказ №'.$id.'"
-                       number="number'.$id.'" phone="'.$_GET['phone'].'"
-                       reccitycode="137" recipientcompany="test"
-                       recipientemail="'.$_GET['email'].'"
-                       recipientname="'.$_GET['surname'].' '. $_GET['name'].'" sendcitycode="137" tarifftypecode="1">
-                       <address PvzCode="'.$_GET['codePVZ'].'"/>
-                       <sender name="Интернет-Магазин Happestar">
-                           <address flat="секция 25.2" house="90" street="ул. Бухарестская"/>
-                           <phone>+79117813100</phone>
-                       </sender>
-                       <package barcode="package'.$id.'" comment="Заказ №'.$id.'
-                           sizea="10.0" sizeb="10.0" sizec="10.0" weight="1000.0"/>
-                    </order>
-                </deliveryrequest>';
-
-    $opts = array('http' =>
-        array(
-            'method'  => 'POST',
-            'content' => $xml,
-            'timeout' => 60
-        )
-    );
-
-    $context  = stream_context_create($opts);
-
-    $result = file_get_contents($url, false, $context, -1, 40000);
-
 } elseif ($_GET['delivery'] === "PICKUP") {
     $delivery = "Самовывоз";
 } elseif ($_GET['delivery'] === "HAPPESTAR") {
@@ -294,7 +321,14 @@ $out2 .= "</tr>";
 
 $out2 .= "<tr>";
 $out2 .= "<td>Оплата</td>";
-$out2 .= "<td>Наличными при получении</td>";
+$pay = '';
+if ($_GET['pay'] === 'Cash'){
+    $pay = 'Наличными при получении';
+} else {
+    $pay = 'Оплата картой при получении';
+}
+
+$out2 .= "<td>".$pay."</td>";
 $out2 .= "</tr>";
 
 $out2 .= "<tr>";

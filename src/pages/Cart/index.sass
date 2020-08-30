@@ -1,5 +1,28 @@
 @import "../../variables"
 
+.changeCity
+  margin: 15px 0
+
+  input
+    width: 20em
+    height: 3em
+    padding: 10px
+    display: inline-block
+
+  .buttonCity
+    padding: 11px
+    cursor: pointer
+    color: white
+    background: #5d5d5d
+    text-transform: uppercase
+    width: 6em
+    height: 2.5em
+    text-align: center
+    line-height: 1.34em
+    border-radius: 3px
+    display: inline-block
+    margin-left: 1em
+
 .error
   border: 1px solid #ff6b6b !important
 
@@ -118,7 +141,7 @@
 .SDEK li:nth-child(1)::before, .SDEK_PICKUP li:nth-child(2)::before, .POST li:nth-child(3)::before, .PICKUP li:nth-child(3)::before, .HAPPESTAR li:nth-child(4)::before
   background: #f4d600 !important
 
-.Cash::before
+.Cash ul li:nth-child(1)::before, .CashLess ul li:nth-child(2)::before
   background: #f4d600 !important
 
 .active
@@ -163,12 +186,44 @@
           align-items: flex-start
           min-height: 0
           border: none
+          margin-top: 10px
           font-size: 14px
           line-height: 32px
           margin-left: 6px
           -webkit-flex-wrap: wrap
           -ms-flex-wrap: wrap
           flex-wrap: wrap
+
+          &::after
+            background: #fff
+            -webkit-border-radius: 50%
+            border-radius: 50%
+            content: ""
+            height: 6px
+            top: 27px
+            left: 53px
+            position: absolute
+            -webkit-transition: .2s ease-in-out
+            -o-transition: .2s ease-in-out
+            transition: .2s ease-in-out
+            -webkit-transform: scale(0)
+            -ms-transform: scale(0)
+            transform: scale(0)
+            width: 6px
+
+          &::before
+            background: #d8e1e5
+            left: -30px
+            -webkit-border-radius: 50%
+            border-radius: 50%
+            content: ""
+            position: relative
+            -webkit-transition: .2s ease-in-out
+            -o-transition: .2s ease-in-out
+            transition: .2s ease-in-out
+            top: 9px
+            width: 12px
+            height: 12px
 
           span
             display: inline-block
@@ -182,36 +237,6 @@
             margin-right: 16px
             vertical-align: middle
 
-      &::after
-        background: #fff
-        -webkit-border-radius: 50%
-        border-radius: 50%
-        content: ""
-        height: 6px
-        top: 27px
-        left: 53px
-        position: absolute
-        -webkit-transition: .2s ease-in-out
-        -o-transition: .2s ease-in-out
-        transition: .2s ease-in-out
-        -webkit-transform: scale(0)
-        -ms-transform: scale(0)
-        transform: scale(0)
-        width: 6px
-
-      &::before
-        background: #d8e1e5
-        left: 11px
-        -webkit-border-radius: 50%
-        border-radius: 50%
-        content: ""
-        position: absolute
-        -webkit-transition: .2s ease-in-out
-        -o-transition: .2s ease-in-out
-        transition: .2s ease-in-out
-        top: 35px
-        width: 12px
-        height: 12px
 
     .next
       height: auto
@@ -654,7 +679,7 @@
 
                 ._white
                   background: #fff
-                  color: #131313
+                  color: #5d5d5d
 
                   &:hover
                     background-color: #D8E1E5
@@ -794,7 +819,7 @@
 
       ._white
         background: #fff
-        color: #131313
+        color: #5d5d5d
 
     .promo
       position: relative
@@ -873,7 +898,7 @@
           letter-spacing: 0.5px
           text-transform: uppercase
           color: #fff
-          background: #131313
+          background: #5d5d5d
           text-decoration: none
           font-weight: 700
           padding: 10px 31px
@@ -908,6 +933,13 @@
       width: 60%
 
 @media (max-width: 1000px)
+  .changeCity
+    input
+      width: 60%!important
+
+    .buttonCity
+      width: 20%!important
+
   .open_pvz
     position: inherit
     top: 0
@@ -1029,8 +1061,11 @@
     padding: 30px 16px 16px!important
     margin-bottom: 0!important
 
-    forPaymentTypes
+    .forPaymentTypes
       width: 100%!important
+      ._pays
+        li::before
+          top: 0 !important
 
     ._pays
       padding-top: 10px!important
@@ -1038,6 +1073,7 @@
 
       .itm
         margin-left: 0!important
+        border: none!important
         letter-spacing: .3px!important
         -webkit-box-align: center!important
         -webkit-align-items: center!important
