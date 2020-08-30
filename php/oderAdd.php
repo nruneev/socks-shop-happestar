@@ -182,19 +182,44 @@ if(isset($basket)) {
     $tovars = $basket;
     foreach ($tovars as $key => $tovar) {
         $orders = ($tovar['id']);
-        $orders++;
-        $db->query("UPDATE tovars SET orders = '".$orders."' WHERE id = " . $tovar['id']);
+        if(!is_array($tovar['article'])) {
+            $orders++;
+            $db->query("UPDATE tovars SET orders = '" . $orders . "' WHERE id = " . $tovar['id']);
 
-        $size = $tovar['sizes'];
-        $out .= "<tr>";
-        $out .= "<td>".$item++."</td>";
-        $out .= "<td><img src='http://happestar.ru".$tovar['src']."' width=55></td>";
-        $out .= "<td>".$tovar['name']."</td>";
-        $out .= is_array($tovar['article']) ? "<td></td>" : "<td>".$tovar['article']."</td>";
-        $out .= "<td>".$size."</td>";
-        $out .= "<td>".$tovar['count']."</td>";
-        $out .= "<td>".$tovar['cost']."</td>";
-        $out .= "</tr>";
+            $size = $tovar['sizes'];
+            $out .= "<tr>";
+            $out .= "<td>" . $item++ . "</td>";
+            $out .= "<td><img src='http://happestar.ru" . $tovar['src'] . "' width=55></td>";
+            $out .= "<td>" . $tovar['name'] . "</td>";
+            $out .= "<td>" . $tovar['count'] . "</td>";
+            $out .= "<td>" . $tovar['cost'] . "</td>";
+            $out .= "</tr>";
+        }
+    }
+    $out .= "</table>";
+
+    $item = 1;
+    $out .= "<table border='1' bordercolor='#c1c1c1' cellpadding=5 cellspacing=0 style='width: 592px;'>";
+    foreach ($tovars as $key => $tovar) {
+        $orders = ($tovar['id']);
+        if(is_array($tovar['article'])) {
+            $out .= "<tr>";
+            $out .= "<td>Изображение</td>";
+            $out .= "<td>Название товара в наборе №" . $item++ . "</td>";
+            $out .= "<td>Артикул</td>";
+            $out .= "<td>Размер</td>";
+            $out .= "<td>Цена</td>";
+            $out .= "</tr>";
+            foreach ($tovar['item'] as $key2 => $ids) {
+                $out .= "<tr>";
+                $out .= "<td><img src='http://happestar.ru" . $ids['src'] . "' width='55'></td>";
+                $out .= "<td>" . $ids['name'] . "</td>";
+                $out .= "<td>" . $ids['article'] . "</td>";
+                $out .= "<td>" . $ids['sizes'] . "</td>";
+                $out .= "<td>" . $ids['cost'] . " Руб.</td>";
+                $out .= "</tr>";
+            }
+        }
     }
     $out .= "</table>";
 }
@@ -361,27 +386,43 @@ if(isset($basket)) {
     $out2 .= "</tr>";
     $tovars = $basket;
     foreach ($tovars as $key => $tovar) {
-
-        $size = $tovar['sizes'];
-        $out2 .= "<tr>";
-        $out2 .= "<td>".$item++."</td>";
-        $out2 .= "<td><img src='http://happestar.ru".$tovar['src']."' width=75></td>";
-        $out2 .= "<td>".$tovar['name']."</td>";
-        if (is_array($tovar['article'])) {
-            $out2 .= "<td>";
-            foreach ($tovar['item'] as $keys => $itemer) {
-                $out2 .= "<img src='http://happestar.ru".$itemer['src']."' width=35><p>".$itemer['name']."</p><p>".$itemer['sizes']."</p>";
-            }
-            $out2 .= "</td>";
-        } else {
-            $out2 .= "<td>" . $tovar['article'] . "</td>";
-        };
-        $out2 .= "<td>".$size."</td>";
-        $out2 .= "<td>".$tovar['count']."</td>";
-        $out2 .= "<td>".$tovar['cost']." Руб.</td>";
-        $out2 .= "</tr>";
+        if (!is_array($tovar['article'])) {
+            $size = $tovar['sizes'];
+            $out2 .= "<tr>";
+            $out2 .= "<td>" . $item++ . "</td>";
+            $out2 .= "<td><img src='http://happestar.ru" . $tovar['src'] . "' width=75></td>";
+            $out2 .= "<td>" . $tovar['name'] . "</td>";
+            $out2 .= "<td>" . $tovar['count'] . "</td>";
+            $out2 .= "<td>" . $tovar['cost'] . " Руб.</td>";
+            $out2 .= "</tr>";
+        }
     }
     $out2 .= "</table>";
+
+    $item = 1;
+    $out2 .= "<table border='1' cellpadding=5 cellspacing=0>";
+    foreach ($tovars as $key => $tovar) {
+        $orders = ($tovar['id']);
+        if(is_array($tovar['article'])) {
+            $out2 .= "<tr>";
+            $out2 .= "<td>Изображение</td>";
+            $out2 .= "<td>Название товара в наборе №" . $item++ . "</td>";
+            $out2 .= "<td>Артикул</td>";
+            $out2 .= "<td>Размер</td>";
+            $out2 .= "<td>Цена</td>";
+            $out2 .= "</tr>";
+            foreach ($tovar['item'] as $key2 => $ids) {
+                $out2 .= "<tr>";
+                $out2 .= "<td><img src='http://happestar.ru" . $ids['src'] . "' width='75'></td>";
+                $out2 .= "<td>" . $ids['name'] . "</td>";
+                $out2 .= "<td>" . $ids['article'] . "</td>";
+                $out2 .= "<td>" . $ids['sizes'] . "</td>";
+                $out2 .= "<td>" . $ids['cost'] . " Руб.</td>";
+                $out2 .= "</tr>";
+            }
+        }
+    }
+    $out .= "</table>";
 }
 
 $out2 .= "</body>";
