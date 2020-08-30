@@ -197,7 +197,7 @@ const Cart = () => {
             let address = ''
 
             if (oderPar.delivery === 'SDEK_PICKUP') {
-                address = oderPar.adressPVZ;
+                address = sessionStorage.getItem('city') + ', ' + oderPar.adressPVZ;
             } else if (oderPar.delivery === 'PICKUP') {
                 address = 'Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2'
             } else {
@@ -207,7 +207,7 @@ const Cart = () => {
             const comment = '';
 
             const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
-            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room + '&priceDelivery=' + deliveryPrice, {
+            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room + '&priceDelivery=' + deliveryPrice + '&CityID=' + sessionStorage.getItem('ID_City'), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

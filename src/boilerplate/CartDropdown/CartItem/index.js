@@ -16,11 +16,11 @@ const CartItem = ({ item, removeItem }) => {
 
         <div className='blockItem'>
             {item.item.map((el) => {
-                return (<p className='nabor-item'>
+                return (<a href={"/good&id=" + el.ids} className='nabor-item'>
                             <img src={el.src}/>
                             {el.name}
                             <span>{el.article}</span>
-                        </p>)
+                        </a>)
             })}
         </div>
         :

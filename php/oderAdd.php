@@ -77,7 +77,7 @@ if($_GET['delivery'] === "SDEK") {
     date="'.date("Y-m-d H:i:s").'" number="'.$id.'" ordercount="1" secure="HUMAmsbKdutWXHMWcfG9crJUglmXHq15">
     <order comment="Заказ №'.$id.'" deliveryrecipientcost="'.$priceDelivery.'"
         deliveryrecipientvatrate="VATX" deliveryrecipientvatsum="0.0"
-        number="number-'.$id.'" phone="'.$phone.'" reccitycode="137"
+        number="number-'.$id.'" phone="'.$phone.'" reccitycode="'.$_GET['CityID'].'"
         recipientemail="'.$email.'" recipientname="'.$nameClient.'"
         sendcitycode="137" tarifftypecode="137">
         <address flat="'.$_GET['room'].'" house="'.$_GET['home'].'" street="'.$_GET['street'].'"/>
@@ -125,7 +125,7 @@ if($_GET['delivery'] === "SDEK") {
     date="'.date("Y-m-d H:i:s").'" number="'.$id.'" ordercount="1" secure="HUMAmsbKdutWXHMWcfG9crJUglmXHq15">
     <order comment="Заказ №'.$id.'" deliveryrecipientcost="'.$priceDelivery.'"
         deliveryrecipientvatrate="VATX" deliveryrecipientvatsum="0.0"
-        number="number-'.$id.'" phone="'.$phone.'" reccitycode="137"
+        number="number-'.$id.'" phone="'.$phone.'" reccitycode="'.$_GET['CityID'].'"
         recipientemail="'.$email.'" recipientname="'.$nameClient.'"
         sendcitycode="137" tarifftypecode="368">
         <address PvzCode="'.$_GET['codePVZ'].'"/>
@@ -191,6 +191,8 @@ if(isset($basket)) {
             $out .= "<td>" . $item++ . "</td>";
             $out .= "<td><img src='http://happestar.ru" . $tovar['src'] . "' width=55></td>";
             $out .= "<td>" . $tovar['name'] . "</td>";
+            $out .= "<td>" . $tovar['article'] . "</td>";
+            $out .= "<td>" . $tovar['sizes'] . "</td>";
             $out .= "<td>" . $tovar['count'] . "</td>";
             $out .= "<td>" . $tovar['cost'] . "</td>";
             $out .= "</tr>";
@@ -392,6 +394,8 @@ if(isset($basket)) {
             $out2 .= "<td>" . $item++ . "</td>";
             $out2 .= "<td><img src='http://happestar.ru" . $tovar['src'] . "' width=75></td>";
             $out2 .= "<td>" . $tovar['name'] . "</td>";
+            $out2 .= "<td>" . $tovar['article'] . "</td>";
+            $out2 .= "<td>" . $tovar['sizes'] . "</td>";
             $out2 .= "<td>" . $tovar['count'] . "</td>";
             $out2 .= "<td>" . $tovar['cost'] . " Руб.</td>";
             $out2 .= "</tr>";

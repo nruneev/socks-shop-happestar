@@ -85,7 +85,7 @@ const Pack = () => {
         }
     }
 
-    let classerPack = packItems.length === lengthNabor ? 'activeBlock' : '';
+    let classerPack = packItems.length === lengthNabor ? 'activeBlocker' : '';
 
     return (
         <div className='wrapper wrapper--flex  wrapper--indent-pb-small'>
@@ -93,7 +93,7 @@ const Pack = () => {
                 <span className='bgPack'></span>
                 <div className="blockPack">
                     <p>Ваш набор собран!</p>
-                    <div onClick={() => setNabor()} className={"button"}>Добавить</div>
+                    <div onClick={() => setNabor()} className={"button"}>В корзину!</div>
                 </div>
             </div>
             <div className='left-slide'>
@@ -241,7 +241,7 @@ const Pack = () => {
                                     }
                                 })}
                             </ul>
-                            <button onClick={() => setNabor()} className={'button ' + classButton}>ДОбавить</button>
+                            <button onClick={() => setNabor()} className={'button ' + classButton}>В корзину!</button>
                         </div>
                     </div>
                     <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
