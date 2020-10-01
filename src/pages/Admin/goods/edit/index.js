@@ -96,8 +96,12 @@ const AdminsGoodEdit = () => {
                 sizes: ['35 - 39', '40 - 45'],
                 color: color,
                 description: result[0].description,
-                discount: 0,
+                discount: result[0].discount,
                 prev_cost: result[0].price,
+            });
+            setPar({
+                new: result[0].new,
+                visible: result[0].visibly
             });
             setPhotos({
                 main: result[0].photoMain,
@@ -127,130 +131,152 @@ const AdminsGoodEdit = () => {
                 </div>
                 <div className={'loginRightBlock'}>
                     <h1>Товар - {item.name}</h1>
-                    <div className={'login-input'}>
-                        <p>Название</p>
-                        <input placeholder={'Название'} type={'text'} value={item.name} onChange={(e) => setItem({
-                            ...item,
-                            name: e.target.value
-                        })}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Описание</p>
-                        <textarea placeholder={'Описание'} type={'text'} value={item.description} onChange={(e) => setItem({
-                            ...item,
-                            describe: e.target.value
-                        })}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Состав</p>
-                        <textarea placeholder={'Состав'} type={'text'} value={item.composition} onChange={(e) => setItem({
-                            ...item,
-                            composition: e.target.value
-                        })}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Цена</p>
-                        <input placeholder={'Цена'} type={'text'} value={item.cost} onChange={(e) => setItem({
-                            ...item,
-                            cost: e.target.value
-                        })}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Скидка</p>
-                        <input placeholder={'Скидка'} type={'text'} value={item.discount} onChange={(e) => setItem({
-                            ...item,
-                            discount: e.target.value
-                        })}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Цвет</p>
-                        <ul className={'color ' + item.color + 'Block'}>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'gray'
-                            })} className={'gray'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'black'
-                            })} className={'black'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'white'
-                            })} className={'white'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'red'
-                            })} className={'red'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'orange'
-                            })} className={'orange'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'yellow'
-                            })} className={'yellow'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'green'
-                            })} className={'green'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'pink'
-                            })} className={'pink'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'blue'
-                            })} className={'blue'}/>
-                            <li onClick={() => setItem({
-                                ...item,
-                                color: 'gradient'
-                            })} className={'gradient'}/>
-                        </ul>
-                    </div>
-                    <div className={'login-checkbox'}>
-                        <input type={'checkbox'} checked={par.new} onChange={() => setPar({
-                            ...par,
-                            new: !par.new
-                        })}/>
-                        <label>Новинка</label>
-                    </div>
-                    <div className={'login-checkbox'}>
-                        <input type={'checkbox'} checked={par.visible} onChange={() => setPar({
-                            ...par,
-                            visible: !par.visible
-                        })}/>
-                        <label>Отображать товар</label>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Главное фото</p>
-                        <input placeholder={'Главное фото'} type={'file'} onChange={(e) => setPhotos({
-                            ...photos,
-                            edit: true,
-                            main: e.target.value
-                        })}/>
-                        <img src={photos.main}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Дополнительное фото 1</p>
-                        <input placeholder={'Дополнительное фото'} type={'file'} onChange={(e) => setPhotos({
-                            ...photos,
-                            edit: true,
-                            first: e.target.value
-                        })}/>
-                        <img src={photos.first}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Дополнительное фото 2</p>
-                        <input placeholder={'Дополнительное фото'} type={'file'} onChange={(e) => setPhotos({
-                            ...photos,
-                            edit: true,
-                            second: e.target.value
-                        })}/>
-                        <img src={photos.second}/>
-                    </div>
-                    <div className={'login-btn'}>
-                        <p>Сохранить</p>
-                    </div>
+                    <form enctype="multipart/form-data" action="/php/updateGoods.php" method="post">
+                            <div className={'login-input'}>
+                                <p>Название</p>
+
+                                <input type={'text'} value={id} name={'idOder'} className={'unvisible'}/>
+                                <input placeholder={'Название'} name={'name'} type={'text'} value={item.name}
+                                       onChange={(e) => setItem({
+                                           ...item,
+                                           name: e.target.value
+                                       })}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Артикул</p>
+                                <input placeholder={'Артикул'} name={'article'} type={'text'} value={item.article}
+                                       onChange={(e) => setItem({
+                                           ...item,
+                                           article: e.target.value
+                                       })}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Описание</p>
+                                <textarea placeholder={'Описание'} name={'description'} type={'text'}
+                                          value={item.description} onChange={(e) => setItem({
+                                    ...item,
+                                    description: e.target.value
+                                })}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Состав</p>
+                                <textarea placeholder={'Состав'} name={'composition'} type={'text'}
+                                          value={item.composition} onChange={(e) => setItem({
+                                    ...item,
+                                    composition: e.target.value
+                                })}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Цена</p>
+                                <input placeholder={'Цена'} name={'price'} type={'text'} value={item.cost}
+                                       onChange={(e) => setItem({
+                                           ...item,
+                                           cost: e.target.value
+                                       })}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Скидка</p>
+                                <input placeholder={'Скидка'} name={'discount'} type={'text'} value={item.discount}
+                                       onChange={(e) => setItem({
+                                           ...item,
+                                           discount: e.target.value
+                                       })}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <input value={item.color} name={'color'} className={'unvisible'}/>
+                                <p>Цвет</p>
+                                <ul className={'color ' + item.color + 'Block'}>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'gray'
+                                    })} className={'gray'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'black'
+                                    })} className={'black'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'white'
+                                    })} className={'white'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'red'
+                                    })} className={'red'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'orange'
+                                    })} className={'orange'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'yellow'
+                                    })} className={'yellow'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'green'
+                                    })} className={'green'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'pink'
+                                    })} className={'pink'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'blue'
+                                    })} className={'blue'}/>
+                                    <li onClick={() => setItem({
+                                        ...item,
+                                        color: 'gradient'
+                                    })} className={'gradient'}/>
+                                </ul>
+                            </div>
+                            <div className={'login-checkbox'}>
+                                <input type={'checkbox'} name={'new'} сhecked={par.new} onChange={() => setPar({
+                                    ...par,
+                                    new: !par.new
+                                })}/>
+                                <label>Новинка</label>
+                            </div>
+                            <div className={'login-checkbox'}>
+                                <input type={'checkbox'} name={'visibility'} checked={par.visible}
+                                       onChange={() => setPar({
+                                           ...par,
+                                           visible: !par.visible
+                                       })}/>
+                                <label>Отображать товар</label>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Главное фото</p>
+                                <input placeholder={'Главное фото'} id='inputfile' name='inputfile' type={'file'}
+                                       onChange={(e) => setPhotos({
+                                           ...photos,
+                                           edit: true,
+                                           main: e.target.value
+                                       })}/>
+                                <img src={photos.main}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Дополнительное фото 1</p>
+                                <input placeholder={'Дополнительное фото'} id='inputfile2' name='inputfile2'
+                                       type={'file'} onChange={(e) => setPhotos({
+                                    ...photos,
+                                    edit: true,
+                                    first: e.target.value
+                                })}/>
+                                <img src={photos.first}/>
+                            </div>
+                            <div className={'login-input'}>
+                                <p>Дополнительное фото 2</p>
+                                <input placeholder={'Дополнительное фото'} id='inputfile3' name='inputfile3'
+                                       type={'file'} onChange={(e) => setPhotos({
+                                    ...photos,
+                                    edit: true,
+                                    second: e.target.value
+                                })}/>
+                                <img src={photos.second}/>
+                            </div>
+                            <button type="submit" className={'login-btn'}>
+                                <p>Сохранить</p>
+                            </button>
+                    </form>
                 </div>
             </div>
         )
