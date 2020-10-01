@@ -10,7 +10,7 @@ if ($mysqli->connect_errno) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
-$res = $mysqli->query('SELECT * FROM oders ');
+$res = $mysqli->query('SELECT * FROM orders ');
 
 $test = array();
 

@@ -118,10 +118,10 @@ const AdminsGoodEdit = () => {
                     <a href={'good'} className={'loginNavigationItem'}>
                         Товары
                     </a>
-                    <a className={'loginNavigationItem'}>
+                    <a href={'text'} className={'loginNavigationItem'}>
                         Текст на сайте
                     </a>
-                    <a className={'loginNavigationItem'}>
+                    <a href={'photo'} className={'loginNavigationItem'}>
                         Фото на сайте
                     </a>
                 </div>
@@ -249,7 +249,7 @@ const AdminsGoodEdit = () => {
                         <img src={photos.second}/>
                     </div>
                     <div className={'login-btn'}>
-                        <p>Схранить</p>
+                        <p>Сохранить</p>
                     </div>
                 </div>
             </div>

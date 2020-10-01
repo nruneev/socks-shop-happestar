@@ -23,6 +23,9 @@ import {AdminsOder} from "./pages/Admin/oder";
 import {AdminsGood} from "./pages/Admin/goods";
 import {AdminsCurrentOder} from "./pages/Admin/oder/current";
 import {AdminsGoodEdit} from "./pages/Admin/goods/edit";
+import {AdminsGoodNew} from "./pages/Admin/goods/new";
+import {AdminsTextPage} from "./pages/Admin/text";
+import {AdminsPhotoPage} from "./pages/Admin/photo";
 
 
 const cartItemField = 'cartItems';
@@ -156,6 +159,15 @@ const App = () => {
                                 </Route>
                                 <Route path='/admin/edit'>
                                     <AdminsGoodEdit/>
+                                </Route>
+                                <Route path='/admin/new'>
+                                    <AdminsGoodNew/>
+                                </Route>
+                                <Route path='/admin/text'>
+                                    <AdminsTextPage/>
+                                </Route>
+                                <Route path='/admin/photo'>
+                                    <AdminsPhotoPage/>
                                 </Route>
                                 <Route path='/pay-and-delivery'>
                                     <PayAndDelivery/>

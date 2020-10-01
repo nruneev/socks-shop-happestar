@@ -24,10 +24,10 @@ const AdminsOder = () => {
                 <a href={'good'} className={'loginNavigationItem'}>
                     Товары
                 </a>
-                <a className={'loginNavigationItem'}>
+                <a href={'text'} className={'loginNavigationItem'}>
                     Текст на сайте
                 </a>
-                <a className={'loginNavigationItem'}>
+                <a href={'photo'} className={'loginNavigationItem'}>
                     Фото на сайте
                 </a>
             </div>

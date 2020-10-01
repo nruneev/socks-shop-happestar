@@ -8,7 +8,6 @@ import {Oder} from "../oder";
 const AdminsGood = () => {
 
     let items = useFetch(get_items, []);
-    items.reverse();
 
     if (sessionStorage.getItem('loginAdmin') !== 'ok') {
         document.location.href = "/admin/login";
@@ -20,18 +19,19 @@ const AdminsGood = () => {
                 <a href={'oder'} className={'loginNavigationItem'}>
                     История Заказов
                 </a>
-                <a href={'good'} className={'loginNavigationItem'}>
+                <a href={'good'} className={'loginNavigationItem activeLoginBlock'}>
                     Товары
                 </a>
-                <a className={'loginNavigationItem'}>
+                <a href={'text'} className={'loginNavigationItem'}>
                     Текст на сайте
                 </a>
-                <a className={'loginNavigationItem'}>
+                <a href={'photo'} className={'loginNavigationItem'}>
                     Фото на сайте
                 </a>
             </div>
             <div className={'loginRightBlock'}>
                 <h1>Товары</h1>
+                <div className={'createNewGood'} onClick={() => document.location.href = "/admin/new"}>+ Создать</div>
                 <div className={'adminCatalog'}>
                     {items.map((el) => {
                         return (<ItemCardAdmin item={el}/>)

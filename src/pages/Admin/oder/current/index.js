@@ -26,6 +26,10 @@ const AdminsCurrentOder = () => {
     }
     console.log(items);
 
+    let deleteOder = () => {
+        fetch('/php/deleteOder.php?idOder=' + id).then(() => document.location.href = "/admin/oder");
+    }
+
     if(items.length > 0) {
         return (
             <div className={'wrapper adminBlockFlex'}>
@@ -36,10 +40,10 @@ const AdminsCurrentOder = () => {
                     <a href={'good'} className={'loginNavigationItem'}>
                         Товары
                     </a>
-                    <a className={'loginNavigationItem'}>
+                    <a href={'text'} className={'loginNavigationItem'}>
                         Текст на сайте
                     </a>
-                    <a className={'loginNavigationItem'}>
+                    <a href={'photo'} className={'loginNavigationItem'}>
                         Фото на сайте
                     </a>
                 </div>
@@ -69,6 +73,7 @@ const AdminsCurrentOder = () => {
                             </tbody>
                         </table>
                     </div>
+                    <div className={'deleteBtns'} onClick={() => deleteOder()}>Удалить заказ</div>
                 </div>
             </div>
         )

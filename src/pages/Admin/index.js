@@ -16,6 +16,8 @@ const Admins = () => {
       if (loginData.login === 'admin' && loginData.password === 'FlappersPeppers') {
           sessionStorage.setItem('loginAdmin', 'ok');
           document.location.href = "/admin/oder";
+      } else {
+          alert('Неверный Логин/Пароль');
       }
     };
 
