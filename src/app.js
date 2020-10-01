@@ -18,7 +18,11 @@ import {Good} from "./pages/Good";
 import {Cart} from "./pages/Cart";
 import {Customer} from "./pages/Customer";
 import {AboutUs} from "./pages/AboutUs";
-import {Admin} from "./pages/Admin";
+import {Admins} from "./pages/Admin";
+import {AdminsOder} from "./pages/Admin/oder";
+import {AdminsGood} from "./pages/Admin/goods";
+import {AdminsCurrentOder} from "./pages/Admin/oder/current";
+import {AdminsGoodEdit} from "./pages/Admin/goods/edit";
 
 
 const cartItemField = 'cartItems';
@@ -138,8 +142,20 @@ const App = () => {
                                 <Route path='/partner'>
                                     <Partner/>
                                 </Route>
-                                <Route path='/admin'>
-                                    <Admin/>
+                                <Route path='/admin/login'>
+                                    <Admins/>
+                                </Route>
+                                <Route path='/admin/oder'>
+                                    <AdminsOder/>
+                                </Route>
+                                <Route path='/admin/current'>
+                                    <AdminsCurrentOder/>
+                                </Route>
+                                <Route path='/admin/good'>
+                                    <AdminsGood/>
+                                </Route>
+                                <Route path='/admin/edit'>
+                                    <AdminsGoodEdit/>
                                 </Route>
                                 <Route path='/pay-and-delivery'>
                                     <PayAndDelivery/>

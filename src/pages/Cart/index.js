@@ -11,24 +11,14 @@ import {useHistory} from "react-router-dom";
 
 
 const Cart = () => {
+    let id_city = sessionStorage.getItem('ID_City');
+
+    let classCDEK = parseInt(id_city, 10) === 137 ? 'hiddenCDEK' : '';
+
     let [city, setCitys] = useState('');
+    let [ValidSent, setValidSent] = useState(false);
 
     let [priceDelivery, setPriceDelivery] = useState([0, 0]);
-
-    if (priceDelivery[0] === 0) {
-        fetch('/php/calc.php?ID_City=' + sessionStorage.getItem('ID_City') + '&postalCode=' + sessionStorage.getItem('postalCode'), {
-            method: 'GET',
-        })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                setPriceDelivery([data.result[0].result.price, data.result[1].result.price])
-                if (oderPar.delivery === 'SDEK_PICKUP') {
-                    setDeliveryPrice(parseInt(data.result[1].result.price, 10))
-                }
-            }).catch(reason => console.log(reason));
-    }
 
     let history = useHistory();
     let [idOder, setIDOder] = useState(0);
@@ -117,6 +107,62 @@ const Cart = () => {
 
     let { cartItems, removeItem, setItem } = useContext(CartContext);
 
+    let payButton = ValidSent ?
+        <>
+            <button className="_btn_" type="button">Отправка...</button>
+        </>
+        :
+        <>
+            <button onClick={() => createOder()} className="_btn_" type="button">Оформить заказ</button>
+        </>;
+
+    if (priceDelivery[0] === 0) {
+        let weight = 0;
+
+        let length = 20;
+
+        let width = 9;
+
+        let height = 0;
+
+        cartItems.map((el) => {
+            if (el.isNabor){
+                if (el.item.length === 3) {
+                    weight += 287 * el.count
+                } else if (el.item.length === 4) {
+                    weight += 342 * el.count
+                } else if (el.item.length ===  5) {
+                    weight += 403 * el.count
+                } else if (el.item.length === 6) {
+                    weight += 462 * el.count
+                } else if (el.item.length === 8) {
+                    weight += 578 * el.count
+                }
+                length += 35  * el.count;
+                width += 18 * el.count;
+                height += 4  * el.count;
+            } else {
+                weight += 54  * el.count;
+                height += 3  * el.count;
+            }
+        });
+
+        weight = weight/1000;
+
+        fetch('/php/calc.php?ID_City=' + sessionStorage.getItem('ID_City') + '&postalCode=' + sessionStorage.getItem('postalCode') + '&weight=' + weight + '&length=' + length + '&width=' + width + '&height=' + height, {
+            method: 'GET',
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                setPriceDelivery([data.result[1].result.price, data.result[0].result.price])
+                if (oderPar.delivery === 'SDEK_PICKUP') {
+                    setDeliveryPrice(parseInt(data.result[1].result.price, 10))
+                }
+            }).catch(reason => console.log(reason));
+    }
+
     let promo = '';
     let [promo_price, setPromo] = useState(0);
     let [scroller, setScroller] = useState(1);
@@ -155,6 +201,7 @@ const Cart = () => {
             codePVZ: '',
             street: '',
             home: '',
+            city: '',
             room: '',
             pay: oderPar.pay !== '' ? '' : 'error'
         };
@@ -193,22 +240,24 @@ const Cart = () => {
     }
 
     const createOder = () => {
+        setValidSent(true);
+
         if ((oderPar.delivery === 'SDEK_PICKUP' && oderPar.adressPVZ !=='' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'PICKUP' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || (oderPar.delivery === 'SDEK' && oderPar.city !== '' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== '') || ((oderPar.delivery === 'HAPPESTAR' && oderPar.street !== '' && oderPar.home !== '' && oderPar.room !== '' && oderPar.name !== '' && oderPar.phone !== '' && oderPar.email !== ''))) {
             let address = ''
 
             if (oderPar.delivery === 'SDEK_PICKUP') {
-                address = sessionStorage.getItem('city') + ', ' + oderPar.adressPVZ;
+                address = oderPar.city + ', ' + oderPar.adressPVZ;
             } else if (oderPar.delivery === 'PICKUP') {
                 address = 'Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2'
             } else {
-                address = sessionStorage.getItem('city') + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
+                address = oderPar.city + ', ' + oderPar.street + ', ' + oderPar.home + ', ' + oderPar.room;
             }
 
             const comment = '';
 
             const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
             fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room + '&priceDelivery=' + deliveryPrice + '&CityID=' + sessionStorage.getItem('ID_City'), {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -355,7 +404,7 @@ const Cart = () => {
                                                 </div>
                                                 <div className='edit'>
                                                     <ul className={'list ' + oderPar.delivery}>
-                                                        <li className={'itm ' + error.delivery} onClick={() => {
+                                                        <li className={'itm ' + error.delivery + ' ' + classCDEK} onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
                                                                 delivery: 'SDEK'
@@ -380,7 +429,7 @@ const Cart = () => {
                                                                 <li className="del_val-time">от 2 рабочих дней</li>
                                                             </ul>
                                                         </li>
-                                                        <li className={'itm ' + error.delivery} onClick={() => {
+                                                        <li className={'itm ' + error.delivery  + ' ' + classCDEK} onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
                                                                 delivery: 'SDEK_PICKUP'
@@ -434,7 +483,7 @@ const Cart = () => {
                                                                 delivery: 'HAPPESTAR'
                                                             });
                                                             if (parseInt(totalPrice, 10) - promo_price < 3000) {
-                                                                setDeliveryPrice(242);
+                                                                setDeliveryPrice(250);
                                                             } else {
                                                                 setDeliveryPrice(0);
                                                             }
@@ -449,10 +498,10 @@ const Cart = () => {
                                                             </div>
                                                             <ul className='del_val'>
                                                                 <li className='del_val-rub'>
-                                                                    <b>{parseInt(totalPrice, 10) - promo_price < 3000 ? 242 : 0}</b>
+                                                                    <b>{parseInt(totalPrice, 10) - promo_price < 3000 ? 250 : 0}</b>
                                                                     <i className="rub-symbol">₽</i>
                                                                 </li>
-                                                                <li className="del_val-time">от 3 рабочих дней</li>
+                                                                <li className="del_val-time">от 1 рабочего дня</li>
                                                             </ul>
                                                         </li>
                                                     </ul>
@@ -465,6 +514,15 @@ const Cart = () => {
                                                 </div>
                                                 <div className="edit">
                                                     <div className="inputs tmpAddressData">
+                                                            <div className="suggestions__wrap">
+                                                                <input type="text" className={"input " + error.street}
+                                                                       name="address"
+                                                                       onChange={(el) => setOderPar({
+                                                                           ...oderPar,
+                                                                           city: el.target.value
+                                                                       })}
+                                                                       placeholder="Город*"/>
+                                                            </div>
                                                             <div className="suggestions__wrap">
                                                                 <input type="text" className={"input " + error.street}
                                                                        name="address"
@@ -661,7 +719,7 @@ const Cart = () => {
                                                             className="rub-symbol">₽</i>
                                                         </div>
                                                     </div>
-                                                    <button onClick={() => createOder()} className="_btn_" type="button">Оформить заказ</button>
+                                                    {payButton}
                                                     <div className="_submit-text">
                                                         Нажимая кнопку «Оформить заказ», Вы даете согласие на обработку
                                                         своих персональных данных

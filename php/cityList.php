@@ -10,19 +10,12 @@
         echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     }
 
-    $res = $mysqli->query('SELECT * FROM tovars ORDER BY tovars.id DESC');
+    $res = $mysqli->query('SELECT * FROM city WHERE CityName LIKE "'.$_GET['city'].'"');
 
     $test = array();
 
     while($row = mysqli_fetch_assoc($res)) {
-        $ress = $mysqli->query('SELECT * FROM communication_tovar_color WHERE tovar_id = '.$row['id']);
-        $color = "";
-        while($rows = mysqli_fetch_assoc($ress)) {
-            $color = $rows['color_id'];
-        }
-        $row['color'] = $color;
         $test[] = $row;
     }
 
-echo json_encode($test);
-
+    echo json_encode($test);

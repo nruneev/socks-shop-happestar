@@ -18,17 +18,11 @@ const Main = () => {
 
     Geocoder.init('AIzaSyD2bDPulysZlPIjG1fO3kNqIvbsbWjXrPw');
     if(sessionStorage.getItem('city') === null && sessionStorage.getItem('postalCode') === null && wellLoad === '') {
-        fetch('/static/media/data.json')
-            .then(function(response){ return response.json(); })
-            .then(function(data) {
-                setJson(data);
-                setLoad('ok');
-            }).catch(reason => console.log(reason));
-
         navigator.geolocation.getCurrentPosition((position) => {
             Geocoder.from(position.coords.latitude, position.coords.longitude).then(json => {
-                let postalCode = json.results[0].address_components[5].long_name;
-                let city = json.results[0].address_components[2].long_name;
+                let postalCode = parseInt(json.results[0].address_components[5].long_name, 10);
+                let city = json.results[5].address_components[1].long_name;
+                console.log(json);
                 sessionStorage.setItem('postalCode', postalCode);
                 sessionStorage.setItem('city', city);
                 setClass('activeBlock');
@@ -51,9 +45,20 @@ const Main = () => {
 
     const addCity = () => {
         let city = sessionStorage.getItem('city');
-        let obj = jsonResult.Result.filter((el) => el.CityName.toUpperCase().includes(city.toUpperCase()));
-        sessionStorage.setItem('ID_City', obj[0].ID);
-        sessionStorage.setItem('postalCode', obj[0].PostCodeList.split(',')[0]);
+        fetch("php/cityList.php?city=" + city).then((el) => {
+            let element = el.json();
+            return (element);
+        }).then(function (data) {
+            console.log(data);
+            sessionStorage.setItem('ID_City', parseInt(data[0].cityDD, 10));
+            sessionStorage.setItem('city', cite);
+            setClass('');
+        }).catch((e) => console.log(e))
+    }
+
+    const setCityCDEK = (idCity, postCode) => {
+        sessionStorage.setItem('ID_City', idCity);
+        sessionStorage.setItem('postalCode', postCode);
         setClass('');
     }
 
@@ -67,12 +72,16 @@ const Main = () => {
     }
 
     let applyCity = () => {
-        let obj = jsonResult.Result.filter((el) => el.CityName.toUpperCase().includes(cite.toUpperCase()));
-        sessionStorage.setItem('ID_City', obj[0].ID);
-        sessionStorage.setItem('city', cite);
-        sessionStorage.setItem('postalCode', obj[0].PostCodeList.split(',')[0]);
-        setClass('');
-
+        fetch("php/cityList.php?city=" + cite).then((el) => {
+            let element = el.json();
+            return (element);
+        }).then(function (data) {
+            console.log(data);
+            sessionStorage.setItem('ID_City', data[0].cityDD);
+            sessionStorage.setItem('city', cite);
+            sessionStorage.setItem('postalCode', data[0].PostCodeList.split(',')[0]);
+            setClass('');
+        }).catch((e) => console.log(e))
     }
 
     return (
@@ -80,6 +89,11 @@ const Main = () => {
             <div className={'GeoLocation ' + classNameForBlock}>
                 <span className={'bgClass'}></span>
                 <div className={'blockApplyTheCity ' + firstBlock}>
+                        <svg stroke="currentColor" onClick={() => setCityCDEK(137, 190031)} fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+                             className="crossBlockApply" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
+                        </svg>
                         <h1>Выбор города доставки</h1>
                         <p className="topText">Вы проживаете в городе <b>{sessionStorage.getItem('city')}</b></p>
                         <p>Мы угадали?</p>
@@ -89,9 +103,26 @@ const Main = () => {
                             </div>
                         </div>
                 </div>
-                <div className={'blockApplyTheCity ' + secondBlock}>
+                <div className={'blockApplyTheCity Big ' + secondBlock}>
+                    <svg stroke="currentColor" onClick={() => setCityCDEK(137, 190031)} fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+                         className="crossBlockApply" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
+                    </svg>
                     <h1>Выбор города доставки</h1>
                     <input type="text" placeholder={'Название города'} onChange={(e) => changeCity(e)}/>
+                    <div className={'cityList'}>
+                        <span className={'cityList_Left'}>
+                            <p onClick={() => setCityCDEK(44, 101000)}>Москва</p>
+                            <p onClick={() => setCityCDEK(137, 190031)}>Санкт-Петербург</p>
+                            <p onClick={() => setCityCDEK(250, 620000)}>Екатеринбург</p>
+                        </span>
+                        <span className={'cityList_Right'}>
+                            <p onClick={() => setCityCDEK(248, 614000)}>Пермь</p>
+                            <p onClick={() => setCityCDEK(414, 603000)}>Нижний Новгород</p>
+                            <p onClick={() => setCityCDEK(256, 450000)}>Уфа</p>
+                        </span>
+                    </div>
                     <div className="buttonBlock">
                         <div className='center-button' onClick={() => applyCity()}>Готово</div>
                     </div>

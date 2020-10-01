@@ -23,7 +23,7 @@ const Contacts = () => {
                 </div>
                 <div className="tabs__content">
                     <div className="shops__item">
-                        <div className="shops__name">Лофт Проект Этажи</div>
+                        <div className="shops__name">ТК ФРУНЗЕНСКИЙ </div>
                         <div className="shops__descr">
                             <p>
                                 <span>Адрес</span>
@@ -31,7 +31,7 @@ const Contacts = () => {
                             </p>
                             <p>
                                 <span>Открыто</span>
-                                <span>10:00 – 23:00 </span>
+                                <span>10:00 – 19:00 </span>
                             </p>
                             <p>
                                 <span>Телефон</span>

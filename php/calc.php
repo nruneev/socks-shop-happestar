@@ -8,19 +8,19 @@ $data = [
     "currency" => "RUB",
     "tariffList" => array(
         [
-            "id" => 1
+            "id" => 139
         ],
         [
-            "id" =>  363
+            "id" =>  366
         ]
     ),
     "goods" => array(
 
         [
-            "weight" => "1.0",
-            "length" => "10",
-            "width" => "10",
-            "height" => "10"
+            "weight" => $_GET['weight']/1000,
+            "length" => $_GET['length'],
+            "width" => $_GET['width'],
+            "height" => $_GET['height']
         ]
     )
 ];
