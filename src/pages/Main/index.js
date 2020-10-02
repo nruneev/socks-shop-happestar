@@ -4,10 +4,20 @@ import Geocoder from 'react-native-geocoding';
 
 import { AttentionBlock } from '../../components/AttentionBlock';
 import { BannersBlock } from '../../components/BannersBlock';
-import {get_attention_photos, get_features, get_banners, get_instagram_photos, useFetch} from '../../utils/requests';
+import {
+    get_attention_photos,
+    get_features,
+    get_banners,
+    get_instagram_photos,
+    useFetch,
+    getTextForMain
+} from '../../utils/requests';
 import {InstSlider} from "../../boilerplate/InstSlider";
 
 const Main = () => {
+
+    let text = useFetch(getTextForMain, '');
+
     let [wellLoad, setLoad] = useState('')
     let [jsonResult, setJson] = useState({});
     let [firstBlock, setFirst] = useState('');
@@ -137,9 +147,7 @@ const Main = () => {
                         <div className="descr__wrap">
                             <h2 className="title title--x2 descr__title">ИНТЕРНЕТ МАГАЗИН МОДНЫХ НОСКОВ</h2>
                             <img src="/static/media/logo.b7099ec4.png" className="descr__img" alt="Happestar"/>
-                                <p className="descr__text">Современный мир сегодня- это молодые, амбициозные, красивые люди!
-                                    Команда HAPPESTAR ® является ярким воплощением модных тенденций, шагая в ногу со временем
-                                    и используя свое жизненное кредо весьма успешно в бизнесе.</p>
+                                <p className="descr__text">{text}</p>
                                 <div className="descr__link-wrap">
                                     <a href="/history" className="descr__link">
                                         <span>Подробнее</span>

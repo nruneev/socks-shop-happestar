@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {request_to_instagram} from "./instagram";
+import {text} from "react-placeholder/lib/placeholders";
 
 
 const LIMIT_OF_INSTAGRAM_PHOTOS = 18;
@@ -14,6 +15,71 @@ export async function get_instagram_photos() {
         console.error(e);
     }
 }
+
+export async function getTextForMain() {
+    let text = "";
+    try {
+        let texts = await fetch("/php/loadTextForPage.php?page=main").then(function (response) {
+            return response.json();
+        })
+            .then(function (data) {
+                text = (data[0].article);
+            }).catch(reason => console.log(reason));
+    }
+    catch (e) {
+        console.error(e);
+    }
+    return text;
+}
+
+export async function getTextForPayAndDelivery() {
+    let text = "";
+    try {
+        let texts = await fetch("/php/loadTextForPage.php?page=payAndDelivery").then(function (response) {
+            return response.json();
+        })
+            .then(function (data) {
+                text = (data[0].article);
+            }).catch(reason => console.log(reason));
+    }
+    catch (e) {
+        console.error(e);
+    }
+    return text;
+}
+
+export async function getTextForHistoryBrand() {
+    let text = "";
+    try {
+        let texts = await fetch("/php/loadTextForPage.php?page=historyBrand").then(function (response) {
+            return response.json();
+        })
+            .then(function (data) {
+                text = (data[0].article);
+            }).catch(reason => console.log(reason));
+    }
+    catch (e) {
+        console.error(e);
+    }
+    return text;
+}
+
+export async function getTextForCustomer() {
+    let text = "";
+    try {
+        let texts = await fetch("/php/loadTextForPage.php?page=customer").then(function (response) {
+            return response.json();
+        })
+            .then(function (data) {
+                text = (data[0].article);
+            }).catch(reason => console.log(reason));
+    }
+    catch (e) {
+        console.error(e);
+    }
+    return text;
+}
+
 let link = (tag) => {
     let bigInt = require('big-integer');
 

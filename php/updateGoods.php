@@ -97,6 +97,6 @@
             break;
     }
 
-    $mysqli->query("UPDATE `communication_tovar_color` SET `color_id`=$color,`update_at`='".date("Y-m-d H:i:s")."' WHERE tovar_id=".$_POST['idOder']);
+    $mysqli->query("UPDATE `communication_tovar_color` SET `color_id`=$color,`update_at`='".`date("Y-m-d H:i:s")`."' WHERE tovar_id=".$_POST['idOder']);
 
 header('Location: /admin/good');
