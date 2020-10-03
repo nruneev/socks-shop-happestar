@@ -14,8 +14,8 @@ const AdminsGoodEdit = () => {
     }
 
     let [par, setPar] = useState({
-        new: false,
-        visible: true
+        new: 1,
+        visible: 1
     })
 
     let [item, setItem] = useState({
@@ -52,7 +52,8 @@ const AdminsGoodEdit = () => {
 
     if(preload) {
         let items = get_item(id).then((result) => {
-            console.log(result);let color = '';
+            console.log(result);
+            let color = '';
             switch (result[0].color_id) {
                 case '1':
                     color = 'gray';
@@ -100,8 +101,8 @@ const AdminsGoodEdit = () => {
                 prev_cost: result[0].price,
             });
             setPar({
-                new: result[0].new,
-                visible: result[0].visibly
+                new: result[0].new === "1",
+                visible: result[0].visibly === "1"
             });
             setPhotos({
                 main: result[0].photoMain,
@@ -232,7 +233,7 @@ const AdminsGoodEdit = () => {
                                 </ul>
                             </div>
                             <div className={'login-checkbox'}>
-                                <input type={'checkbox'} name={'new'} сhecked={par.new} onChange={() => setPar({
+                                <input type={'checkbox'} name={'new'} checked={par.new} onChange={() => setPar({
                                     ...par,
                                     new: !par.new
                                 })}/>

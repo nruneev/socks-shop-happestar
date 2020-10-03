@@ -13,7 +13,7 @@
     $uploaddir = '/var/www/html/public/images/tovars/';
     $uploaddirs = '/public/images/tovars/';
 
-    if (isset($_FILES)) {
+    if ($_FILES['inputfile']['tmp_name']){
         if (file_exists($uploaddir . basename($_FILES['inputfile']['name']))) {
             echo "The file exists";
         } else {
@@ -25,56 +25,58 @@
             }
         }
 
+        $uploadfileMain1 = $uploaddirs . basename($_FILES['inputfile']['name']);
+
+        $mysqli->query("UPDATE tovars SET photoMain='" . $uploadfileMain1 . "' WHERE `id`=" . $_POST['idOder']);
+    }
+
+    if ($_FILES['inputfile2']['tmp_name']){
         if (file_exists($uploaddir . basename($_FILES['inputfile2']['name']))) {
             echo "The file exists";
         } else {
-            $uploadfileDetail = $uploaddir . basename($_FILES['inputfile2']['name']);
-            if (move_uploaded_file($_FILES['inputfile2']['tmp_name'], $uploadfileDetail)) {
+            $uploadfileMain = $uploaddir . basename($_FILES['inputfile2']['name']);
+            if (move_uploaded_file($_FILES['inputfile2']['tmp_name'], $uploadfileMain)) {
                 echo("Файл корректен и был успешно загружен.\n");
             } else {
                 echo("Возможная атака с помощью файловой загрузки!\n");
             }
         }
 
+        $uploadfileDetail1 = $uploaddirs . basename($_FILES['inputfile2']['name']);
+
+        $mysqli->query("UPDATE tovars SET photoDetail='" . $uploadfileDetail1 . "' WHERE `id`=" . $_POST['idOder']);
+    }
+
+    if ($_FILES['inputfile3']['tmp_name']){
         if (file_exists($uploaddir . basename($_FILES['inputfile3']['name']))) {
             echo "The file exists";
         } else {
-            $uploadfileLeft = $uploaddir . basename($_FILES['inputfile3']['name']);
-            if (move_uploaded_file($_FILES['inputfile3']['tmp_name'], $uploadfileLeft)) {
+            $uploadfileMain = $uploaddir . basename($_FILES['inputfile3']['name']);
+            if (move_uploaded_file($_FILES['inputfile3']['tmp_name'], $uploadfileMain)) {
                 echo("Файл корректен и был успешно загружен.\n");
             } else {
                 echo("Возможная атака с помощью файловой загрузки!\n");
             }
         }
 
-        $uploadfileMain1 = $uploaddirs . basename($_FILES['inputfile']['name']);
-        $uploadfileDetail1 = $uploaddirs . basename($_FILES['inputfile2']['name']);
         $uploadfileLeft1 = $uploaddirs . basename($_FILES['inputfile3']['name']);
 
-        $new = 0;
-        $visibility = 0;
-
-        if ($_POST['new'] == "on") {
-            $new = 1;
-        }
-        if ($_POST['visibility'] == "on") {
-            $visibility = 1;
-        }
-
-        $mysqli->query("UPDATE tovars SET name='" . $_POST['name'] . "',description='" . $_POST['description'] . "',composition='" . $_POST['composition'] . "',article='" . $_POST['article'] . "',photoMain='" . $uploadfileMain1 . "',photoDetail='" . $uploadfileDetail1 . "',photoLeft='" . $uploadfileLeft1 . "',price=" . $_POST['price'] . ",discount='" . $_POST['discount'] . "',new=" . $new . ",update_at='" . date("Y-m-d H:i:s") . "',visibly=" . $visibility . " WHERE `id`=" . $_POST['idOder']);
-    } else{
-        $new = 0;
-        $visibility = 0;
-
-        if ($_POST['new'] == "on") {
-            $new = 1;
-        }
-        if ($_POST['visibility'] == "on") {
-            $visibility = 1;
-        }
-
-        $mysqli->query("UPDATE tovars SET name='" . $_POST['name'] . "',description='" . $_POST['description'] . "',composition='" . $_POST['composition'] . "',article='" . $_POST['article'] . "',price=" . $_POST['price'] . ",discount='" . $_POST['discount'] . "',new=" . $new . ",update_at='" . date("Y-m-d H:i:s") . "',visibly=" . $visibility . " WHERE `id`=" . $_POST['idOder']);
+        $mysqli->query("UPDATE tovars SET photoLeft='" . $uploadfileLeft1 . "' WHERE `id`=" . $_POST['idOder']);
     }
+
+
+    $new = 0;
+    $visibility = 0;
+
+    if ($_POST['new'] == "on") {
+        $new = 1;
+    }
+    if ($_POST['visibility'] == "on") {
+        $visibility = 1;
+    }
+
+    $mysqli->query("UPDATE tovars SET name='" . $_POST['name'] . "',description='" . $_POST['description'] . "',composition='" . $_POST['composition'] . "',article='" . $_POST['article'] . "',price=" . $_POST['price'] . ",discount='" . $_POST['discount'] . "',new=" . $new . ",update_at='" . date("Y-m-d H:i:s") . "',visibly=" . $visibility . " WHERE `id`=" . $_POST['idOder']);
+
     $color = 0;
 
     switch ($_POST['color']) {

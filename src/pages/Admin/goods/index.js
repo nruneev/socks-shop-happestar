@@ -1,13 +1,11 @@
 import './index.sass'
 import React from 'react';
-import {get_items, get_oders, useFetch} from "../../../utils/requests";
+import {get_items_admin, useFetch} from "../../../utils/requests";
 import {ItemCardAdmin} from "../../../components/ItemCardAdmin";
-import {Oder} from "../oder";
-
 
 const AdminsGood = () => {
 
-    let items = useFetch(get_items, []);
+    let items = useFetch(get_items_admin, []);
 
     if (sessionStorage.getItem('loginAdmin') !== 'ok') {
         document.location.href = "/admin/login";

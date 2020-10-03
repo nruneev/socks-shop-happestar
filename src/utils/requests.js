@@ -204,6 +204,36 @@ export async function get_history_photos() {
      }
  }
 
+export const get_items_admin = async () => {
+    let result =[];
+    let sizes = ['35 - 39', '40 - 45'];
+    let response = [];
+    let tags = ['Серый', 'Черный', 'Белый', 'Красный', 'Оранжевый', 'Желтый', 'Зеленый', 'Розовый', 'Синий', 'Разноцветный'];
+    let itemss = await fetch ('/php/tovarListADMIN.php')
+        .then(function(response){ return response.json(); })
+        .then(function(data) {
+            result = data;
+        }).catch(reason => console.log(reason));
+    for (let j = 0; j < result.length; j++) {
+        let parent = result[j];
+        response.push({
+            id: parent.id,
+            article: parent.article,
+            src: parent.photoMain,
+            mainPhoto: parent.photoMain,
+            altPhoto: parent.photoDetail,
+            name: parent.name,
+            cost: parent.price,
+            discount: 15,
+            prev_cost: parent.price,
+            sizes: sizes,
+            status: parent.new,
+            tags: [tags[parent.color - 1]]
+        });
+    }
+    return  response;
+};
+
  export const get_items = async () => {
     let result =[];
     let sizes = ['35 - 39', '40 - 45'];
