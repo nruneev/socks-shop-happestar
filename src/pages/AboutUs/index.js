@@ -1,10 +1,15 @@
 import './index.sass'
-import React from 'react';
+import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
-import {getTextForHistoryBrand, useFetch} from "../../utils/requests";
+import {get_history_photos, getTextForHistoryBrand, useFetch} from "../../utils/requests";
 
 const AboutUs = () => {
     let history = useHistory();
+    let [prelo, setPreloads] = useState(false);
+    const attentions = useFetch(get_history_photos, '');
+    if (attentions !== '' && !prelo) {
+        setPreloads(true);
+    }
     let text = useFetch(getTextForHistoryBrand, '');
     return (
         <div className='wrapper'>
@@ -17,7 +22,7 @@ const AboutUs = () => {
                 <h1>История Бренда</h1>
             </div>
 
-            <img src='/static/media/history.jpg'/>
+            <img src={attentions}/>
             <p>{text}</p>
         </div>
     )

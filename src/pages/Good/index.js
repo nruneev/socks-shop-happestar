@@ -46,7 +46,7 @@ const Good = () => {
     console.log(itemer);
 
     let [actualPhotos, setActual] = useState(0);
-    let [count, setCount] = useState(0);
+    let [count, setCount] = useState(1);
 
     let [item, pushItem] = useState({});
 
@@ -329,7 +329,17 @@ const Good = () => {
                         <p>{item.name}</p>
                     </div>
                     <div className='photos'>
-                        <img src={item.photos[0]} alt={item.name}/>
+                        <img src={item.photos[actualPhotos]} alt={item.name}/>
+                        <div className='thumbs liner'>
+                            {item.photos.map((el, key) => {
+                                const classer = key === actualPhotos ? 'selected' : '';
+                                if (el !== '') {
+                                    return (
+                                        <div className={'swiper-slide ' + classer} onClick={() => setActual(key)}><img
+                                            src={el}/></div>)
+                                }
+                            })}
+                        </div>
                     </div>
                     <div className='content'>
                         <div className='info'>

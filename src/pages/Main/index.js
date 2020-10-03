@@ -15,7 +15,6 @@ import {
 import {InstSlider} from "../../boilerplate/InstSlider";
 
 const Main = () => {
-
     let text = useFetch(getTextForMain, '');
 
     let [wellLoad, setLoad] = useState('')
@@ -48,9 +47,18 @@ const Main = () => {
             setSecond('');
         })
     }
+    let [prel, setPreload] = useState(false);
+    let [prelo, setPreloads] = useState(false);
     const attentions = useFetch(get_attention_photos, []);
+    if (attentions.length > 0 && !prel) {
+        setPreload(true);
+    }
     const features = useFetch(get_features, []);
+
     let banners = useFetch(get_banners, []);
+    if (banners.length > 0 && !prelo) {
+        setPreloads(true);
+    }
     let images = useFetch(get_instagram_photos, []);
 
     const addCity = () => {

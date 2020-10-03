@@ -32,6 +32,22 @@ export async function getTextForMain() {
     return text;
 }
 
+export async function getPhotos() {
+    let result = [];
+    try {
+        let texts = await fetch("/php/getBanners.php").then(function (response) {
+            return response.json();
+        })
+            .then(function (data) {
+                result = data;
+            }).catch(reason => console.log(reason));
+    }
+    catch (e) {
+        console.error(e);
+    }
+    return result;
+}
+
 export async function getTextForPayAndDelivery() {
     let text = "";
     try {
@@ -98,21 +114,85 @@ let link = (tag) => {
 }
 
 export async function get_attention_photos() {
+    let photos = [];
     try {
-        return attentions;
+        let texts = await fetch("/php/getPhotos.php?type=main_slider").then(function (response) {
+            return response.json();
+        })
+            .then(function (data) {
+                data.map((el) => {
+                    photos.push({
+                        src: el.src,
+                        text: el.text
+                    })
+                });
+            }).catch(reason => console.log(reason));
     }
     catch (e) {
         console.error(e);
     }
+    return photos;
+}
+
+export async function get_history_photos() {
+    let photos = '';
+    try {
+        let texts = await fetch("/php/getPhotos.php?type=historyBrand").then(function (response) {
+            return response.json();
+        })
+            .then(function (data) {
+                photos = data[0].src
+            }).catch(reason => console.log(reason));
+    }
+    catch (e) {
+        console.error(e);
+    }
+    return photos;
 }
 
  export async function get_banners() {
-    try {
-        return banners;
-    }
-    catch (e) {
-        console.error(e);
-    }
+     let photos = [];
+     try {
+         let texts = await fetch("/php/getPhotos.php?type=main_banner").then(function (response) {
+             return response.json();
+         })
+             .then(function (data) {
+                 photos = [
+                        {
+                             src: data[0].src,
+                             text: data[0].text,
+                             link: '/catalog?new=1'
+                         },
+                         {
+                             src: data[1].src,
+                             text: data[1].text,
+                             link: '/catalog?sale=1'
+                         },
+                         {
+                             src: data[2].src,
+                             text: data[2].text,
+                             link: '/catalog?best=1'
+                         },
+                         {
+                             src: data[3].src,
+                         },
+                         {
+                             src: data[4].src,
+                             text: data[4].text,
+                             link: '/pack'
+                         },
+                         {
+                             src: data[5].src,
+                             text: data[5].text,
+                             link: '/catalog'
+                         }
+                     ]
+             }).catch(reason => console.log(reason));
+     }
+     catch (e) {
+         console.error(e);
+     }
+     return photos;
  }
 
  export async function get_features() {
@@ -181,36 +261,6 @@ export const useFetch = (fetchCall, defaultVal) => {
      return response;
 };
 
-const banners = [
-    {
-        src: require('../image/7253.jpg'),
-        text: 'new',
-        link: '/catalog?new=1'
-    },
-    {
-        src: require('../image/0515.jpg'),
-        text: 'sale',
-        link: '/catalog?sale=1'
-    },
-    {
-        src: require('../image/0248.jpg'),
-        text: 'feature',
-        link: '/catalog?best=1'
-    },
-    {
-        src: require('../image/9496.jpg'),
-    },
-    {
-        src: require('../image/0431.jpg'),
-        text: 'Собрать свой набор',
-        link: '/pack'
-    },
-    {
-        src: require('../image/7095.jpg'),
-        text: 'Каталог',
-        link: '/catalog'
-    }
-];
 
 const features = [
     {
@@ -230,17 +280,6 @@ const features = [
         text: 'Возврат товара в течение 14 дней'
     }
 ]
-
-const attentions = [
-    {
-        src: require('../image/0322.jpg'),
-        text: 'Идеальная пара\n твоему\n настроению'
-    },
-    {
-        src: require('../image/9902.jpg'),
-        text: 'Идеальная пара\n твоему\n настроению'
-    }
-];
 
 export const STATUS = Object.freeze({
     NONE: 0,

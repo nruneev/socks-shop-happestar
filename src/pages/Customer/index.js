@@ -18,9 +18,7 @@ const Customer = () => {
                 <h1>Покупателю</h1>
             </div>
 
-            <p className='article-delivery'>
-                {text}
-            </p>
+            <p className='article-delivery' dangerouslySetInnerHTML={{__html: text}}/>
         </div>
     )
 };

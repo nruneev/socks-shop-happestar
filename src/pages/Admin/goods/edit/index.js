@@ -105,8 +105,8 @@ const AdminsGoodEdit = () => {
             });
             setPhotos({
                 main: result[0].photoMain,
-                first: result[0].photoLeft,
-                second: result[0].photoDetail
+                first: result[0].photoDetail,
+                second: result[0].photoLeft
             })
             setPreload(false);
         });
