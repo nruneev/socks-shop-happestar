@@ -28,6 +28,9 @@ const AdminsGood = () => {
                 <a href={'photo'} className={'loginNavigationItem'}>
                     Фото на сайте
                 </a>
+                <a href={'promo'} className={'loginNavigationItem'}>
+                    Промо
+                </a>
             </div>
             <div className={'loginRightBlock'}>
                 <h1>Товары</h1>
