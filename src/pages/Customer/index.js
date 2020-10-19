@@ -13,9 +13,9 @@ const Customer = () => {
                 <ul>
                     <li><a href={'./'}>Главная</a></li>
                     <li><a onClick={() => history.goBack()}>Назад</a></li>
-                    <li><span>Покупателю</span></li>
+                    <li><span>Доставка и Возврат</span></li>
                 </ul>
-                <h1>Покупателю</h1>
+                <h1>Доставка и Возврат</h1>
             </div>
 
             <p className='article-delivery' dangerouslySetInnerHTML={{__html: text}}/>

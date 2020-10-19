@@ -8,10 +8,9 @@ import { Footer } from './components/Footer';
 import { BurgerMenu } from './components/BurgerMenu';
 import {
     BrowserRouter as Router,
-    Route,
+    Route, Switch,
 } from 'react-router-dom';
 import {Pack} from "./pages/Pack";
-import {PayAndDelivery} from "./pages/PayAndDelivery";
 import {Partner} from "./pages/Partner";
 import {Contacts} from "./pages/Contacts";
 import {Good} from "./pages/Good";
@@ -29,6 +28,7 @@ import {AdminsPhotoPage} from "./pages/Admin/photo";
 import {AdminsPromoPage} from "./pages/Admin/promo";
 import {Sale} from "./pages/Sale";
 import {New} from "./pages/New";
+import {NotFound} from "./pages/NotFound";
 
 
 const cartItemField = 'cartItems';
@@ -121,72 +121,74 @@ const App = () => {
                             <BurgerMenu isOpen={isOpened} closeMenu={() => setIsOpen(false)}/>
                             <div id='rest'>
                                 <Header openMenu={() => setIsOpen(true)}/>
-                                <Route path='/' exact>
-                                    <Main/>
-                                </Route>
-                                <Route path='/happestar' exact>
-                                    <Main/>
-                                </Route>
-                                <Route path='/catalog'>
-                                    <Catalog/>
-                                </Route>
-                                <Route path='/sale'>
-                                    <Sale/>
-                                </Route>
-                                <Route path='/new'>
-                                    <New/>
-                                </Route>
-                                <Route path='/cart'>
-                                    <Cart/>
-                                </Route>
-                                <Route path='/history'>
-                                    <AboutUs/>
-                                </Route>
-                                <Route path='/customer'>
-                                    <Customer/>
-                                </Route>
-                                <Route path='/good'>
-                                    <Good/>
-                                </Route>
-                                <Route path='/pack'>
-                                    <Pack/>
-                                </Route>
-                                <Route path='/partner'>
-                                    <Partner/>
-                                </Route>
-                                <Route path='/admin/login'>
-                                    <Admins/>
-                                </Route>
-                                <Route path='/admin/oder'>
-                                    <AdminsOder/>
-                                </Route>
-                                <Route path='/admin/current'>
-                                    <AdminsCurrentOder/>
-                                </Route>
-                                <Route path='/admin/good'>
-                                    <AdminsGood/>
-                                </Route>
-                                <Route path='/admin/edit'>
-                                    <AdminsGoodEdit/>
-                                </Route>
-                                <Route path='/admin/new'>
-                                    <AdminsGoodNew/>
-                                </Route>
-                                <Route path='/admin/text'>
-                                    <AdminsTextPage/>
-                                </Route>
-                                <Route path='/admin/photo'>
-                                    <AdminsPhotoPage/>
-                                </Route>
-                                <Route path='/admin/promo'>
-                                    <AdminsPromoPage/>
-                                </Route>
-                                <Route path='/pay-and-delivery'>
-                                    <PayAndDelivery/>
-                                </Route>
-                                <Route path='/contacts'>
-                                    <Contacts/>
-                                </Route>
+                                <Switch>
+                                    <Route path='/' exact>
+                                        <Main/>
+                                    </Route>
+                                    <Route path='/happestar' exact>
+                                        <Main/>
+                                    </Route>
+                                    <Route path='/catalog'>
+                                        <Catalog/>
+                                    </Route>
+                                    <Route path='/sale'>
+                                        <Sale/>
+                                    </Route>
+                                    <Route path='/new'>
+                                        <New/>
+                                    </Route>
+                                    <Route path='/cart'>
+                                        <Cart/>
+                                    </Route>
+                                    <Route path='/history'>
+                                        <AboutUs/>
+                                    </Route>
+                                    <Route path='/customer'>
+                                        <Customer/>
+                                    </Route>
+                                    <Route path='/good'>
+                                        <Good/>
+                                    </Route>
+                                    <Route path='/pack'>
+                                        <Pack/>
+                                    </Route>
+                                    <Route path='/partner'>
+                                        <Partner/>
+                                    </Route>
+                                    <Route path='/admin/login'>
+                                        <Admins/>
+                                    </Route>
+                                    <Route path='/admin/oder'>
+                                        <AdminsOder/>
+                                    </Route>
+                                    <Route path='/admin/current'>
+                                        <AdminsCurrentOder/>
+                                    </Route>
+                                    <Route path='/admin/good'>
+                                        <AdminsGood/>
+                                    </Route>
+                                    <Route path='/admin/edit'>
+                                        <AdminsGoodEdit/>
+                                    </Route>
+                                    <Route path='/admin/new'>
+                                        <AdminsGoodNew/>
+                                    </Route>
+                                    <Route path='/admin/text'>
+                                        <AdminsTextPage/>
+                                    </Route>
+                                    <Route path='/admin/photo'>
+                                        <AdminsPhotoPage/>
+                                    </Route>
+                                    <Route path='/admin/promo'>
+                                        <AdminsPromoPage/>
+                                    </Route>
+                                    <Route path='/contacts'>
+                                        <Contacts/>
+                                    </Route>
+                                    <Route>
+                                        <NotFound/>
+                                    </Route>
+                                </Switch>
                                 <Footer/>
                             </div>
                         </Router>

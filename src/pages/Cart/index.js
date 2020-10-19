@@ -763,6 +763,7 @@ const Cart = () => {
                         <div className='linker'>
                             <ul>
                                 <li><a href={'./'}>Главная</a></li>
+                                <li><a onClick={() => history.goBack()}>Назад</a></li>
                                 <li><span>Корзина</span></li>
                             </ul>
                             <h1>Корзина</h1>

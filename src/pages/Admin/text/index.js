@@ -61,17 +61,10 @@ const AdminsTextPage = () => {
                         })}/>
                     </div>
                     <div className={'login-input'}>
-                        <p>Покупателю</p>
-                        <textarea placeholder={'Покупателю'} name={'gooder'} type={'text'} value={item.gooder} onChange={(e) => setItem({
+                        <p>Доставка и Возврат</p>
+                        <textarea placeholder={'Доставка и Возврат'} name={'gooder'} type={'text'} value={item.gooder} onChange={(e) => setItem({
                             ...item,
                             gooder: e.target.value
-                        })}/>
-                    </div>
-                    <div className={'login-input'}>
-                        <p>Оплата и доставка</p>
-                        <textarea placeholder={'Оплата и доставка'} name={'payAndDelivery'} type={'text'} value={item.payAndDelivery} onChange={(e) => setItem({
-                            ...item,
-                            payAndDelivery: e.target.value
                         })}/>
                     </div>
                     <div className={'login-input'}>
