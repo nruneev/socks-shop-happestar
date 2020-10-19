@@ -16,7 +16,7 @@ const ItemCardAdmin = ({ item, width, size }) => {
         }
 
     return (
-        <article className={'product'}>
+        <article className={'productser'}>
             <div className="product__wrap">
                 <a onMouseEnter={(e) => {
                         changePhotoGood('hovered')}}

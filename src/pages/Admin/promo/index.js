@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 
 export const Promo = (element) => {
     console.log(element)
-    return (<p className={'loginPromoLink'}>{element.item.name}: {element.item.price} Рублей</p>)
+    return (<p className={'loginPromoLink'}>{element.item.name}: {element.item.price}%</p>)
 }
 
 const AdminsPromoPage = () => {
@@ -63,15 +63,15 @@ const AdminsPromoPage = () => {
             <div className={'loginRightBlock'}>
                 <h1>Промо</h1>
                 <div className={'login-input'}>
-                    <p>Главная страница</p>
-                    <input placeholder={'Промо'} type={'text'} value={item.name} onChange={(e) => setItem({
+                    <p>Название</p>
+                    <input placeholder={'Название'} type={'text'} value={item.name} onChange={(e) => setItem({
                         ...item,
                         name: e.target.value
                     })}/>
                 </div>
                 <div className={'login-input'}>
-                    <p>Покупателю</p>
-                    <input placeholder={'Покупателю'} type={'number'} value={item.price} onChange={(e) => setItem({
+                    <p>Процент</p>
+                    <input placeholder={'Процент'} type={'number'} value={item.price} onChange={(e) => setItem({
                         ...item,
                         price: e.target.value
                     })}/>

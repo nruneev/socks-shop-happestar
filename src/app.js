@@ -27,6 +27,8 @@ import {AdminsGoodNew} from "./pages/Admin/goods/new";
 import {AdminsTextPage} from "./pages/Admin/text";
 import {AdminsPhotoPage} from "./pages/Admin/photo";
 import {AdminsPromoPage} from "./pages/Admin/promo";
+import {Sale} from "./pages/Sale";
+import {New} from "./pages/New";
 
 
 const cartItemField = 'cartItems';
@@ -127,6 +129,12 @@ const App = () => {
                                 </Route>
                                 <Route path='/catalog'>
                                     <Catalog/>
+                                </Route>
+                                <Route path='/sale'>
+                                    <Sale/>
+                                </Route>
+                                <Route path='/new'>
+                                    <New/>
                                 </Route>
                                 <Route path='/cart'>
                                     <Cart/>

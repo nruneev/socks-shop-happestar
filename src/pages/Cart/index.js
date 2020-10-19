@@ -102,7 +102,11 @@ const Cart = () => {
         room: '',
         city: sessionStorage.getItem('city'),
         adressPVZ: '',
-        codePVZ: ''
+        codePVZ: '',
+        weight: '',
+        height: '',
+        length: '',
+        width: ''
     });
 
     let { cartItems, removeItem, setItem } = useContext(CartContext);
@@ -116,14 +120,15 @@ const Cart = () => {
             <button onClick={() => createOder()} className="_btn_" type="button">Оформить заказ</button>
         </>;
 
+    let weight = 0;
+
+    let length = 20;
+
+    let width = 9;
+
+    let height = 0;
+
     if (priceDelivery[0] === 0) {
-        let weight = 0;
-
-        let length = 20;
-
-        let width = 9;
-
-        let height = 0;
 
         cartItems.map((el) => {
             if (el.isNabor){
@@ -149,6 +154,10 @@ const Cart = () => {
 
         weight = weight/1000;
 
+        if (weight < 0.216) {
+            weight = 0.216;
+        }
+
         fetch('/php/calc.php?ID_City=' + sessionStorage.getItem('ID_City') + '&postalCode=' + sessionStorage.getItem('postalCode') + '&weight=' + weight + '&length=' + length + '&width=' + width + '&height=' + height, {
             method: 'GET',
         })
@@ -156,6 +165,13 @@ const Cart = () => {
                 return response.json();
             })
             .then(function (data) {
+                setOderPar({
+                    ...oderPar,
+                    weight: weight,
+                    height: height,
+                    length: length,
+                    width: width
+                });
                 setPriceDelivery([data.result[1].result.price, data.result[0].result.price])
                 if (oderPar.delivery === 'SDEK_PICKUP') {
                     setDeliveryPrice(parseInt(data.result[1].result.price, 10))
@@ -189,8 +205,12 @@ const Cart = () => {
         pay: React.createRef()
     };
 
-    cartItems.map((item, key) => totalPrice += parseInt(item.cost, 10) * parseInt(item.count, 10));
+    if (promo_price > 0) {
+        cartItems.map((item, key) => totalPrice += ((parseInt(item.cost, 10)) * parseInt(item.count, 10)));
+    } else {
+        cartItems.map((item, key) => totalPrice += ((parseInt(item.cost, 10) - parseInt(item.discount, 10)) * parseInt(item.count, 10)));
 
+    }
     const validForm = () => {
         let obj = {
             name: oderPar.name !== '' ? '' : 'error',
@@ -246,7 +266,7 @@ const Cart = () => {
             let address = ''
 
             if (oderPar.delivery === 'SDEK_PICKUP') {
-                address = oderPar.city + ', ' + oderPar.adressPVZ;
+                address = sessionStorage.getItem('city') + ', ' + oderPar.adressPVZ;
             } else if (oderPar.delivery === 'PICKUP') {
                 address = 'Санкт-Петербург, ТК Фрунзенский, ул. Бухарестская 90, 2 этаж, секция 25.2'
             } else {
@@ -255,8 +275,8 @@ const Cart = () => {
 
             const comment = '';
 
-            const priceAll = parseInt(totalPrice, 10) - promo_price + deliveryPrice;
-            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room + '&priceDelivery=' + deliveryPrice + '&CityID=' + sessionStorage.getItem('ID_City'), {
+            const priceAll = (parseInt(totalPrice, 10) - (parseInt(totalPrice, 10) / 100) * promo_price) + deliveryPrice;
+            fetch('/php/oderAdd.php?item=' + JSON.stringify(cartItems) + '&promo=' + promo + '&name=' + oderPar.name + '&surname=' + oderPar.surname + '&email=' + oderPar.email + '&phone=' + oderPar.phone + '&delivery=' + oderPar.delivery + '&pay=' + oderPar.pay + '&comment=' + comment + '&address=' + address + '&priceAll=' + priceAll + '&codePVZ=' + oderPar.codePVZ + '&street=' + oderPar.street + '&home=' + oderPar.home + '&room=' + oderPar.room + '&priceDelivery=' + deliveryPrice + '&CityID=' + sessionStorage.getItem('ID_City') + '&weight=' + oderPar.weight + '&length=' + oderPar.length + '&width=' + oderPar.width + '&height=' + oderPar.height, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -334,13 +354,14 @@ const Cart = () => {
                                                         применить
                                                     </button>
                                                 </form>
+                                                <p className={'promo_text_warn'}>Будьте внимательны, скидка по промокоду и сумма по скидке не суммируется</p>
                                             </div>
                                             <div className="table-col  table-col--width  table-price">
                                                 <div className="forCartTotal">
                                                     <div className="table-price__wrap">
                                                         <div className="table-price__row table-price__value">
                                                             <p>Итого:</p>
-                                                            <span>{parseInt(totalPrice, 10) - promo_price}&nbsp;<i className="rub-symbol">₽</i></span>
+                                                            <span>{parseInt(totalPrice, 10) - (parseInt(totalPrice, 10) / 100) * promo_price}&nbsp;<i className="rub-symbol">₽</i></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -373,13 +394,14 @@ const Cart = () => {
                                             применить
                                         </button>
                                     </form>
+                                    <p className={'promo_text_warn'}>Будьте внимательны, скидка по промокоду и сумма по скидке не суммируется</p>
                                 </div>
                                 <div className="table-col  table-col--width  table-price">
                                     <div className="forCartTotal">
                                         <div className="table-price__wrap">
                                             <div className="table-price__row table-price__value">
                                                 <p>Итого:</p>
-                                                <span>{parseInt(totalPrice, 10) - parseInt(promo_price, 10)}&nbsp;<i className="rub-symbol">₽</i></span>
+                                                <span>{parseInt(totalPrice, 10) - (parseInt(totalPrice, 10) / 100) * promo_price}&nbsp;<i className="rub-symbol">₽</i></span>
                                             </div>
                                         </div>
                                     </div>
@@ -715,7 +737,7 @@ const Cart = () => {
                                                             <span>Стоимость доставки: </span>{deliveryPrice}&nbsp;<i
                                                             className="rub-symbol">₽</i></div>
                                                         <div className="_submit-item  _submit-item--final">
-                                                            <span>Итого: </span>{parseInt(totalPrice, 10) - promo_price + deliveryPrice}&nbsp;<i
+                                                            <span>Итого: </span>{parseInt(totalPrice, 10) - (parseInt(totalPrice, 10) / 100) * promo_price + deliveryPrice}&nbsp;<i
                                                             className="rub-symbol">₽</i>
                                                         </div>
                                                     </div>

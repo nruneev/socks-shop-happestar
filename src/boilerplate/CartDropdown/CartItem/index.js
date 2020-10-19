@@ -54,7 +54,7 @@ const CartItem = ({ item, removeItem }) => {
                 {sizer}
             </td>
             <td>
-                <span className="coast">{item.cost}₽</span>
+                <span className="coast">{parseInt(item.cost, 10) - parseInt(item.discount, 10)}₽</span>
             </td>
             <td className="count">
                 <ul className="_counter_">
@@ -65,7 +65,7 @@ const CartItem = ({ item, removeItem }) => {
             </td>
 
             <td>
-                <p className="sum _rub_ total">{item.cost * item.count}Р</p>
+                <p className="sum _rub_ total">{(parseInt(item.cost, 10) - parseInt(item.discount, 10)) * item.count}Р</p>
             </td>
 
             <td className='trash_td'>

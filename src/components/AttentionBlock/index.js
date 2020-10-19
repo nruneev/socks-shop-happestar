@@ -16,7 +16,7 @@ const AttentionBlock = ({ attentions, features }) => (
         <div className='features'>
             <div className='features__item'>
                 <div  className='feature-1'/>
-                <div className='feature-1_text'><p>Доставка по всей России</p></div>
+                <div className='feature-1_text'><p>Делаем в Питере, доставляем всей России</p></div>
             </div>
             <div className='features__item'>
                 <div  className='feature-2'>
@@ -28,15 +28,15 @@ const AttentionBlock = ({ attentions, features }) => (
                               className=""></path>
                     </svg>
                 </div>
-                <div className='feature-2_text'><p>Бесплатная доставка по СПб от 3000 руб</p></div>
+                <div className='feature-2_text'><p>Заказ от 3000 руб? – везем бесплатно по СПб!</p></div>
             </div>
             <div className='features__item'>
                 <div  className='feature-3'/>
-                <div className='feature-3_text'><p>Оплата при получении</p></div>
+                <div className='feature-3_text'><p>Оплата при получении - нал, карта, pay pass.</p></div>
             </div>
             <div className='features__item'>
                 <div  className='feature-4'/>
-                <div className='feature-4_text'><p>Возврат товара в течение 14 дней</p></div>
+                <div className='feature-4_text'><p>Не зайдет – вернешь, 2 недели в запасе</p></div>
             </div>
         </div> 
     </React.Fragment>

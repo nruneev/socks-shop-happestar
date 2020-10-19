@@ -29,9 +29,9 @@ const Partner = () => {
                 <ul>
                     <li><a href={'./'}>Главная</a></li>
                     <li><a onClick={() => history.goBack()}>Назад</a></li>
-                    <li><span>Оплата и Доставка</span></li>
+                    <li><span>Сотрудничество</span></li>
                 </ul>
-                <h1>Оплата и Доставка</h1>
+                <h1>Сотрудничество</h1>
             </div>
             <img className="imagePart" src='static/media/graph.svg'/>
         </div>

@@ -1,15 +1,16 @@
 import {useEffect, useState} from 'react';
 import {request_to_instagram} from "./instagram";
 import {text} from "react-placeholder/lib/placeholders";
+import {useInstagramFeed} from "use-instagram-feed";
 
 
 const LIMIT_OF_INSTAGRAM_PHOTOS = 18;
 
 export async function get_instagram_photos() {
     try {
-        let response = await request_to_instagram();
-        let imagess = response.map((element) => ({ link: link(element.id), url: element.image }));
-        return imagess;
+        let photos = [{
+        }];
+        return photos;
     }
     catch (e) {
         console.error(e);
@@ -158,35 +159,34 @@ export async function get_history_photos() {
          })
              .then(function (data) {
                  photos = [
-                        {
-                             src: data[0].src,
-                             text: data[0].text,
-                             link: '/catalog?new=1'
-                         },
-                         {
-                             src: data[1].src,
-                             text: data[1].text,
-                             link: '/catalog?sale=1'
-                         },
-                         {
-                             src: data[2].src,
-                             text: data[2].text,
-                             link: '/catalog?best=1'
-                         },
-                         {
-                             src: data[3].src,
-                         },
-                         {
-                             src: data[4].src,
-                             text: data[4].text,
-                             link: '/pack'
-                         },
-                         {
-                             src: data[5].src,
-                             text: data[5].text,
-                             link: '/catalog'
-                         }
-                     ]
+
+                     {
+                         src: data[5].src,
+                         text: data[5].text,
+                         link: '/catalog'
+                     },
+                     {
+                         src: data[1].src,
+                         text: data[1].text,
+                         link: '/sale'
+                     },
+                     {
+                         src: data[2].src,
+                         text: data[2].text
+                     },
+                     {
+                         src: data[3].src,
+                     },
+                     {
+                         src: data[4].src,
+                         text: data[4].text,
+                         link: '/pack'
+                     },
+                     {
+                         src: data[0].src,
+                         text: data[0].text,
+                         link: '/new'
+                     }]
              }).catch(reason => console.log(reason));
      }
      catch (e) {
@@ -254,7 +254,7 @@ export const get_items_admin = async () => {
             altPhoto: parent.photoDetail,
             name: parent.name,
             cost: parent.price,
-            discount: 15,
+            discount: parent.discount,
             prev_cost: parent.price,
             sizes: sizes,
             status: parent.new,
@@ -295,19 +295,19 @@ export const useFetch = (fetchCall, defaultVal) => {
 const features = [
     {
         class: 'feature-1',
-        text: 'Доставка по всей России'
+        text: 'Делаем в Питере, доставляем всей России'
     },
     {
         class: 'feature-2',
-        text: 'Бесплатная доставка по СПб от 3000 руб'
+        text: 'Заказ от 3000 руб? – везем бесплатно по СПб!'
     },
     {
         class: 'feature-3',
-        text: 'Оплата при получении'
+        text: 'Оплата при получении - нал, карта, pay pass.'
     },
     {
         class: 'feature-4',
-        text: 'Возврат товара в течение 14 дней'
+        text: 'Не зайдет – вернешь, 2 недели в запасе'
     }
 ]
 

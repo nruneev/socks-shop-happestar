@@ -73,6 +73,8 @@ const Pack = () => {
             src: '/static/media/box.jpg',
             sizes: sizess,
             cost: 390 * packItems.length,
+            discount: 0,
+
             count: 1,
             isNabor: true,
             item: packItems

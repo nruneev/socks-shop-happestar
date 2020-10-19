@@ -40,14 +40,14 @@ const CartItemMobile = ({ item, removeItem }) => {
                     </p>
                 </div>
                 <div className="coast">
-                    <span className="cur _rub_">{item.cost} <i className="rub-symbol">₽</i></span>
+                    <span className="cur _rub_">{parseInt(item.cost, 10) - parseInt(item.discount, 10)} <i className="rub-symbol">₽</i></span>
                 </div>
                 <ul className="_counter_">
                     <li className="_minus" onClick={() => setItem(item, --item.count)}>–</li>
                     <li className="_num">{item.count}</li>
                     <li className="_plus" onClick={() => setItem(item, ++item.count)}>+</li>
                 </ul>
-                <b className="total _rub_ sum">{item.cost * item.count} <i className="rub-symbol">₽</i></b>
+                <b className="total _rub_ sum">{(parseInt(item.cost, 10) - parseInt(item.discount, 10))  * item.count} <i className="rub-symbol">₽</i></b>
             </div>
             <FaTrashAlt className='trash' onClick={() => removeItem(item.id)}/>
         </li>

@@ -97,7 +97,7 @@ const Good = () => {
                 sizes: ['35 - 39', '40 - 45'],
                 color: color,
                 description: result[0].description,
-                discount: 15,
+                discount: result[0].discount,
                 prev_cost: result[0].price,
             })
             setPreload(false);
@@ -192,7 +192,7 @@ const Good = () => {
                             </div>
                         </div>
                         <div className="cost ">
-                            <span className="cur _rub_">{item.cost} <i className="rub-symbol">₽</i></span>
+                            <span className="cur _rub_">{parseInt(item.cost, 10) - parseInt(item.discount, 10)} <i className="rub-symbol">₽</i></span>
                         </div>
                         <div className="btns">
                             <button onClick={() => {
@@ -205,7 +205,7 @@ const Good = () => {
                                             src: item.src,
                                             name: item.name,
                                             cost: item.cost,
-                                            discount: 15,
+                                            discount: item.discount,
                                             prev_cost: item.cost,
                                             status: item.status,
                                             tags: item.tags,
@@ -363,7 +363,7 @@ const Good = () => {
                             </div>
                         </div>
                         <div className="cost ">
-                            <span className="cur _rub_">{item.cost} <i className="rub-symbol">₽</i></span>
+                            <span className="cur _rub_">{parseInt(item.cost, 10) - parseInt(item.discount, 10)} <i className="rub-symbol">₽</i></span>
                         </div>
                         <div className="btns">
                             <button onClick={() => {
@@ -376,7 +376,7 @@ const Good = () => {
                                             src: item.src,
                                             name: item.name,
                                             cost: item.cost,
-                                            discount: 15,
+                                            discount: item.discount,
                                             prev_cost: item.cost,
                                             status: item.status,
                                             tags: item.tags,
@@ -478,7 +478,7 @@ const Good = () => {
                                     <p>
                                         Оплатить заказанные товары можно одним из указанных ниже способов:
 
-                         className={'accrd ' + classDescr}               1. Наличными или картой при получении заказа
+                                        1. Наличными или картой при получении заказа
 
                                         2. Онлайн оплата картой или электронными деньгами.
                                     </p>

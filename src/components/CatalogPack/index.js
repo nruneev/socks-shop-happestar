@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 const CatalogListPack = ({ items, setMenu, length, activeTags, activeSizes }) => {
     let history = useHistory();
 
-    const sort = ['cost', 'new'];
+    const sort = ['cost', 'new', 'discount'];
 
     let [nav_type, setType] = useState(['col_2'])
 
@@ -44,15 +44,33 @@ const CatalogListPack = ({ items, setMenu, length, activeTags, activeSizes }) =>
                 items = items.sort((a, b) => parseInt(a.status, 10) < parseInt(b.status, 10) ? 1 : -1);
                 oder = 'asc';
             }
-        } else {
-            if (type === sort_type[0]) {
-                items = items.reverse();
+        } else if (type === "cost") {
+            if (type === sort_type[0] && sort_type[1] !== "desc") {
+                items = items.sort((a, b) => {
+                    if (a.cost - a.discount > b.cost - b.discount) {
+                        return 1;
+                    }
+                    if (a.cost - a.discount < b.cost - b.discount) {
+                        return -1;
+                    }
+                    // a должно быть равным b
+                    return 0;
+                });
                 oder = 'desc';
             } else {
-                items = items.sort((a, b) => a.cost > b.cost ? 1 : -1);
-                oder = 'asc';
+                items = items.sort((a, b) => {
+                    if (a.cost - a.discount < b.cost - b.discount) {
+                        return 1;
+                    }
+                    if (a.cost - a.discount > b.cost - b.discount) {
+                        return -1;
+                    }
+                    // a должно быть равным b
+                    return 0;
+                });
             }
         }
+        console.log(type + " " + oder);
         changeSort(sort_type = [type, oder]);
     }
 
@@ -73,10 +91,16 @@ const CatalogListPack = ({ items, setMenu, length, activeTags, activeSizes }) =>
                         {
                             sort.map((size, key) =>  {
                                 let className = sort_type[0] === size ? 'active' : '';
-                                let text = size === "new" ? 'новизне' : 'цене';
+                                let text = "";
+                                if (size === "new") {
+                                    text = 'новизне'
+                                } else if (size === "cost") {
+                                    text = 'цене';
+                                } else {
+                                    text = 'скидке';
+                                }
                                 return <li onClick={() => changeSorts(size)} key={key} className={className}>{text}</li>
                             } )}
-                        <li>скидке</li>
                     </ul>
                     <i className="c2" onClick={() => changeNav('col_2')}/>
                     <i className="c1" onClick={() => changeNav('')}/>

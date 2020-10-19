@@ -19,7 +19,7 @@ const Footer = () => {
                 <a href='https://vk.com/happestar'>
                     <FaVk/>
                 </a>
-                <a href='https://teleg.run/happestar'>
+                <a href='https://t.me/happestar'>
                     <FaTelegramPlane/>
                 </a>
                 <a href='https://www.youtube.com/channel/UCdzyFgztzclwCZSt5ljX2Aw/videos'>

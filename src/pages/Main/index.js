@@ -13,6 +13,7 @@ import {
     getTextForMain
 } from '../../utils/requests';
 import {InstSlider} from "../../boilerplate/InstSlider";
+import {useInstagramFeed} from "use-instagram-feed";
 
 const Main = () => {
     let text = useFetch(getTextForMain, '');
@@ -27,6 +28,8 @@ const Main = () => {
 
     Geocoder.init('AIzaSyD2bDPulysZlPIjG1fO3kNqIvbsbWjXrPw');
     if(sessionStorage.getItem('city') === null && sessionStorage.getItem('postalCode') === null && wellLoad === '') {
+        sessionStorage.setItem('ID_City', 137);
+        sessionStorage.setItem('postalCode', 190031);
         navigator.geolocation.getCurrentPosition((position) => {
             Geocoder.from(position.coords.latitude, position.coords.longitude).then(json => {
                 let postalCode = parseInt(json.results[0].address_components[5].long_name, 10);
@@ -59,7 +62,11 @@ const Main = () => {
     if (banners.length > 0 && !prelo) {
         setPreloads(true);
     }
-    let images = useFetch(get_instagram_photos, []);
+    let images = useInstagramFeed({
+        userId: "5431003189",
+        thumbnailWidth: 640,
+        photoCount: 12
+    });
 
     const addCity = () => {
         let city = sessionStorage.getItem('city');
@@ -68,9 +75,13 @@ const Main = () => {
             return (element);
         }).then(function (data) {
             console.log(data);
-            sessionStorage.setItem('ID_City', parseInt(data[0].cityDD, 10));
-            sessionStorage.setItem('city', cite);
-            setClass('');
+            if (data.length > 0) {
+                sessionStorage.setItem('ID_City', data[0].cityDD);
+                sessionStorage.setItem('city', city);
+                setClass('');
+            } else {
+                alert('Такого города нет в нашей базе, выберите другой!')
+            }
         }).catch((e) => console.log(e))
     }
 
@@ -95,10 +106,14 @@ const Main = () => {
             return (element);
         }).then(function (data) {
             console.log(data);
-            sessionStorage.setItem('ID_City', data[0].cityDD);
-            sessionStorage.setItem('city', cite);
-            sessionStorage.setItem('postalCode', data[0].PostCodeList.split(',')[0]);
-            setClass('');
+            if (data.length > 0) {
+                sessionStorage.setItem('ID_City', data[0].cityDD);
+                sessionStorage.setItem('city', cite);
+                sessionStorage.setItem('postalCode', data[0].PostCodeList.split(',')[0]);
+                setClass('');
+            } else {
+                alert('Такого города нет в нашей базе, выберите другой!')
+            }
         }).catch((e) => console.log(e))
     }
 
@@ -113,11 +128,12 @@ const Main = () => {
                                 d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
                         </svg>
                         <h1>Выбор города доставки</h1>
-                        <p className="topText">Вы проживаете в городе <b>{sessionStorage.getItem('city')}</b></p>
-                        <p>Мы угадали?</p>
+                        <p className="topText">Хотите, угадаем, куда вам доставить носки?</p>
+                        <p>В <b>{sessionStorage.getItem('city')}</b>, верно?</p>
                         <div className="buttonBlock">
                             <div className='left-button' onClick={() => addCity()}>Верно</div>
-                            <div className="right-button" onClick={() => changeWindow()}>Выбрать другой
+                            <div className="right-button" onClick={() => changeWindow()}>ВЫБРАТЬ ГОРОД
+
                             </div>
                         </div>
                 </div>

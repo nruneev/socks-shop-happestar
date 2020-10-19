@@ -20,7 +20,7 @@ const ItemCard = ({ item, width, size }) => {
         </button> :
         <>
             <div className='infos'>
-                <label className='cost'>{item.cost}₽</label>
+                <label className='cost'>{parseInt(item.cost, 10) - parseInt(item.discount, 10)}₽</label>
             </div>
             <button onClick={() => {
                 if (size[0]) {
@@ -31,7 +31,7 @@ const ItemCard = ({ item, width, size }) => {
                         src: item.src,
                         name: item.name,
                         cost: item.cost,
-                        discount: 15,
+                        discount: item.discount,
                         prev_cost: item.cost,
                         status: item.status,
                         tags: item.tags,
@@ -52,7 +52,7 @@ const ItemCard = ({ item, width, size }) => {
         <article className={'product'}>
             <div className="product__wrap">
                 <p className='status_item'>
-                    {item.status === "1" ? "New!" : ""}&#160;
+                    {item.status === "1" ? "New!" : ""} &#160; {parseInt(item.discount,10) > 0 ? "Sale!" : ""}
                 </p>
                 <a onMouseEnter={(e) => {
                         changePhotoGood('hovered')}}

@@ -22,7 +22,7 @@ const ItemCardGood = ({ item, width, size }) => {
     let button =
         <>
             <div className='info'>
-                <label className='cost'>{item.cost}₽</label>
+                <label className='cost'>{parseInt(item.cost, 10) - parseInt(item.discount, 10)}₽</label>
             </div>
         </>;
 
@@ -32,7 +32,7 @@ const ItemCardGood = ({ item, width, size }) => {
         <article className={'product ' + statusClass}>
             <div className="product__wrap">
                 <p className='status_item'>
-                    {item.status === "1" ? "New!" : ""}&#160;
+                    {item.status === "1" ? "New!" : ""} &#160; {parseInt(item.discount,10) > 0 ? "Sale!" : ""}
                 </p>
                 <a onMouseEnter={(e) => {
                     changePhotoGood('hovered')}}
@@ -41,7 +41,7 @@ const ItemCardGood = ({ item, width, size }) => {
                     {photo === 'hovered' ? <img className="product__image " src={item.altPhoto} alt={item.name}/> : <img className="product__image " src={item.mainPhoto} alt={item.name}/>}
                 </a>
                 <h3 className="product__title">
-                    <a href={"//good?id=" + item.id}>{item.name}</a>
+                    <a href={"/good?id=" + item.id}>{item.name}</a>
                 </h3>
                 {button}
             </div>
