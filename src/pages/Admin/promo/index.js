@@ -1,9 +1,21 @@
 import './index.sass'
 import React, {useState} from 'react';
 
+export const BTS = (toggle) => {
+
+    const changeActive = (id, toggleState) => {
+        fetch("/php/changePromo.php?id=" + id + "&toggle=" + toggleState).then(() => document.location.href = document.location.href);
+    }
+
+    if(parseInt(toggle.item.toggle, 10) === 1) {
+        return (<div className={'clicker'} onClick={() => changeActive(toggle.item.id, 0)}>Отключить</div>)
+    }
+    return (<div className={'clicker'} onClick={() => changeActive(toggle.item.id, 1)}>Включить</div>)
+}
+
 export const Promo = (element) => {
     console.log(element)
-    return (<p className={'loginPromoLink'}>{element.item.name}: {element.item.price}%</p>)
+    return (<div><p className={'loginPromoLink'}><div>{element.item.name}: {element.item.price}%</div> <BTS item={element.item}/></p></div>)
 }
 
 const AdminsPromoPage = () => {
@@ -33,8 +45,10 @@ const AdminsPromoPage = () => {
             .then(function (data) {
                 let peom = []
                 data.map((el) => peom.push({
+                    id: el.id,
                     name: el.promo,
-                    price: el.price
+                    price: el.price,
+                    toggle: el.toggle,
                 }));
                 setPromo(peom)
                 setPreload(true);

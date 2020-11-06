@@ -12,6 +12,18 @@ const ItemCard = ({ item, width, size }) => {
 
     let itemInCart = cartItems.find((el) => (el.ids === item.id && el.sizes === size[0]));
 
+    let coast = parseInt(item.discount,10) > 0 ?
+        <>
+            <label className='cost disconter'>{parseInt(item.cost, 10)}₽</label>
+            &#160;
+            <label className='cost'>{parseInt(item.cost, 10) - parseInt(item.discount, 10)}₽</label>
+            &#160;
+            <label className='cost procenter'>{(parseInt(item.discount, 10) / parseInt(item.cost, 10)) * 100}%</label>
+        </> :
+        <>
+            <label className='cost'>{parseInt(item.cost, 10) - parseInt(item.discount, 10)}₽</label>
+        </>
+
     let button = itemInCart ?
         <button className='active counter_buttoner'>
             <span onClick={() => setItem(itemInCart, --itemInCart.count)}>–</span>
@@ -20,7 +32,7 @@ const ItemCard = ({ item, width, size }) => {
         </button> :
         <>
             <div className='infos'>
-                <label className='cost'>{parseInt(item.cost, 10) - parseInt(item.discount, 10)}₽</label>
+                {coast}
             </div>
             <button onClick={() => {
                 if (size[0]) {

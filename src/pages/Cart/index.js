@@ -8,7 +8,7 @@ import {get_promo} from "../../utils/helpers";
 import {CartItem} from "../../boilerplate/CartDropdown/CartItem";
 import {CartItemMobile} from "../../boilerplate/CartDropdown/CartItemMobile";
 import {useHistory} from "react-router-dom";
-
+import Geocoder from "react-native-geocoding";
 
 const Cart = () => {
     let id_city = sessionStorage.getItem('ID_City');
@@ -16,6 +16,7 @@ const Cart = () => {
     let classCDEK = parseInt(id_city, 10) === 137 ? 'hiddenCDEK' : '';
 
     let [city, setCitys] = useState('');
+    let [cite, setCity] = useState('');
     let [ValidSent, setValidSent] = useState(false);
 
     let [priceDelivery, setPriceDelivery] = useState([0, 0]);
@@ -202,7 +203,8 @@ const Cart = () => {
         delivery: React.createRef(),
         codePVZ: React.createRef(),
         address: React.createRef(),
-        pay: React.createRef()
+        pay: React.createRef(),
+        footer: React.createRef()
     };
 
     if (promo_price > 0) {
@@ -287,6 +289,14 @@ const Cart = () => {
             }).then(function (data) {
                 let qwerty = data;
                 setIDOder(qwerty);
+                if (oderPar.pay === 'Online') {
+                    fetch('/php/payment.php?totalPrice=' + priceAll + '&email=' + oderPar.email + '&id=' + qwerty).then((els) => {
+                        let elementor = els.json();
+                        return (elementor);
+                    }).then(function (datas) {
+                        window.location.href = datas;
+                    });
+                }
             }).catch((e) => console.log(e))
         } else {
             validForm();
@@ -295,6 +305,96 @@ const Cart = () => {
 
     let cityMagic = (e) => {
         setCitys(e.target.value);
+    }
+
+    const calcCity = () => {
+        fetch('/php/calc.php?ID_City=' + sessionStorage.getItem('ID_City') + '&postalCode=' + sessionStorage.getItem('postalCode') + '&weight=' + oderPar.weight + '&length=' + oderPar.length + '&width=' + oderPar.width + '&height=' + oderPar.height, {
+            method: 'GET',
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                setPriceDelivery([data.result[1].result.price, data.result[0].result.price])
+                if (oderPar.delivery === 'SDEK_PICKUP') {
+                    setDeliveryPrice(parseInt(data.result[1].result.price, 10))
+                }
+            }).catch(reason => console.log(reason));
+        fetch('/php/listPVZ.php?ID_City=' + sessionStorage.getItem('ID_City'), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((el) => {
+            let element = el.json();
+            return (element);
+        }).then(function (data) {
+            let qwerty = data.pvz;
+            setPVZ(qwerty);
+        }).catch((e) => console.log(e))
+    }
+
+
+    let [jsonResult, setJson] = useState({});
+    let [firstBlock, setFirst] = useState('');
+    let [secondBlock, setSecond] = useState('disable');
+
+    let [classNameForBlock, setClass] = useState('');
+
+    let [wellLoad, setLoad] = useState('')
+
+    Geocoder.init('AIzaSyD2bDPulysZlPIjG1fO3kNqIvbsbWjXrPw');
+
+    const addCity = () => {
+        let city = sessionStorage.getItem('city');
+        fetch("php/cityList.php?city=" + city).then((el) => {
+            let element = el.json();
+            return (element);
+        }).then(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                sessionStorage.setItem('ID_City', data[0].cityDD);
+                sessionStorage.setItem('city', city);
+                setClass('');
+                calcCity();
+            } else {
+                alert('Такого города нет в нашей базе, выберите другой!')
+            }
+        }).catch((e) => console.log(e))
+    }
+
+    const setCityCDEK = (idCity, postCode) => {
+        sessionStorage.setItem('ID_City', idCity);
+        sessionStorage.setItem('postalCode', postCode);
+        calcCity();
+        setClass('');
+    }
+
+    const changeWindow = () => {
+        setFirst('disable');
+        setSecond('');
+    }
+
+    let changeCity = (e) => {
+        setCity(e.target.value)
+    }
+
+    let applyCity = () => {
+        fetch("php/cityList.php?city=" + cite).then((el) => {
+            let element = el.json();
+            return (element);
+        }).then(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                sessionStorage.setItem('ID_City', data[0].cityDD);
+                sessionStorage.setItem('city', cite);
+                sessionStorage.setItem('postalCode', data[0].PostCodeList.split(',')[0]);
+                setClass('');
+                calcCity();
+            } else {
+                alert('Такого города нет в нашей базе, выберите другой!')
+            }
+        }).catch((e) => console.log(e))
     }
 
     let magicCity = () => {
@@ -313,6 +413,68 @@ const Cart = () => {
     if (cartItems.length > 0 && idOder === 0) {
         return (
                 <div className={'cart-dropdown'}>
+                    <div className={'GeoLocation ' + classNameForBlock}>
+                        <span className={'bgClass'}></span>
+                        <div className={'blockApplyTheCity ' + firstBlock}>
+                            <svg stroke="currentColor" onClick={() => setCityCDEK(137, 190031)} fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+                                 className="crossBlockApply" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
+                            </svg>
+                            <h1>Выбор города доставки</h1>
+                            <p className="topText">Хотите, угадаем, куда вам доставить носки?</p>
+                            <p>В <b>{sessionStorage.getItem('city')}</b>, верно?</p>
+                            <div className="buttonBlock">
+                                <div className='left-button' onClick={() => addCity()}>Верно</div>
+                                <div className="right-button" onClick={() => changeWindow()}>ВЫБРАТЬ ГОРОД
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'blockApplyTheCity Big ' + secondBlock}>
+                            <svg stroke="currentColor" onClick={() => setCityCDEK(137, 190031)} fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+                                 className="crossBlockApply" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
+                            </svg>
+                            <h1>Выбор города доставки</h1>
+                            <input type="text" placeholder={'Название города'} onChange={(e) => changeCity(e)}/>
+                            <div className={'cityList'}>
+                        <span className={'cityList_Left'}>
+                            <p onClick={() => {
+                                sessionStorage.setItem("city", "Москва");
+                                setCityCDEK(44, 101000)}
+                            }>Москва</p>
+                            <p onClick={() => {
+                                sessionStorage.setItem("city", "Санкт-Петербург");
+                                setCityCDEK(137, 190031)
+                            }}>Санкт-Петербург</p>
+                            <p onClick={() => {
+                                sessionStorage.setItem("city", "Екатеринбург");
+                                setCityCDEK(250, 620000)
+                                }}>Екатеринбург</p>
+                        </span>
+                                <span className={'cityList_Right'}>
+                            <p onClick={() => {
+                                sessionStorage.setItem("city", "Пермь");
+                                setCityCDEK(248, 614000)
+                            }
+                            }>Пермь</p>
+                            <p onClick={() => {
+                                sessionStorage.setItem("city", "Нижний Новгород");
+                                setCityCDEK(414, 603000)
+                            }
+                            }>Нижний Новгород</p>
+                            <p onClick={() => {
+                                sessionStorage.setItem("city", "Уфа");
+                                setCityCDEK(256, 450000)}}>Уфа</p>
+                        </span>
+                            </div>
+                            <div className="buttonBlock">
+                                <div className='center-button' onClick={() => applyCity()}>Готово</div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="wrapperers">
                         <div className='linker'>
                             <ul>
@@ -366,7 +528,42 @@ const Cart = () => {
                                                     </div>
                                                 </div>
                                                 <div onClick={() => {
+                                                    window.scrollTo(0, refError.footer.current.offsetTop + 50)
                                                     setComlete('active');
+                                                    if(sessionStorage.getItem('city') === null && sessionStorage.getItem('postalCode') === null && wellLoad === '') {
+                                                        sessionStorage.setItem('ID_City', 137);
+                                                        sessionStorage.setItem('postalCode', 190031);
+                                                        navigator.geolocation.getCurrentPosition((position) => {
+                                                            Geocoder.from(position.coords.latitude, position.coords.longitude).then(json => {
+                                                                let postalCode = parseInt(json.results[0].address_components[5].long_name, 10);
+                                                                let city = json.results[5].address_components[1].long_name;
+                                                                console.log(json);
+                                                                sessionStorage.setItem('postalCode', postalCode);
+                                                                sessionStorage.setItem('city', city);
+                                                                fetch("php/cityList.php?city=" + city).then((el) => {
+                                                                    let element = el.json();
+                                                                    return (element);
+                                                                }).then(function (data) {
+                                                                    console.log(data);
+                                                                    if (data.length > 0) {
+                                                                        sessionStorage.setItem('ID_City', data[0].cityDD);
+                                                                        sessionStorage.setItem('city', city);
+                                                                        calcCity();
+                                                                    } else {
+                                                                        sessionStorage.setItem("city", "Санкт-Петербург");
+                                                                        setCityCDEK(137, 190031)
+                                                                    }
+                                                                })
+                                                            }).catch(error => {
+                                                                console.warn(error);
+                                                                sessionStorage.setItem("city", "Санкт-Петербург");
+                                                                setCityCDEK(137, 190031)
+                                                            });
+                                                        }, () => {
+                                                            sessionStorage.setItem("city", "Санкт-Петербург");
+                                                            setCityCDEK(137, 190031)
+                                                        })
+                                                    }
                                                 }} className="table-price__btns-wrap checkoutBtns">
                                                     <a
                                                        className="table-price__link _checkout">Оформить заказ</a>
@@ -406,7 +603,42 @@ const Cart = () => {
                                         </div>
                                     </div>
                                     <div onClick={() => {
+                                        window.scrollTo(0, refError.footer.current.offsetTop - 50)
                                         setComlete('active');
+                                        if(sessionStorage.getItem('city') === null && sessionStorage.getItem('postalCode') === null && wellLoad === '') {
+                                            sessionStorage.setItem('ID_City', 137);
+                                            sessionStorage.setItem('postalCode', 190031);
+                                            navigator.geolocation.getCurrentPosition((position) => {
+                                                Geocoder.from(position.coords.latitude, position.coords.longitude).then(json => {
+                                                    let postalCode = parseInt(json.results[0].address_components[5].long_name, 10);
+                                                    let city = json.results[5].address_components[1].long_name;
+                                                    console.log(json);
+                                                    sessionStorage.setItem('postalCode', postalCode);
+                                                    sessionStorage.setItem('city', city);
+                                                    fetch("php/cityList.php?city=" + city).then((el) => {
+                                                        let element = el.json();
+                                                        return (element);
+                                                    }).then(function (data) {
+                                                        console.log(data);
+                                                        if (data.length > 0) {
+                                                            sessionStorage.setItem('ID_City', data[0].cityDD);
+                                                            sessionStorage.setItem('city', city);
+                                                            calcCity();
+                                                        } else {
+                                                            sessionStorage.setItem("city", "Санкт-Петербург");
+                                                            setCityCDEK(137, 190031)
+                                                        }
+                                                    })
+                                                }).catch(error => {
+                                                    console.warn(error);
+                                                    sessionStorage.setItem("city", "Санкт-Петербург");
+                                                    setCityCDEK(137, 190031)
+                                                });
+                                            }, () => {
+                                                sessionStorage.setItem("city", "Санкт-Петербург");
+                                                setCityCDEK(137, 190031)
+                                            })
+                                        }
                                     }} className="table-price__btns-wrap checkoutBtns">
                                         <a
                                            className="table-price__link _checkout">Оформить заказ</a>
@@ -414,7 +646,7 @@ const Cart = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col_data ' + completeOder}>
+                        <div className={'col_data ' + completeOder} ref={refError.footer}>
                             <div className='tcnt'>
                                 <form noValidate='noValidate' className='noRegForm' method='post' acceptCharset='utf-8'>
                                     <div className='dlist'>
@@ -423,6 +655,13 @@ const Cart = () => {
                                                 <i className='ico'/>
                                                 <div className='ttl'>
                                                     <span>1. Доставка</span>
+                                                    <div className={'cityApplyed'}>
+                                                        Ваш город: <span onClick={() => {
+                                                        setClass('activeBlock');
+                                                        setFirst('disable');
+                                                        setSecond('');
+                                                    }}>{sessionStorage.getItem('city')}</span>
+                                                    </div>
                                                 </div>
                                                 <div className='edit'>
                                                     <ul className={'list ' + oderPar.delivery}>
@@ -728,6 +967,17 @@ const Cart = () => {
                                                             <img src="/static/media/pay_img_2.svg"
                                                                  alt=""/>
                                                             <span>Картой при получении</span>
+                                                        </li>
+                                                        <li className={"itm " + error.pay} data-action="setPaymentType"
+                                                            data-id="ONLINE"
+                                                            onClick={() => setOderPar({
+                                                                ...oderPar,
+                                                                pay: 'Online'
+                                                            })}
+                                                        >
+                                                            <img src="/static/media/pay_img_2.svg"
+                                                                 alt=""/>
+                                                            <span>Оплата онлайн</span>
                                                         </li>
                                                     </ul>
                                                 </div>

@@ -23,6 +23,8 @@ const AdminsGoodNew = () => {
         sizes: [],
         color: "",
         description: "",
+        delivery: "",
+        pay: '',
         discount: 0,
         prev_cost: 0,
     })
@@ -33,12 +35,6 @@ const AdminsGoodNew = () => {
         first: "",
         second: ""
     })
-
-    const saveEdit = (e) => {
-        fetch("/php/addGoods.php?photoMain=" + photos.main, {
-            method: 'POST'
-        });
-    }
 
     return (
         <div className={'wrapper adminBlockFlex'}>
@@ -88,6 +84,20 @@ const AdminsGoodNew = () => {
                         <textarea placeholder={'Состав'} name={'composition'} type={'text'} value={item.composition} onChange={(e) => setItem({
                             ...item,
                             composition: e.target.value
+                        })}/>
+                    </div>
+                    <div className={'login-input'}>
+                        <p>Доставка</p>
+                        <textarea placeholder={'Доставка'} name={'delivery'} type={'text'} value={item.delivery} onChange={(e) => setItem({
+                            ...item,
+                            delivery: e.target.value
+                        })}/>
+                    </div>
+                    <div className={'login-input'}>
+                        <p>Олпата</p>
+                        <textarea placeholder={'Оплата'} name={'pay'} type={'text'} value={item.pay} onChange={(e) => setItem({
+                            ...item,
+                            pay: e.target.value
                         })}/>
                     </div>
                     <div className={'login-input'}>

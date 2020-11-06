@@ -19,7 +19,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.1.2",
     "react-router-sitemap": "^1.2.0",
-    "use-instagram-feed": "^1.0.0"
+    "use-instagram-feed": "^1.0.0",
+    "yandex-checkout": "^1.0.13"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

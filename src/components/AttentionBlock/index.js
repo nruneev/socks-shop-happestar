@@ -32,7 +32,7 @@ const AttentionBlock = ({ attentions, features }) => (
             </div>
             <div className='features__item'>
                 <div  className='feature-3'/>
-                <div className='feature-3_text'><p>Оплата при получении - нал, карта, pay pass.</p></div>
+                <div className='feature-3_text'><p>Оплата при получении - нал, карта. Оплата онлайн</p></div>
             </div>
             <div className='features__item'>
                 <div  className='feature-4'/>

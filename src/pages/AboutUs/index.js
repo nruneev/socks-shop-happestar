@@ -23,7 +23,7 @@ const AboutUs = () => {
             </div>
 
             <img src={attentions}/>
-            <p>{text}</p>
+            <p dangerouslySetInnerHTML={{__html: text}}/>
         </div>
     )
 };

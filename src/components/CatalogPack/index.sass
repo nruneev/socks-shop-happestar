@@ -1,3 +1,118 @@
+.ul::before
+  content: attr(data-title)
+  display: inline-block
+  font-size: 14px
+  line-height: normal
+  letter-spacing: .3px
+  color: #9d9c9c
+
+.groups
+  border-bottom: 1px solid #ebf0f3
+  background: white
+  display: block
+  padding: 5px 15px 15px
+
+  .name
+    color: #8e8e8e
+    cursor: pointer
+    font-weight: 700
+    padding: 5px 0
+    position: relative
+    text-transform: uppercase
+    font-size: 18px
+    line-height: 18px
+    letter-spacing: 1.12px
+
+  .tags
+    color: #5d5d5d
+    padding: 0
+    list-style: none
+    font-size: 16px
+    letter-spacing: .96px
+    margin: 10px 0
+    overflow: hidden
+    text-transform: uppercase
+
+    li
+      -webkit-border-radius: 1px
+      border-radius: 1px
+      border: 1px solid #d8e1e5
+      cursor: pointer
+      float: left
+      height: 37px
+      margin: 0 0 7px 7px
+      line-height: 37px
+      text-align: center
+      -webkit-transition: .4s
+      -o-transition: .4s
+      transition: .4s
+      width: auto
+      padding: 0 10px
+      color: #5d5d5d
+
+    li:hover
+      color: #5D5D5D
+      border-color: #5D5D5D
+
+    .active
+      background: #5D5D5D
+      border-color: #5D5D5D
+      color: #fff
+
+
+  .options
+    color: #5d5d5d
+    list-style: none
+    font-size: 16px
+    letter-spacing: .96px
+    margin: 10px 0
+    padding: 0
+    width: fit-content
+    overflow: hidden
+    text-transform: uppercase
+
+    li
+      position: relative
+      -webkit-border-radius: 1px
+      border-radius: 50%
+      border: 1px solid #d8e1e5
+      cursor: pointer
+      float: left
+      height: 37px
+      margin: 0 0 7px 7px
+      line-height: 37px
+      text-align: center
+      -webkit-transition: .4s
+      -o-transition: .4s
+      transition: .4s
+      width: 37px
+      padding: 0 10px
+      color: #5d5d5d
+
+      img
+        display: none
+        position: absolute
+        top: 3.5px
+        left: 3.5px
+        width: 27px
+        height: 27px
+
+    li:hover
+      color: #5D5D5D
+      border-color: #5D5D5D
+
+    .active
+      background: #5D5D5D
+      border-color: #5D5D5D
+      color: #fff
+
+  .four, .six, .eight, .three, .five
+    display: none
+
+  .vis
+    display: block!important
+
+
 .content
   width: 74%
   margin-left: auto
@@ -5,9 +120,10 @@
   .sorting
     background: #fff
     height: 45px
+    display: block
     line-height: 50px
     overflow: hidden
-    margin-bottom: 38px
+    margin-bottom: 10px
 
     ._show_filters
       display: none
@@ -76,6 +192,45 @@
       margin-left: 0
 
 @media (max-width: 1000px)
+  .mobile
+    ul
+      margin-bottom: 0 !important
+
+  .groups
+    padding: 5px 15px 0
+
+    .name
+      padding: 4px 0 0
+      font-size: 14px
+      line-height: 14px
+
+  .tag
+    height: 25px!important
+    line-height: 25px!important
+    font-size: 12px !important
+
+  .option
+    height: 25px!important
+    line-height: 25px!important
+    width: 25px!important
+    font-size: 12px!important
+    padding: 0!important
+
+    img
+      top: 1.5px !important
+      left: 1.5px !important
+      width: 20px !important
+      height: 20px !important
+
+  .packerson
+    margin-top: 290px !important
+
+  .groups
+    display: block!important
+
+
+  .sorting
+    display: block!important
 
   ._2c
     -webkit-box-pack: start !important
@@ -122,4 +277,13 @@
     margin: 0 auto 0 15px!important
     padding: 0 7px 0 0!important
     text-align: center!important
-    width: calc(100% - 90px)!important
+    width: 60%!important
+    font-size: 12px!important
+
+
+  .sorting .ul:before
+    font-size: 12px!important
+
+
+  .sorting .ul li
+    font-size: 12px!important

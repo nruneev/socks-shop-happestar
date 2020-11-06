@@ -29,6 +29,7 @@ import {AdminsPromoPage} from "./pages/Admin/promo";
 import {Sale} from "./pages/Sale";
 import {New} from "./pages/New";
 import {NotFound} from "./pages/NotFound";
+import {Oders} from "./pages/Oders";
 
 
 const cartItemField = 'cartItems';
@@ -148,6 +149,9 @@ const App = () => {
                                     </Route>
                                     <Route path='/good'>
                                         <Good/>
+                                    </Route>
+                                    <Route path='/oders'>
+                                        <Oders/>
                                     </Route>
                                     <Route path='/pack'>
                                         <Pack/>

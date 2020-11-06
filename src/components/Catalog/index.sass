@@ -1,7 +1,18 @@
+.ul::before
+  content: attr(data-title)
+  display: inline-block
+  font-size: 14px
+  line-height: normal
+  letter-spacing: .3px
+  color: #9d9c9c
+
 .mobileTopCatalog
   background: #e8f0f3
+  width: 100%
+  max-width: inherit
   z-index: 2
-  display: block
+  position: fixed
+  display: none
 
 .content
   width: 74%
@@ -9,6 +20,7 @@
 
   .sorting
     position: relative
+    display: block
     background: #fff
     height: 45px
     line-height: 50px
@@ -87,15 +99,6 @@
     -ms-flex-pack: start
     justify-content: flex-start
 
-@media (min-width: 1000px)
-  .ul::before
-    content: attr(data-title)
-    display: inline-block
-    font-size: 14px
-    line-height: normal
-    letter-spacing: .3px
-    color: #9d9c9c
-
 @media (max-width: 1500px)
   .content
     .sorting
@@ -118,8 +121,10 @@
       margin-left: 0
 
 @media (max-width: 1000px)
+
   .mobileTopCatalog
-    width: calc(100% - 20px)
+    width: 100%
+    display: block!important
     position: fixed
 
   .list
@@ -170,4 +175,4 @@
     margin: 0 auto 0 15px!important
     padding: 0 7px 0 0!important
     text-align: center!important
-    width: calc(100% - 90px)!important
+    width: 60%!important

@@ -159,23 +159,10 @@ export async function get_history_photos() {
          })
              .then(function (data) {
                  photos = [
-
                      {
                          src: data[5].src,
                          text: data[5].text,
                          link: '/catalog'
-                     },
-                     {
-                         src: data[1].src,
-                         text: data[1].text,
-                         link: '/sale'
-                     },
-                     {
-                         src: data[2].src,
-                         text: data[2].text
-                     },
-                     {
-                         src: data[3].src,
                      },
                      {
                          src: data[4].src,
@@ -183,10 +170,11 @@ export async function get_history_photos() {
                          link: '/pack'
                      },
                      {
-                         src: data[0].src,
-                         text: data[0].text,
-                         link: '/new'
-                     }]
+                         src: data[1].src,
+                         text: data[1].text,
+                         link: '/sale'
+                     }
+                     ]
              }).catch(reason => console.log(reason));
      }
      catch (e) {
@@ -258,6 +246,8 @@ export const get_items_admin = async () => {
             prev_cost: parent.price,
             sizes: sizes,
             status: parent.new,
+            description: result[0].description,
+            composition: result[0].composition,
             tags: [tags[parent.color - 1]]
          });
      }

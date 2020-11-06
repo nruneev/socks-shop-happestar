@@ -58,7 +58,15 @@ const CartItem = ({ item, removeItem }) => {
             </td>
             <td className="count">
                 <ul className="_counter_">
-                    <li className="_minus" onClick={() => setItem(item, --item.count)}>–</li>
+                    <li className="_minus" onClick={() => {
+                        let isDelete = true;
+                        if (item.count === 1) {
+                            isDelete = window.confirm("Вы действительно хотите удалить этот товар?")
+                        }
+                        if (isDelete) {
+                            setItem(item, --item.count)
+                        }
+                    }}>–</li>
                     <li className="_num">{item.count}</li>
                     <li className="_plus" onClick={() => setItem(item, ++item.count)}>+</li>
                 </ul>
@@ -69,7 +77,13 @@ const CartItem = ({ item, removeItem }) => {
             </td>
 
             <td className='trash_td'>
-                <FaTrashAlt className='trash' onClick={() => removeItem(item.id)}/>
+                <FaTrashAlt className='trash' onClick={() => {
+                    let isDelete = window.confirm("Вы действительно хотите удалить этот товар?")
+
+                    if (isDelete) {
+                        removeItem(item.id)
+                    }
+                }}/>
             </td>
         </tr>
     );

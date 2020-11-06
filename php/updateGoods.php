@@ -75,7 +75,7 @@
         $visibility = 1;
     }
 
-    $mysqli->query("UPDATE tovars SET name='" . $_POST['name'] . "',description='" . $_POST['description'] . "',composition='" . $_POST['composition'] . "',article='" . $_POST['article'] . "',price=" . $_POST['price'] . ",discount='" . $_POST['discount'] . "',new=" . $new . ",update_at='" . date("Y-m-d H:i:s") . "',visibly=" . $visibility . " WHERE `id`=" . $_POST['idOder']);
+    $mysqli->query("UPDATE tovars SET name='" . $_POST['name'] . "',description='" . $_POST['description'] . "',composition='" . $_POST['composition'] . "',article='" . $_POST['article'] . "',price=" . $_POST['price'] . ",discount='" . $_POST['discount'] . "',new=" . $new . ",update_at='" . date("Y-m-d H:i:s") . "',visibly=" . $visibility . ", delivery = '".$_POST['delivery']."', pay = '".$_POST['pay']."' WHERE `id`=" . $_POST['idOder']);
 
     $color = 0;
 

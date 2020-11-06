@@ -33,14 +33,9 @@ const Catalog = () => {
                     <h1>Каталог</h1>
                 </div>
                 <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
-                activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
-            </div>
-            <div className={'left-slide-mobile ' + openMenu}>
-                <IoMdClose onClick={() => setMenu('')} className='cross'/>
-                <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
                         activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
             </div>
-            <CatalogList items={items} setMenu={setMenu} activeTags={activeTags} activeSizes={activeSizes}/>
+            <CatalogList items={items} setMenu={setMenu} activeTags={activeTags} activeSizes={activeSizes} toggleSize={toggleSize} sizes={sizes}/>
         </div>
     )
 };

@@ -40,7 +40,7 @@
     $uploadfileLeft1 = $uploaddirs . basename($_FILES['inputfile3']['name']);
 
 
-    $mysqli->query("INSERT INTO tovars(name, description, composition, article, photoMain, photoDetail, photoLeft, price, discount, orders, new, update_at, create_at, visibly) VALUES ('".$_POST['name']."','".$_POST['description']."','".$_POST['composition']."','".$_POST['article']."','".$uploadfileMain1."','".$uploadfileDetail1."','".$uploadfileLeft1."',".$_POST['price'].",".$_POST['discount'].",0,1,'".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."',1)");
+    $mysqli->query("INSERT INTO tovars(name, description, composition, article, photoMain, photoDetail, photoLeft, price, discount, orders, new, update_at, create_at, visibly, delivery, pay) VALUES ('".$_POST['name']."','".$_POST['description']."','".$_POST['composition']."','".$_POST['article']."','".$uploadfileMain1."','".$uploadfileDetail1."','".$uploadfileLeft1."',".$_POST['price'].",".$_POST['discount'].",0,1,'".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."',1,'".$_POST['delivery']."','".$_POST['pay']."')");
 
     $color = 0;
 

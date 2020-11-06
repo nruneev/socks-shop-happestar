@@ -28,6 +28,8 @@ const AdminsGoodEdit = () => {
         cost: 0,
         sizes: [],
         color: "",
+        delivery: '',
+        pay: '',
         description: "",
         discount: 0,
         prev_cost: 0,
@@ -96,6 +98,8 @@ const AdminsGoodEdit = () => {
                 cost: result[0].price,
                 sizes: ['35 - 39', '40 - 45'],
                 color: color,
+                delivery: result[0].delivery,
+                pay: result[0].pay,
                 description: result[0].description,
                 discount: result[0].discount,
                 prev_cost: result[0].price,
@@ -170,6 +174,20 @@ const AdminsGoodEdit = () => {
                                     composition: e.target.value
                                 })}/>
                             </div>
+                        <div className={'login-input'}>
+                            <p>Доставка</p>
+                            <textarea placeholder={'Доставка'} name={'delivery'} type={'text'} value={item.delivery} onChange={(e) => setItem({
+                                ...item,
+                                delivery: e.target.value
+                            })}/>
+                        </div>
+                        <div className={'login-input'}>
+                            <p>Олпата</p>
+                            <textarea placeholder={'Оплата'} name={'pay'} type={'text'} value={item.pay} onChange={(e) => setItem({
+                                ...item,
+                                pay: e.target.value
+                            })}/>
+                        </div>
                             <div className={'login-input'}>
                                 <p>Цена</p>
                                 <input placeholder={'Цена'} name={'price'} type={'text'} value={item.cost}

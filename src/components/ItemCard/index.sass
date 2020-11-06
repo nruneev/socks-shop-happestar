@@ -1,12 +1,27 @@
 @import "../../variables"
 
+.disconter
+  position: relative
+
+.disconter:before
+  content: ""
+  border-bottom: 3px solid red
+  position: absolute
+  width: 45px
+  height: 10px
+  left: -5px
+  transform: rotate(-12deg)
+
+.procenter
+  background: #f4d600
+
 .status_item
   padding: 0
   margin: 10px 10px 0 !important
   text-transform: uppercase
 
 .product
-  width: calc(33.33% - 15px)
+  width: calc(25% - 15px)
   overflow: hidden
   margin: 0 auto 30px
   text-align: center
@@ -108,7 +123,7 @@
           padding-bottom: 5px
           font-size: 18px
           line-height: 26px
-          font-weight: 700
+          font-weight: normal!important
           letter-spacing: .9px
           text-transform: uppercase
 
@@ -123,4 +138,22 @@
 @media (max-width: 675px)
   .product
     width: calc(100% - 15px) !important
+
+@media (max-width: 1000px)
+  .status_item
+    font-size: 12px !important
+    margin: 5px 0 0!important
+
+  .product__image-wrap
+    width: 100px !important
+
+  .product__title
+    width: 100%!important
+    min-height: 13px!important
+    font-size: 13px !important
+    line-height: 14px !important
+    margin: 0 auto 10px !important
+
+  .cost
+    font-size: 16px!important
 

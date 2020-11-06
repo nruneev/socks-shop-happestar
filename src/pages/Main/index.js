@@ -18,38 +18,6 @@ import {useInstagramFeed} from "use-instagram-feed";
 const Main = () => {
     let text = useFetch(getTextForMain, '');
 
-    let [wellLoad, setLoad] = useState('')
-    let [jsonResult, setJson] = useState({});
-    let [firstBlock, setFirst] = useState('');
-    let [secondBlock, setSecond] = useState('disable');
-    let [cite, setCity] = useState('');
-
-    let [classNameForBlock, setClass] = useState('');
-
-    Geocoder.init('AIzaSyD2bDPulysZlPIjG1fO3kNqIvbsbWjXrPw');
-    if(sessionStorage.getItem('city') === null && sessionStorage.getItem('postalCode') === null && wellLoad === '') {
-        sessionStorage.setItem('ID_City', 137);
-        sessionStorage.setItem('postalCode', 190031);
-        navigator.geolocation.getCurrentPosition((position) => {
-            Geocoder.from(position.coords.latitude, position.coords.longitude).then(json => {
-                let postalCode = parseInt(json.results[0].address_components[5].long_name, 10);
-                let city = json.results[5].address_components[1].long_name;
-                console.log(json);
-                sessionStorage.setItem('postalCode', postalCode);
-                sessionStorage.setItem('city', city);
-                setClass('activeBlock');
-            }).catch(error => {
-                console.warn(error);
-                setClass('activeBlock');
-                setFirst('disable');
-                setSecond('');
-            });
-        }, () => {
-            setClass('activeBlock');
-            setFirst('disable');
-            setSecond('');
-        })
-    }
     let [prel, setPreload] = useState(false);
     let [prelo, setPreloads] = useState(false);
     const attentions = useFetch(get_attention_photos, []);
@@ -68,100 +36,8 @@ const Main = () => {
         photoCount: 12
     });
 
-    const addCity = () => {
-        let city = sessionStorage.getItem('city');
-        fetch("php/cityList.php?city=" + city).then((el) => {
-            let element = el.json();
-            return (element);
-        }).then(function (data) {
-            console.log(data);
-            if (data.length > 0) {
-                sessionStorage.setItem('ID_City', data[0].cityDD);
-                sessionStorage.setItem('city', city);
-                setClass('');
-            } else {
-                alert('Такого города нет в нашей базе, выберите другой!')
-            }
-        }).catch((e) => console.log(e))
-    }
-
-    const setCityCDEK = (idCity, postCode) => {
-        sessionStorage.setItem('ID_City', idCity);
-        sessionStorage.setItem('postalCode', postCode);
-        setClass('');
-    }
-
-    const changeWindow = () => {
-        setFirst('disable');
-        setSecond('');
-    }
-
-    let changeCity = (e) => {
-        setCity(e.target.value)
-    }
-
-    let applyCity = () => {
-        fetch("php/cityList.php?city=" + cite).then((el) => {
-            let element = el.json();
-            return (element);
-        }).then(function (data) {
-            console.log(data);
-            if (data.length > 0) {
-                sessionStorage.setItem('ID_City', data[0].cityDD);
-                sessionStorage.setItem('city', cite);
-                sessionStorage.setItem('postalCode', data[0].PostCodeList.split(',')[0]);
-                setClass('');
-            } else {
-                alert('Такого города нет в нашей базе, выберите другой!')
-            }
-        }).catch((e) => console.log(e))
-    }
-
     return (
         <div className='page main'>
-            <div className={'GeoLocation ' + classNameForBlock}>
-                <span className={'bgClass'}></span>
-                <div className={'blockApplyTheCity ' + firstBlock}>
-                        <svg stroke="currentColor" onClick={() => setCityCDEK(137, 190031)} fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
-                             className="crossBlockApply" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
-                        </svg>
-                        <h1>Выбор города доставки</h1>
-                        <p className="topText">Хотите, угадаем, куда вам доставить носки?</p>
-                        <p>В <b>{sessionStorage.getItem('city')}</b>, верно?</p>
-                        <div className="buttonBlock">
-                            <div className='left-button' onClick={() => addCity()}>Верно</div>
-                            <div className="right-button" onClick={() => changeWindow()}>ВЫБРАТЬ ГОРОД
-
-                            </div>
-                        </div>
-                </div>
-                <div className={'blockApplyTheCity Big ' + secondBlock}>
-                    <svg stroke="currentColor" onClick={() => setCityCDEK(137, 190031)} fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
-                         className="crossBlockApply" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
-                    </svg>
-                    <h1>Выбор города доставки</h1>
-                    <input type="text" placeholder={'Название города'} onChange={(e) => changeCity(e)}/>
-                    <div className={'cityList'}>
-                        <span className={'cityList_Left'}>
-                            <p onClick={() => setCityCDEK(44, 101000)}>Москва</p>
-                            <p onClick={() => setCityCDEK(137, 190031)}>Санкт-Петербург</p>
-                            <p onClick={() => setCityCDEK(250, 620000)}>Екатеринбург</p>
-                        </span>
-                        <span className={'cityList_Right'}>
-                            <p onClick={() => setCityCDEK(248, 614000)}>Пермь</p>
-                            <p onClick={() => setCityCDEK(414, 603000)}>Нижний Новгород</p>
-                            <p onClick={() => setCityCDEK(256, 450000)}>Уфа</p>
-                        </span>
-                    </div>
-                    <div className="buttonBlock">
-                        <div className='center-button' onClick={() => applyCity()}>Готово</div>
-                    </div>
-                </div>
-            </div>
             <AttentionBlock attentions={attentions} features={features}/>
             <div className='content'>
                 <BannersBlock banners={banners}/>
@@ -174,7 +50,7 @@ const Main = () => {
                                 <p className="descr__text">{text}</p>
                                 <div className="descr__link-wrap">
                                     <a href="/history" className="descr__link">
-                                        <span>Подробнее</span>
+                                        <span>о чем это мы</span>
                                     </a>
                                 </div>
                         </div>

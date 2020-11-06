@@ -137,57 +137,21 @@ const AdminsPhotoPage = () => {
                         </div>
                         <div className={'login-input'}>
                             <p>Главная страница: первое фото баннеров</p>
-                            <input placeholder={'Текст для первой фотографии баннера'} name={'mainPageTopLeft'}
-                                   type={'text'} value={text.mainPageTopLeft}
-                                   onChange={(e) => setText({
+                            <input placeholder={'Текст для первой фотографии баннера'} name={'mainPageBottomRight'}
+                                   type={'text'} value={text.mainPageBottomRight}
+                                   onChange={(e) => setItem({
                                        ...text,
-                                       mainPageTopLeft: e.target.value
+                                       mainPageBottomRight: e.target.value
                                    })}/>
-                            <input type={'file'} name={'mainPageTopLeftPhoto'} onChange={(e) => setItem({
+                            <input type={'file'} name={'mainPageBottomRightPhoto'} onChange={(e) => setItem({
                                 ...item,
-                                mainPageTopLeft: e.target.value
+                                mainPageBottomRight: e.target.value
                             })}/>
-                            <img src={item.mainPageTopLeft}/>
+                            <img src={item.mainPageBottomRight}/>
                         </div>
                         <div className={'login-input'}>
                             <p>Главная страница: второе фото баннеров</p>
-                            <input placeholder={'Текст для второй фотографии баннера'} name={'mainPageTopCenter'}
-                                   type={'text'} value={text.mainPageTopCenter}
-                                   onChange={(e) => setText({
-                                       ...text,
-                                       mainPageTopCenter: e.target.value
-                                   })}/>
-                            <input type={'file'} name={'mainPageTopCenterPhoto'} onChange={(e) => setItem({
-                                ...item,
-                                mainPageTopCenter: e.target.value
-                            })}/>
-                            <img src={item.mainPageTopCenter}/>
-                        </div>
-                        <div className={'login-input'}>
-                            <p>Главная страница: третье фото баннеров</p>
-                            <input placeholder={'Текст для третьей фотографии баннера'} name={'mainPageTopRight'}
-                                   type={'text'} value={text.mainPageTopRight}
-                                   onChange={(e) => setText({
-                                       ...text,
-                                       mainPageTopRight: e.target.value
-                                   })}/>
-                            <input type={'file'} name={'mainPageTopRightPhoto'} onChange={(e) => setItem({
-                                ...item,
-                                mainPageTopRight: e.target.value
-                            })}/>
-                            <img src={item.mainPageTopRight}/>
-                        </div>
-                        <div className={'login-input'}>
-                            <p>Главная страница: четвертое фото баннеров</p>
-                            <input type={'file'} name={'mainPageCenterPhoto'} onChange={(e) => setItem({
-                                ...item,
-                                mainPageCenter: e.target.value
-                            })}/>
-                            <img src={item.mainPageCenter}/>
-                        </div>
-                        <div className={'login-input'}>
-                            <p>Главная страница: пятое фото баннеров</p>
-                            <input placeholder={'Текст для пятой фотографии баннера'} name={'mainPageBottomLeft'}
+                            <input placeholder={'Текст для второй фотографии баннера'} name={'mainPageBottomLeft'}
                                    type={'text'} value={text.mainPageBottomLeft}
                                    onChange={(e) => setText({
                                        ...text,
@@ -200,18 +164,18 @@ const AdminsPhotoPage = () => {
                             <img src={item.mainPageBottomLeft}/>
                         </div>
                         <div className={'login-input'}>
-                            <p>Главная страница: шестое фото баннеров</p>
-                            <input placeholder={'Текст для пятой фотографии баннера'} name={'mainPageBottomRight'}
-                                   type={'text'} value={text.mainPageBottomRight}
-                                   onChange={(e) => setItem({
+                            <p>Главная страница: третье фото баннеров</p>
+                            <input placeholder={'Текст для третьей фотографии баннера'} name={'mainPageTopCenter'}
+                                   type={'text'} value={text.mainPageTopCenter}
+                                   onChange={(e) => setText({
                                        ...text,
-                                       mainPageBottomRight: e.target.value
+                                       mainPageTopCenter: e.target.value
                                    })}/>
-                            <input type={'file'} name={'mainPageBottomRightPhoto'} onChange={(e) => setItem({
+                            <input type={'file'} name={'mainPageTopCenterPhoto'} onChange={(e) => setItem({
                                 ...item,
-                                mainPageBottomRight: e.target.value
+                                mainPageTopCenter: e.target.value
                             })}/>
-                            <img src={item.mainPageBottomRight}/>
+                            <img src={item.mainPageTopCenter}/>
                         </div>
                         <div className={'login-input'}>
                             <p>История брендов: главное фото</p>
