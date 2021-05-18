@@ -14,10 +14,10 @@ const Contacts = () => {
                     <ul>
                         <li><a href={'./'}>Главная</a></li>
                         <li><a onClick={() => history.goBack()}>Назад</a></li>
-                        <li><span>Магазины Happestar</span></li>
+                        <li><span>Контакты</span></li>
                     </ul>
                 </div>
-                <h1>{t('our_contacts')}</h1>
+                <h1>Контакты</h1>
                 <div className="tabs__nav">
                     <a className="tabs__nav-item">Санкт-Петербург</a>
                 </div>

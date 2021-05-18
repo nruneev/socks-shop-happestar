@@ -12,7 +12,7 @@
 
     $count = 0;
     if(isset($_GET['promo'])) {
-        $res = $mysqli->query('SELECT price FROM promos WHERE promo="'.$_GET['promo'].'" AND toggle=1');
+        $res = $mysqli->query('SELECT filter FROM promos WHERE promo="'.$_GET['promo'].'" AND toggle=1');
         while($row = mysqli_fetch_assoc($res)) {
             $test = $row;
         }

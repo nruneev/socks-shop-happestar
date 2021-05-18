@@ -8,7 +8,7 @@ const CartDropdown = ({ className }) => {
     let countBlock = cartItems.length > 0 ? <span className='count'>{cartItems.length}</span> : '';
 
     return (<>
-            <a href={'./cart'} className={'cart ' + className}>
+            <a href={'/cart'} className={'cart ' + className}>
                 <div className='icon-cart'>
                     <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="shopping-cart" role="img"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"

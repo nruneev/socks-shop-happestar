@@ -1,12 +1,87 @@
 @import '../../variables'
 
-header
-  z-index: 10
-  border-bottom: 2px solid $main_color
+.desktopHeader
   position: fixed
-  top: 0
+  width: 100%
+  z-index: 10
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, .2)
+  background: white
+
+.linkHeader
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 100%
+  padding: 20px 200px
+
+  a
+    text-decoration: none
+    color: black
+
+.headerDesktop
+  z-index: 10
+  background: white
+  width: 100%
+  height: 100px
   display: flex
   align-items: center
+  justify-content: space-between
+  padding: 20px 200px
+
+  .subHeader
+    flex: 0.2
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    .cart
+      margin-left: 40px
+      color: black
+      font-size: 25px !important
+      height: 25px !important
+
+      .count
+        top: -5px !important
+        right: -10px !important
+
+  .titleHeader
+    flex: 1
+    display: flex
+    color: black
+    text-decoration: none
+    align-items: center
+
+    h1
+      background: black
+      color: white
+      text-transform: uppercase
+      font-size: 50px
+      padding: 1px 5px
+
+    p
+      margin-left: 20px
+      font-size: 24px
+      text-transform: uppercase
+      font-weight: bold
+
+  .contactBlock
+      p
+        font-size: 18px
+        display: flex
+        align-items: center
+
+        svg
+          width: 18px
+
+        span
+          margin-right: 10px
+
+.mobileHeader
+  z-index: 10
+  border-bottom: 2px solid $main_color
+  display: none
+  align-items: center
+  position: fixed
   justify-content: center
   width: 100vw
   height: 70px
@@ -46,6 +121,15 @@ header
       right: -10px !important
 
 @media (max-width: 600px)
+  .desktopHeader
+    display: none
+
+  .wrapper
+    padding-top: 70px !important
+
+  .mobileHeader
+    display: flex
+
   .cart
     width: auto !important
     height: auto !important

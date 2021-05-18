@@ -7,12 +7,14 @@
   color: #9d9c9c
 
 .mobileTopCatalog
-  background: #e8f0f3
+  background: white
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, .2)
   width: 100%
   max-width: inherit
   z-index: 2
   position: fixed
   display: none
+  top: 70px
 
 .content
   width: 74%
@@ -98,6 +100,24 @@
     -webkit-justify-content: flex-start
     -ms-flex-pack: start
     justify-content: flex-start
+
+.paginator
+  display: flex
+  .activePage
+    background-color: black!important
+    color: white !important
+
+  p
+    text-align: center !important
+    background-color: #fff
+    box-shadow: -5px 0 15px rgba(0,0,0,.05)
+    border-radius: 1px
+    padding: 5px 10px 5px!important
+    cursor: pointer
+
+    &:hover
+      background-color: black
+      color: white
 
 @media (max-width: 1500px)
   .content

@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { CartContext } from '../../utils/contexts';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import {Link} from "react-router-dom";
 
 
 const ItemCard = ({ item, width, size }) => {
@@ -64,16 +65,16 @@ const ItemCard = ({ item, width, size }) => {
         <article className={'product'}>
             <div className="product__wrap">
                 <p className='status_item'>
-                    {item.status === "1" ? "New!" : ""} &#160; {parseInt(item.discount,10) > 0 ? "Sale!" : ""}
+                    &#160;
                 </p>
-                <a onMouseEnter={(e) => {
+                <Link onMouseEnter={(e) => {
                         changePhotoGood('hovered')}}
                    onMouseLeave={(e) => {
-                        changePhotoGood('')}} href={"/good?id=" + item.id} className='product__image-wrap'>
+                        changePhotoGood('')}} to={"/good?id=" + item.id} className='product__image-wrap'>
                     {photo === 'hovered' ? <img className="product__image " src={item.altPhoto} alt={item.name}/> : <img className="product__image " src={item.mainPhoto} alt={item.name}/>}
-                </a>
+                </Link>
                 <h3 className="product__title">
-                    <a href={"/good?id=" + item.id}>{item.name}</a>
+                    <Link to={"/good?id=" + item.id}>{item.name}</Link>
                 </h3>
                 <div className='item-body'>
                     {button}

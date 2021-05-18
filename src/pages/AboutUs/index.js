@@ -17,7 +17,6 @@ const AboutUs = () => {
                 <ul>
                     <li><a href={'./'}>Главная</a></li>
                     <li><a onClick={() => history.goBack()}>Назад</a></li>
-                    <li><span>История Бренда</span></li>
                 </ul>
                 <h1>История Бренда</h1>
             </div>

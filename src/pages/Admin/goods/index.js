@@ -31,8 +31,10 @@ const AdminsGood = () => {
                 </a>
             </div>
             <div className={'loginRightBlock'}>
-                <h1>Товары</h1>
-                <div className={'createNewGood'} onClick={() => document.location.href = "/admin/new"}>+ Создать</div>
+                <div className={'flexTitle'}>
+                    <h1>Товары</h1>
+                    <div className={'createNewGood'} onClick={() => document.location.href = "/admin/new"}>+ Создать</div>
+                </div>
                 <div className={'adminCatalog'}>
                     {items.map((el) => {
                         return (<ItemCardAdmin item={el}/>)

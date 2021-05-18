@@ -30,6 +30,8 @@ import {Sale} from "./pages/Sale";
 import {New} from "./pages/New";
 import {NotFound} from "./pages/NotFound";
 import {Oders} from "./pages/Oders";
+import {Black50} from "./pages/black20";
+import {Anime} from "./pages/Anime";
 
 
 const cartItemField = 'cartItems';
@@ -153,6 +155,9 @@ const App = () => {
                                     <Route path='/oders'>
                                         <Oders/>
                                     </Route>
+                                    <Route path='/black50'>
+                                        <Black50/>
+                                    </Route>
                                     <Route path='/pack'>
                                         <Pack/>
                                     </Route>
@@ -180,6 +185,9 @@ const App = () => {
                                     <Route path='/admin/text'>
                                         <AdminsTextPage/>
                                     </Route>
+                                    <Route path='/anime'>
+                                        <Anime/>
+                                    </Route>
                                     <Route path='/admin/photo'>
                                         <AdminsPhotoPage/>
                                     </Route>
@@ -193,7 +201,6 @@ const App = () => {
                                         <NotFound/>
                                     </Route>
                                 </Switch>
-                                <Footer/>
                             </div>
                         </Router>
                 </div>

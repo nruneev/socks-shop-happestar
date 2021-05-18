@@ -11,7 +11,7 @@ if ($mysqli->connect_errno) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
-if (!$mysqli->query('INSERT INTO promos (promo, price) VALUES ('.$_GET["promo"].','.$_GET["price"])) {
+if (!$mysqli->query('INSERT INTO promos (promo, filter) VALUES ("'.$_GET["promo"].'","'.serialize($_GET["filter"]).'")')) {
     echo "Сообщение ошибки: %s\n". $mysqli->error;
 }
 

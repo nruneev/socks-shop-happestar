@@ -29,14 +29,16 @@ const New = () => {
                     <ul>
                         <li><a href={'./'}>Главная</a></li>
                         <li><a onClick={() => history.goBack()}>Назад</a></li>
-                        <li><span>New</span></li>
+                        <li><span>Тренд</span></li>
                     </ul>
-                    <h1>New</h1>
+                    <h1>Тренд</h1>
                 </div>
                 <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
                         activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
             </div>
-            <CatalogList items={items} setMenu={setMenu} activeTags={activeTags} activeSizes={activeSizes} toggleSize={toggleSize} sizes={sizes}/>
+            <div className=" content  content--indent-mt">
+                <CatalogList items={items} setMenu={setMenu} activeTags={activeTags} activeSizes={activeSizes} toggleSize={toggleSize} sizes={sizes}/>
+            </div>
         </div>
     )
 };

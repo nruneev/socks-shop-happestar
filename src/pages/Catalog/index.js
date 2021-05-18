@@ -4,15 +4,25 @@ import { Filter } from '../../components/Filter';
 import { CatalogList } from '../../components/Catalog';
 import { useFetch } from '../../utils/requests';
 import { get_items } from '../../utils/requests';
-import {useHistory} from "react-router-dom";
-import {IoMdClose} from "react-icons/io/index";
+import {Link, useHistory, useLocation} from "react-router-dom";
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 const Catalog = () => {
     let [openMenu, setMenu] = useState('')
 
     let history = useHistory();
+    let query = useQuery();
     let items = useFetch(get_items, []);
+    let allPage = Math.ceil(items.length / 16);
+    let currentPage = parseInt(query.get('page'), 10) <= allPage || parseInt(query.get('page')) > 0 ? parseInt(query.get('page')) : 1;
+    let pages = [];
+    for(let i = 1; i <= allPage; i++) {
+        pages.push(i);
+    }
+    items = items.slice(16 * (currentPage - 1), 16 * currentPage);
     let tags = getTags(items);
     let sizes = getSizes(items);
 
@@ -26,7 +36,7 @@ const Catalog = () => {
             <div className='left-slide'>
                 <div className='linker'>
                     <ul>
-                        <li><a href={'./'}>Главная</a></li>
+                        <li><Link to={'./'}>Главная</Link></li>
                         <li><a onClick={() => history.goBack()}>Назад</a></li>
                         <li><span>Каталог</span></li>
                     </ul>
@@ -35,7 +45,29 @@ const Catalog = () => {
                 <Filter tags={tags} sizes={sizes} toggleTag={toggleTag}
                         activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
             </div>
-            <CatalogList items={items} setMenu={setMenu} activeTags={activeTags} activeSizes={activeSizes} toggleSize={toggleSize} sizes={sizes}/>
+            <div className={'content  content--indent-mt'}>
+                <CatalogList items={items} setMenu={setMenu} activeTags={activeTags} activeSizes={activeSizes} toggleSize={toggleSize} sizes={sizes}/>
+                <div className={'paginator'}>
+                    <p onClick={() => {
+                        if (currentPage - 1 >= 1) {
+                            window.location.href = '/catalog?page=' + --currentPage;
+                        }
+                    }}> &#60; </p>
+                    {
+                        pages.map((el) => {
+                                return (<p
+                                    className={el === currentPage ? 'activePage' : ''}
+                                    onClick={() => window.location.href = '/catalog?page=' + el}
+                                >{el}</p>)
+                        })
+                    }
+                    <p onClick={() => {
+                        if (currentPage + 1 <= allPage) {
+                            window.location.href = '/catalog?page=' + ++currentPage;
+                        }
+                    }}> &#62; </p>
+                </div>
+            </div>
         </div>
     )
 };

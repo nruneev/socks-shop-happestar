@@ -32,7 +32,7 @@ const CatalogList = ({ items, setMenu, activeTags, activeSizes, toggleSize, size
      });
 
     return (
-        <div className=' content  content--indent-mt'>
+        <div className=''>
             <div className="mobileTopCatalog">
                 <div className='linker mobile'>
                     <ul>

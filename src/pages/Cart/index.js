@@ -14,6 +14,7 @@ const Cart = () => {
     let id_city = sessionStorage.getItem('ID_City');
 
     let classCDEK = parseInt(id_city, 10) === 137 ? 'hiddenCDEK' : '';
+    let classHappestar = parseInt(id_city, 10) !== 137 ? 'hiddenHappestar' : '';
 
     let [city, setCitys] = useState('');
     let [cite, setCity] = useState('');
@@ -192,10 +193,75 @@ const Cart = () => {
 
     const promoFetch = () => {
         console.log(promo);
-        get_promo(promo).then((result) => {
-            promo = parseInt(result.price, 10);
-            setPromo(promo);
-        })
+            get_promo(promo).then((result) => {
+                const filters = JSON.parse(result.filter);
+                console.log(filters);
+                filters.map((el, key) => {
+                    if(!el.child.all) {
+                        let promisePromo = [];
+                        if (el.child.allItem) {
+                            let isItem = cartItems.length;
+                            let itemt = cartItems.filter((element, qwerty) => typeof element.item === 'undefined')
+                            console.log(itemt.length + " " + isItem)
+                            if (itemt.length === isItem) {
+                                promisePromo.push(true);
+                            }
+                        }
+                        if (el.child.allPack) {
+                            let isItem = cartItems.length;
+                            let itemt = cartItems.filter((element, qwerty) => typeof element.item !== 'undefined')
+                            console.log(itemt.length + " " + isItem)
+                            if (itemt.length === isItem) {
+                                promisePromo.push(true);
+                            }
+                        }
+                        if (el.child.itemer.length > 0) {
+                            let isItem = cartItems.length;
+                            let isItemInList = [];
+                            el.child.itemer.map((element, qwerty) => {
+                                let itemt = cartItems.filter((elements, qwertys) => elements.id === element.id)
+                                console.log(itemt.length + " " + isItem)
+                                if (itemt.length === isItem) {
+                                    isItemInList.push(true);
+                                }
+                            })
+                            isItem = isItemInList.length;
+                            isItemInList = isItemInList.filter((element, qwerty) => element === true);
+                            if (isItem === isItemInList.length) {
+                                promisePromo.push(true);
+                            }
+                        }
+                        if (el.child.pack[0] || el.child.pack[1] || el.child.pack[2] || el.child.pack[3] || el.child.pack[4]) {
+                            let isItem = 0;
+                            if (el.child.pack[0]) {
+                                isItem += cartItems.filter((ref, fer) => typeof ref.item !== 'undefined' & ref.item === 3).length;
+                            }
+                            if (el.child.pack[1]) {
+                                isItem += cartItems.filter((ref, fer) => typeof ref.item !== 'undefined' & ref.item === 4).length;
+                            }
+                            if (el.child.pack[2]) {
+                                isItem += cartItems.filter((ref, fer) => typeof ref.item !== 'undefined' & ref.item === 5).length;
+                            }
+                            if (el.child.pack[3]) {
+                                isItem += cartItems.filter((ref, fer) => typeof ref.item !== 'undefined' & ref.item === 6).length;
+                            }
+                            if (el.child.pack[4]) {
+                                isItem += cartItems.filter((ref, fer) => typeof ref.item !== 'undefined' & ref.item === 8).length;
+                            }
+                            if (isItem === cartItems.length) {
+                                promisePromo.push(true);
+                            }
+                        }
+                        let promise = promisePromo.length;
+                        promisePromo = promisePromo.filter((elements, qaz) => elements === true);
+                        if (promisePromo.length === promise) {
+                            setPromo(el.price);
+                        }
+                    } else {
+                        setPromo(el.price);
+                    }
+                })
+            })
     }
 
     let refError = {
@@ -208,10 +274,17 @@ const Cart = () => {
     };
 
     if (promo_price > 0) {
-        cartItems.map((item, key) => totalPrice += ((parseInt(item.cost, 10)) * parseInt(item.count, 10)));
+        cartItems = cartItems.map((item, key) => {
+            item.cost = (parseInt(item.cost, 10));
+            return item;
+        });
+        cartItems.map((item, key) => totalPrice += (parseInt(item.cost, 10)) * parseInt(item.count, 10));
     } else {
-        cartItems.map((item, key) => totalPrice += ((parseInt(item.cost, 10) - parseInt(item.discount, 10)) * parseInt(item.count, 10)));
-
+        cartItems = cartItems.map((item, key) => {
+            item.cost =  (parseInt(item.cost, 10));
+            return item;
+        });
+        cartItems.map((item, key) => totalPrice += (((parseInt(item.cost, 10) - parseInt(item.discount, 10)) * parseInt(item.count, 10))));
     }
     const validForm = () => {
         let obj = {
@@ -738,7 +811,7 @@ const Cart = () => {
                                                                 <li className="del_val-time">от 1 рабочего дня</li>
                                                             </ul>
                                                         </li>
-                                                        <li className={'itm ' + error.delivery} onClick={() => {
+                                                        <li className={'itm ' + error.delivery + " " + classHappestar} onClick={() => {
                                                             setOderPar({
                                                                 ...oderPar,
                                                                 delivery: 'HAPPESTAR'

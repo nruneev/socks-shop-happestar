@@ -1,6 +1,6 @@
 import './index.sass'
 import React, {useContext, useState} from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import {Link, useHistory, useLocation} from 'react-router-dom';
 import {get_item} from "../../utils/helpers";
 import {CartContext} from "../../utils/contexts";
 import {get_items, useFetch} from "../../utils/requests";
@@ -166,9 +166,9 @@ const Good = () => {
                     <div className="content">
                         <div className='linkerer'>
                             <ul>
-                                <li><a href={'./'}>Главная</a></li>
+                                <li><Link to={'./'}>Главная</Link></li>
                                 <li><a onClick={() => history.goBack()}>Назад</a></li>
-                                <li><a href={'./catalog'}>Каталог</a></li>
+                                <li><Link to={'./catalog'}>Каталог</Link></li>
                                 <li><span>{item.name}</span></li>
                             </ul>
                         </div>
@@ -282,9 +282,9 @@ const Good = () => {
                     <div className="mod_top">
                         <div className='linkerer'>
                             <ul>
-                                <li><a href={'./'}>Главная</a></li>
+                                <li><Link to={'./'}>Главная</Link></li>
                                 <li><a onClick={() => history.goBack()}>Назад</a></li>
-                                <li><a href={'./catalog'}>Каталог</a></li>
+                                <li><Link to={'./catalog'}>Каталог</Link></li>
                                 <li><span>{item.name}</span></li>
                             </ul>
                         </div>

@@ -5,14 +5,26 @@ import { useFetch } from '../../utils/requests';
 import { get_items } from '../../utils/requests';
 import {CartContext, PackContext} from "../../utils/contexts";
 import {CatalogListPack} from "../../components/CatalogPack";
-import { useHistory } from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {IoMdClose} from "react-icons/io/index";
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 const Pack = () => {
     let [openMenu, setMenu] = useState('')
     let history = useHistory();
+
+    let query = useQuery();
     let items = useFetch(get_items, []);
+    let allPage = Math.ceil(items.length / 16);
+    let [currentPage, setPage] = useState(1);
+    let pages = [];
+    for(let i = 1; i <= allPage; i++) {
+        pages.push(i);
+    }
+    items = items.slice(16 * (currentPage - 1), 16 * currentPage);
 
     const {packItems, removeItemPack} = useContext(PackContext);
     const {setItem} = useContext(CartContext);
@@ -64,6 +76,12 @@ const Pack = () => {
             sizess = '40 - 45'
         }
 
+        let cost = 0;
+
+        packItems.map((el) => {
+            cost += parseInt(el.discount, 10);
+        })
+
         const item = {
             article: packItems.map((el) => {
                 return el.article + ", ";
@@ -73,7 +91,7 @@ const Pack = () => {
             src: '/static/media/box.jpg',
             sizes: sizess,
             cost: 390 * packItems.length,
-            discount: 0,
+            discount: cost,
 
             count: 1,
             isNabor: true,
@@ -86,6 +104,8 @@ const Pack = () => {
             removeItemPack(packItems[i].ids);
         }
     }
+
+    let [topPage, setTop] = useState(React.createRef());
 
     let classerPack = packItems.length === lengthNabor ? 'activeBlocker' : '';
 
@@ -101,7 +121,7 @@ const Pack = () => {
             <div className='left-slide'>
                 <div className='linker'>
                     <ul>
-                        <li><a href={'./'}>Главная</a></li>
+                        <li><Link to={'./'}>Главная</Link></li>
                         <li><a onClick={() => history.goBack()}>Назад</a></li>
                         <li><span>Собрать свой набор</span></li>
                     </ul>
@@ -250,7 +270,34 @@ const Pack = () => {
                             activeTags={activeTags} toggleSize={toggleSize} activeSizes={activeSizes}/>
                 </div>
             </div>
-            <CatalogListPack items={items} setMenu={setMenu} length={lengthNabor} setLength={setLength} activeTags={activeTags} activeSizes={activeSizes} toggleSize={toggleSize} sizes={sizes}/>
+            <div className={'content  content--indent-mt'} ref={topPage}>
+                <CatalogListPack items={items} setMenu={setMenu} length={lengthNabor} setLength={setLength} activeTags={activeTags} activeSizes={activeSizes} toggleSize={toggleSize} sizes={sizes}/>
+                <div className={'paginator'}>
+                    <p onClick={() => {
+                        if (currentPage - 1 >= 1) {
+                            setPage(--currentPage);
+                            window.scrollTo(0, 75)
+                        }
+                    }}> &#60; </p>
+                    {
+                        pages.map((el) => {
+                            return (<p
+                                className={el === currentPage ? 'activePage' : ''}
+                                onClick={() => {
+                                    setPage(el);
+                                    window.scrollTo(0, 75)
+                                }}
+                            >{el}</p>)
+                        })
+                    }
+                    <p onClick={() => {
+                        if (currentPage + 1 <= allPage) {
+                            setPage(++currentPage);
+                            window.scrollTo(0, 75)
+                        }
+                    }}> &#62; </p>
+                </div>
+            </div>
         </div>
     )
 };

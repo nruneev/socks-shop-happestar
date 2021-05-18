@@ -1,0 +1,205 @@
+.animeMobile
+  background: #272727 !important
+
+  .sorting
+    background: #272727 !important
+    color: white !important
+
+.ul::before
+  content: attr(data-title)
+  display: inline-block
+  font-size: 14px
+  line-height: normal
+  letter-spacing: .3px
+  color: #9d9c9c
+
+.mobileTopCatalog
+  background: white
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, .2)
+  width: 100%
+  max-width: inherit
+  z-index: 2
+  position: fixed
+  display: none
+  top: 70px
+
+.content
+  width: 74%
+  margin-left: auto
+
+  .sorting
+    position: relative
+    display: block
+    background: #fff
+    height: 45px
+    line-height: 50px
+    overflow: hidden
+    margin-bottom: 38px
+
+    ._show_filters
+      background: url('../../image/filters.svg')
+      display: none
+      height: 19px
+      left: 12px
+      position: absolute
+      top: 8px
+      width: 24px
+
+    .c1, .c2
+      background: url('../../image/1col.svg')
+      display: none
+      height: 18px
+      opacity: .5
+      position: absolute
+      right: 35px
+      top: 9px
+      -webkit-transition: .2s ease-in-out
+      -o-transition: .2s ease-in-out
+      transition: .2s ease-in-out
+      width: 18px
+
+    .c2
+      background: url("../../image/2col.svg") !important
+
+    .ul
+      margin: 0
+      float: left
+      padding: 0 15px
+
+      li
+        color: #7a7a7a
+        cursor: pointer
+        display: inline-block
+        position: relative
+        -webkit-transition: color .15s ease-in-out
+        -o-transition: color .15s ease-in-out
+        transition: color .15s ease-in-out
+        font-weight: 600
+        font-size: 14px
+        letter-spacing: .3px
+        margin-left: 15px
+
+        &:hover
+          color: #000
+
+      .active
+        color: #000
+
+      .active:after
+        background: #f4d600
+        bottom: 5px
+        content: ""
+        height: 3px
+        left: 0
+        position: absolute
+        transition: .15s ease-in-out
+        width: 100%
+
+  .list
+    display: -webkit-box
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    -webkit-flex-wrap: wrap
+    -ms-flex-wrap: wrap
+    flex-wrap: wrap
+    -webkit-box-pack: start
+    -webkit-justify-content: flex-start
+    -ms-flex-pack: start
+    justify-content: flex-start
+
+.paginator
+  display: flex
+  .activePage
+    background-color: black!important
+    color: white !important
+
+  p
+    text-align: center !important
+    background-color: #fff
+    box-shadow: -5px 0 15px rgba(0,0,0,.05)
+    border-radius: 1px
+    padding: 5px 10px 5px!important
+    cursor: pointer
+
+    &:hover
+      background-color: black
+      color: white
+
+@media (max-width: 1500px)
+  .content
+    .sorting
+      font-size: 12px
+      height: 30px
+      line-height: 35px
+
+      .ul
+        padding: 0 10px
+
+@media (max-width: 539px)
+  ._2c
+    -webkit-box-pack: justify
+    -webkit-justify-content: space-between
+    -ms-flex-pack: justify
+    justify-content: space-between
+
+    .product
+      margin-right: 0
+      margin-left: 0
+
+@media (max-width: 1000px)
+
+  .mobileTopCatalog
+    width: 100%
+    display: block!important
+    position: fixed
+
+  .list
+    margin-top: 245px
+
+  ._2c
+    -webkit-box-pack: start !important
+    -webkit-justify-content: flex-start !important
+    -ms-flex-pack: start !important
+    justify-content: flex-start !important
+
+    .product
+      width: calc(50% - 10px) !important
+      margin: 0 5px 10px
+      padding: 5px 5px 7px
+
+  .wrap
+    margin: 150px 30px 0
+
+  .content
+    width: 100%
+
+  ._show_filters
+    display: block!important
+    width: 19px!important
+    height: 18px!important
+    -webkit-background-size: 100% 100%!important
+    background-size: 100%!important
+    left: 10px!important
+    top: 15px!important
+
+  .c2, .c1
+    display: block !important
+    width: 20px!important
+    height: 20px!important
+    top: 15px!important
+    -webkit-background-size: 100% 100%!important
+    background-size: 100%!important
+
+  .c2
+    right: 42px!important
+
+  .c1
+    right: 11px!important
+
+  .sorting .ul
+    float: none!important
+    margin: 0 auto 0 15px!important
+    padding: 0 7px 0 0!important
+    text-align: center!important
+    width: 60%!important

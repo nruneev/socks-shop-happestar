@@ -1,7 +1,7 @@
 import './index.sass'
 import React, {useContext, useState} from 'react';
 import {ItemCardPack} from "../ItemCardPack";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {PackContext} from "../../utils/contexts";
 
 
@@ -55,11 +55,11 @@ const CatalogListPack = ({ items, setMenu, length, setLength, activeTags, active
      });
 
     return (
-        <div className={'content  content--indent-mt'}>
+        <div>
             <div className="mobileTopCatalog">
                 <div className='linker mobile'>
                     <ul>
-                        <li><a href={'./'}>Главная</a></li>
+                        <li><Link to={'./'}>Главная</Link></li>
                         <li><a onClick={() => history.goBack()}>Назад</a></li>
                         <li><span>Собрать свой набор</span></li>
                     </ul>

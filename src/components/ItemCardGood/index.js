@@ -32,7 +32,7 @@ const ItemCardGood = ({ item, width, size }) => {
         <article className={'product ' + statusClass}>
             <div className="product__wrap">
                 <p className='status_item'>
-                    {item.status === "1" ? "New!" : ""} &#160; {parseInt(item.discount,10) > 0 ? "Sale!" : ""}
+                    &#160;
                 </p>
                 <a onMouseEnter={(e) => {
                     changePhotoGood('hovered')}}

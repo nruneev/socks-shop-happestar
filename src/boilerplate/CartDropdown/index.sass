@@ -6,6 +6,7 @@
 
 .cart
   display: flex
+  position: relative
   color: white
   text-decoration: none
   align-items: center
@@ -17,19 +18,24 @@
     transition: 0.5s
     cursor: pointer
     &:hover
-      color: $main_color
+      color: black
 
   .count
     position: absolute
     top: 20%
     right: 15%
-    color: black
+    color: white
     border-radius: 50%
-    background: $main_color
+    background: black
     width: 18px
     height: 18px
     font-size: 12px
     display: flex
     align-items: center
     justify-content: center
-    border: 2px solid $main_color
+    border: 2px solid black
+
+@media(max-width: 600px)
+  .cart .count
+    background: $main_color !important
+    border: 2px solid $main_color !important
